@@ -1,3 +1,5 @@
+# exemplo de arquivo de mapa. cada byte eh um tile.
+# os tipos de tiles seguem o definido em memoria.s
 
 mapa1: .word 20 20
 .byte

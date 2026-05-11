@@ -1,6 +1,8 @@
 # MEMORIA DO JOGO
 
 .data
+        .include "fase_e_mapa/definicoes_mapas.s"
+
         .eqv TAMANHO_TILE 32    # tamanho do lado de um tile (32, no caso)
         .eqv AREA_TILE 1024     # tamanho do lado de um tile, ao quadrado (32*32, no caso)
 
@@ -21,15 +23,12 @@
         # FRAME_ATUAL eh o frame que ESTAH sendo mostrado atualmente (0 ou 1)
         FRAME_ATUAL:      .word 0
 
-        # TIPOS DE TILE
-        .eqv TILE_VOID       -1
-        .eqv TILE_CHAO        0
-        .eqv TILE_PAREDE      1
-        .eqv TILE_INICIO_FASE 2
 
+        # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
         .space 1000
 
+        # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word textura_teste
 
         # struct, com posicao de cada atributo
