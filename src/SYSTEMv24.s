@@ -345,7 +345,7 @@ ecallException:   addi    sp, sp, -264              # Salva todos os registrador
 
     addi    t0, zero, 3               # ecall 3 = print double
     beq     t0, a7, goToPrintDouble
-    addi    t0, zero, 103             # ecall 3 = print double
+    addi    t0, zero, 103             # ecall 2 = print double
     beq     t0, a7, goToPrintDouble
 
     addi    t0, zero, 4               # ecall 4 = print string
