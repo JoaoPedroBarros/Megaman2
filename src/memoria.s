@@ -2,6 +2,7 @@
 
 .data
         .include "fase_e_mapa/definicoes_mapas.s"
+        .include "administracao_de_memoria/heap.s"
 
         .eqv TAMANHO_TILE 32    # tamanho do lado de um tile (32, no caso)
         .eqv AREA_TILE 1024     # tamanho do lado de um tile, ao quadrado (32*32, no caso)

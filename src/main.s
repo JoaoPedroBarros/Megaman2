@@ -11,6 +11,9 @@
 
 .text
 main:
+        # deixa a heap disponivel para uso
+        jal PROC_INICIALIZAR_HEAP
+
         # carrega o mapa
         la a0, mapa1
         jal PROC_CARREGAR_MAPA
@@ -22,6 +25,9 @@ main:
         # chama o procedimento de fase
         jal PROC_FASE
 
+.include "administracao_de_memoria/free.s"
+.include "administracao_de_memoria/inicializar_heap.s"
+.include "administracao_de_memoria/malloc.s"
 .include "impressao_e_tela/desenhar.s"
 .include "impressao_e_tela/imprimir_fase.s"
 .include "impressao_e_tela/imprimir_textura.s"
