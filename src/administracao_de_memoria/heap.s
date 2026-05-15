@@ -11,5 +11,6 @@
 
 .data
 
+.align 2                                # alinha com words para impedir problemas de misaligned access
 memoria_heap:                   .space HEAP_TAMANHO 
 memoria_heap_registro_alocacao: .space HEAP_REGISTRO_TAMANHO
