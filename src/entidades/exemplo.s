@@ -13,6 +13,8 @@
 #
 # Essa struct seria transformada conforme a struct abaixo!
 
+.data
+
 EXEMPLO.struct:
         .eqv EXEMPLO.ATRIBUTO_1 0 
         .eqv EXEMPLO.ATRIBUTO_2 4  
@@ -40,6 +42,9 @@ EXEMPLO.struct:
 # a1 - X
 # a2 - Y
 # Sem retornos!
+
+.text 
+
 EXEMPLO.NOVO:
         sw a1, entidade.X(a0)
         sw a2, entidade.Y(a0)
@@ -47,20 +52,21 @@ EXEMPLO.NOVO:
         
         # exemplo de inicializacao de atributos
         csrr t1, time
-        sw t1, ATRIBUTO_1(t0)   # e.g. um cooldown
+        sw t1, EXEMPLO.ATRIBUTO_1(t0)   # e.g. um cooldown
 
         li t1, 4
-        sh t0, ATRIBUTO_2(t0)   # e.g. um marcador de estado
+        sh t0, EXEMPLO.ATRIBUTO_2(t0)   # e.g. um marcador de estado
 
-        sb zero, ATRIBUTO_3(t0) # e.g. um booleano de "apareceu na tela"
-        sb zero, ATRIBUTO_4(t0) # e.g. uma direcao de movimento
+        sb zero, EXEMPLO.ATRIBUTO_3(t0) # e.g. um booleano de "apareceu na tela"
+        sb zero, EXEMPLO.ATRIBUTO_4(t0) # e.g. uma direcao de movimento
 
         # nao retorna nada! apenas deixa a entidade com valores iniciados.
         ret     
 
-# Argumentos (obrigatoriamente)
+# Argumento (obrigatoriamente)
 # a0 - struct basica
-# Sem retornos!
+# Retorno (obrigatorialmente)
+# a0 - se a entidade ainda existe ou nao
 EXEMPLO.PROC:
         addi sp, sp, -8
         sw ra, (sp)
@@ -68,19 +74,22 @@ EXEMPLO.PROC:
 
         mv s0, a0       # guarda o argumento de struct basica
 
-#       la t0, textura -- carrega uma textura
-        addi a0, t0, 8          # passa a textura, pulando as 2 words de dimensao
-        lw a1, entidade.X(s0)
-        lw a2, entidade.Y(s0)
-        lw a3, (t0)             # largura
-        lw a4, 4(t0)            # altura
-        jal PROC_IMPRIMIR_TEXTURA
-
         # incrementa o atributo 2 na struct da entidade
         lw t0, entidade.STRUCT_ESPECIFICA(s0)
         lw t1, EXEMPLO.ATRIBUTO_2(t0)
         addi t1, t1, 1
         sw t1, EXEMPLO.ATRIBUTO_2(t0)
+
+        # incrementa ou decrementa 1 na posicao Y baseado no tempo, por exemplo
+        # efetivamente movendo a entidade
+        csrr t1, time
+        andi t1, t1, 0x01
+        slli t1, t1, 1
+        addi t1, t1, -1
+
+        lw t0, entidade.Y(s0)
+        add t0, t0, t1
+        sw t0, entidade.Y(s0)
 
         # + branches, condicionais, checagens, outros procs, etc.
         # inclusive a criacao de outras entidades!
@@ -92,16 +101,20 @@ EXEMPLO.PROC:
         lw a1, entidade.X(s0)   
         lw a2, entidade.Y(s0)
 
-        # ...adicionando, no Y, o atributo 2
+        # ...adicionando, no Y, um atributo
         lw t0, entidade.STRUCT_ESPECIFICA(s0)
-        lw t1, EXEMPLO.ATRIBUTO_2(t0)
-        addi a2, a2, t1
+        lb t1, EXEMPLO.ATRIBUTO_3(t0)
+        add a2, a2, t1
 
         # cria a entidade
         jal PROC_ADICIONAR_ENTIDADE
 
         # CUIDADO: o jogo nao pode guardar uma quantidade infinita de entidades.
         # tenha cuidado com o numero de entidades que voce for criar!
+
+        li a0, 1                        # retorna que ainda existe
+        
+        li a0, 0                        # ...ou nao, se autodestroi (e.g. se a vida chegou a 0)
         
         lw ra, (sp)
         lw s0, 4(sp)
@@ -111,21 +124,21 @@ EXEMPLO.PROC:
 # Argumentos (obrigatoriamente):
 # a0 - struct basica
 # sem retornos!
-EXEMPLO.DESENHAR:
+EXEMPLO.DRAW:
         addi sp, sp, -4
         sw ra, (sp)
 
         mv t0, a0       # (struct)
-        # la a0, textura_exemplo        # textura
+        la a0, mapa1                   # textura
         lw a1, entidade.X(t0)           # pos x
-        li a2, entidade.Y(t0)           # pos y
+        lw a2, entidade.Y(t0)           # pos y
 
         # corrige posicao x e y para ser impresso relativo ah camera
         la t3, camera
         lw t1, camera_x(t3)
         lw t2, camera_y(t3)
         sub a1, a1, t1          
-        sub a2, a2, t2          
+        sub a2, a2, t2        
         
         # dimensoes da textura
         li a3, 20
