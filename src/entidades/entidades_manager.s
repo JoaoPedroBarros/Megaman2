@@ -44,18 +44,21 @@ P_EM1_LOOP:
         j P_EM1_LOOP                            # continua o loop
 
 P_EM1_DELETAR_ENTIDADES_NA_FILA:
-        mv s0, zero                             # i = 0
-        lw s1, tamanho_fila_entidades_a_serem_deletadas 
+        lw s0, tamanho_fila_entidades_a_serem_deletadas
+        addi s0, s0, -4         # comeca em queue[queue.size()-1]
 
+# for (int i = queue.size(), i >= 0, i--){
+#               remove_entity(queue[i])
+#       }
 P_EM1_DELETAR_LOOP:
-        bge s0, s1, P_EM1_DELETAR_FIM           # termina se !(i < tamanho)
+        bltz s0, P_EM1_DELETAR_FIM               # termina se i < 0
 
         la t0, fila_entidades_a_serem_deletadas
         add t0, t0, s0
         lw a0, (t0)                             # pega a proxima entidade na fila
         jal PROC_REMOVER_ENTIDADE               # remove a entidade
 
-        addi s0, s0, 4                          # vai pra proxima entidade
+        addi s0, s0, -4                          # vai pra proxima entidade
         j P_EM1_DELETAR_LOOP
 
 P_EM1_DELETAR_FIM:
