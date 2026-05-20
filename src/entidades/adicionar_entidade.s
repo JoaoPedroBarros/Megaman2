@@ -23,7 +23,7 @@ P_AE1_PROCURAR_LOOP:
         lw t1, lista_entidades.TIPO_ENTRADA(s0) # pega o tipo da entrada na tabela
         bltz t1, P_AE1_RET              # se < 0, significa que chegamos ao fim da tabela sem encontrara a entidade.
         beq a0, t1, P_AE1_REGISTRAR     # se tipo_tabela == tipo_argumento, encontramos! registrar
-        addi s0, s0, lista_entidades_BYTES_POR_ENTRADA # pula para a proxima entrada
+        addi s0, s0, lista_entidades.BYTES_POR_ENTRADA # pula para a proxima entrada
         j P_AE1_PROCURAR_LOOP           # continua procurando se nao encontramos ainda
 
 P_AE1_REGISTRAR:
@@ -35,9 +35,9 @@ P_AE1_REGISTRAR:
 
         # pula pro proximo espaco livre no array de *entidades*
         la t3, array_entidades
-        la t4, array_espaco_entidades_utilizado
+        la t4, tamanho_array_entidades
         lw t5, (t4)
-        addi t3, t3, t5
+        add t3, t3, t5
 
         # "aloca" uma entrada de entidade no array
         addi t5, t5, array_entidades.BYTES_POR_ENTRADA
@@ -53,11 +53,11 @@ P_AE1_REGISTRAR:
         # guarda a referencia para a struct especifica dela
         # vamos guarda-la imediatamente depois da struct basica, no espaco alocado!
         addi t0, a0, struct_basica_entidade.TAMANHO     
-        sw t0, entidade.STRUCT_ESPECIFICA(t3)
+        sw t0, entidade.STRUCT_ESPECIFICA(a0)
 
         # guarda posicao tbm
-        sw s1, entidade.X(t3)
-        sw s2, entidade.Y(t3)
+        sw s1, entidade.X(a0)
+        sw s2, entidade.Y(a0)
 
         # chama a funcao de criacao passando a struct basica e a posicao X e Y
         # a0 - STRUCT BASICA - jah posicionado
