@@ -9,7 +9,8 @@ JOGADOR.struct:
     .eqv JOGADOR.MUNICAO 1 
     .eqv JOGADOR.MARCADOR_ANIMACAO 2
     .eqv JOGADOR.DIRECAO 3
-    .eqv JOGADOR.TAMANHO_STRUCT 4
+
+JOGADOR.TAMANHO_STRUCT: .word 4
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 
@@ -39,14 +40,12 @@ JOGADOR.NOVO:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
-    li t1, 100
-    sw t1, JOGADOR.VIDA(t0)
-    sw t1, JOGADOR.MUNICAO(t0)
-
-    li t1, 0
-    sw t1, JOGADOR.MARCADOR_ANIMACAO
+    li t1, 10
+    sb t1, JOGADOR.VIDA(t0)
+    sb t1, JOGADOR.MUNICAO(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
+    sb zero, JOGADOR.DIRECAO(t0)
 
     ret
 
@@ -103,6 +102,10 @@ JOGADOR.DRAW:
     li a4, 32
 
     jal PROC_IMPRIMIR_TEXTURA
+
+    li a0, 10
+    li a7, 1
+    ecall
 
     lw ra, 0(sp)
     addi sp, sp, 4

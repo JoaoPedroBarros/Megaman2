@@ -46,3 +46,4 @@ main:
 .include "entradas/processar_entradas.s"
 .include "camera/posicionar_camera.s"
 .include "SYSTEMv24.s"
+.include "entidades/jogador.s"
