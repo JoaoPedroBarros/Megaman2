@@ -52,6 +52,7 @@
         # ASSETS UTILIZADOS
         .include "../assets/mapa1.data"
         .include "../assets/textura_teste.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
