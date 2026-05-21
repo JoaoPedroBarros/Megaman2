@@ -1,9 +1,6 @@
 # MEMORIA DO JOGO
 
 .data
-        .include "fase_e_mapa/definicoes_mapas.s"
-        .include "administracao_de_memoria/heap.s"
-
         .eqv TAMANHO_TILE 32    # tamanho do lado de um tile (32, no caso)
         .eqv AREA_TILE 1024     # tamanho do lado de um tile, ao quadrado (32*32, no caso)
 
@@ -16,6 +13,8 @@
         .eqv FRAME_1_FIM 0xFF112C00
 
         .eqv COR_TRANSPARENTE 0xC7
+
+.data
 
         # FRAME_BUFFER eh o frame que nao estah sendo mostrado atualmente
         FRAME_BUFFER_PTR: .word FRAME_1
@@ -44,4 +43,18 @@
         .eqv camera_y 4
         camera:
                 .space 8
-        
+
+        # definicoes e memoria adicional
+        .include "fase_e_mapa/definicoes_mapas.s"
+        .include "administracao_de_memoria/heap.s"
+        .include "entidades/definicoes_entidades.s"
+
+        # ASSETS UTILIZADOS
+        .include "../assets/mapa1.data"
+        .include "../assets/textura_teste.data"
+
+        # ENTIDADES NO JOGO
+        .include "entidades/exemplo.s"
+
+        # OUTROS
+        .include "entidades/lista_entidades.s"
