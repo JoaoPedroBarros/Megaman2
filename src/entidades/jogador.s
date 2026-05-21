@@ -44,7 +44,7 @@ JOGADOR.NOVO:
     sw t1, JOGADOR.MUNICAO(t0)
 
     li t1, 0
-    sw t1, JOGADOR.MARCADOR_ANIMACAO
+    sw t1, JOGADOR.MARCADOR_ANIMACAO(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
 
@@ -90,8 +90,8 @@ JOGADOR.DRAW:
 
     mv t0, a0
     la a0, sprite_bruxa
-    lw a1, entidade.X(a0)
-    lw a2, entidade.Y(a1)
+    lw a1, entidade.X(t0)
+    lw a2, entidade.Y(t0)
 
     la t3, camera
     lw t1, camera_x(t3)
@@ -101,6 +101,8 @@ JOGADOR.DRAW:
 
     li a3, 32
     li a4, 32
+
+    addi a0, a0, 8       # pula words de dimensao
 
     jal PROC_IMPRIMIR_TEXTURA
 

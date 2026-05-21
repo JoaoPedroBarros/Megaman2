@@ -56,6 +56,7 @@
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
+        .include "entidades/jogador.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"
