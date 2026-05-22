@@ -53,6 +53,12 @@
         .include "../assets/mapa1.data"
         .include "../assets/textura_teste.data"
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
+        .include "../assets/tiles_teste/data/playground_tilemap.s"
+        .include "../assets/tiles_teste/data/preto0.s"
+        .include "../assets/tiles_teste/data/ceu1.s"
+        .include "../assets/tiles_teste/data/chao2.s"
+        .include "../assets/tiles_teste/data/chao3.s"
+        .include "../assets/tiles_teste/data/grama4.s"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"

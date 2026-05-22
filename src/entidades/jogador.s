@@ -29,6 +29,7 @@ JOGADOR.TAMANHO_STRUCT: .word 4
 
 JOGADOR.NOVO:
 
+    mv s11, a0
     sw a1, entidade.X(a0)
     sw a2, entidade.Y(a0)
 
@@ -40,18 +41,9 @@ JOGADOR.NOVO:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
-<<<<<<< HEAD
     li t1, 10
     sb t1, JOGADOR.VIDA(t0)
     sb t1, JOGADOR.MUNICAO(t0)
-=======
-    li t1, 100
-    sw t1, JOGADOR.VIDA(t0)
-    sw t1, JOGADOR.MUNICAO(t0)
-
-    li t1, 0
-    sw t1, JOGADOR.MARCADOR_ANIMACAO(t0)
->>>>>>> c3b8ccb14f509d7457b47185eb223a12dcbd629d
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
@@ -74,11 +66,17 @@ JOGADOR.PROC:
 
     mv s0, a0 # aqui, deve-se manter referencia ah struct basica
 
+    jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
+ 
+    lw a0, entidade.X(s0)
+    lw a1, entidade.Y(s0)
+    jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
+
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
-    lw t1, JOGADOR.VIDA(t0)
+    lw t1, JOGADOR.VIDA(t0) # carrega a vida
 
     li a0, 1
-    bgt t1, zero, JOGADOR_VIVE
+    bgt t1, zero, JOGADOR_VIVE # se a vida for menor que 0, o jogador estah morto e retorna a0. Pode-se fazer diretamente com uma ecall
     li a0, 0
 
 JOGADOR_VIVE:
@@ -110,17 +108,9 @@ JOGADOR.DRAW:
     li a3, 32
     li a4, 32
 
-<<<<<<< HEAD
-    addi a0, a0, 8
-=======
-    addi a0, a0, 8       # pula words de dimensao
->>>>>>> c3b8ccb14f509d7457b47185eb223a12dcbd629d
+    addi a0, a0, 8 
 
     jal PROC_IMPRIMIR_TEXTURA
-
-    li a0, 10
-    li a7, 1
-    ecall
 
     lw ra, 0(sp)
     addi sp, sp, 4

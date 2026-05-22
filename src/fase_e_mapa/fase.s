@@ -7,8 +7,8 @@ PROC_FASE:
 
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
-        li a1, 100
-        li a2, 100
+        li a1, 200
+        li a2, 200
         jal PROC_ADICIONAR_ENTIDADE
 
         # gameloop
@@ -20,18 +20,19 @@ P_F1_LOOP:
         li a7, 148
         ecall
 
-        jal PROC_PROCESSAR_ENTRADAS             # processa entradas no teclado
+        #jal PROC_PROCESSAR_ENTRADAS             # processa entradas no teclado
 
         jal PROC_ENTIDADES_MANAGER              # administra entidades
 
-        la t0, jogador
-        lw a0, jogador_x(t0)
-        lw a1, jogador_y(t0)
-        jal PROC_POSICIONAR_CAMERA              # coloca a camera na posicao do jogador
+        #la t0, jogador
+        #lw a0, jogador_x(t0)
+        #lw a1, jogador_y(t0)
+        #jal PROC_POSICIONAR_CAMERA              # coloca a camera na posicao do jogador
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 
         jal PROC_IMPRIMIR_ENTIDADES             # imprime as entidades
         jal PROC_DESENHAR                       # muda o frame, mostrando tudo impresso ateh agora na tela
+        jal PROC_SLEEP
 
         j P_F1_LOOP
 
