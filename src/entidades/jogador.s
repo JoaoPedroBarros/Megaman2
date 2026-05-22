@@ -89,8 +89,8 @@ JOGADOR.DRAW:
 
     mv t0, a0
     la a0, sprite_bruxa
-    lw a1, entidade.X(a0)
-    lw a2, entidade.Y(a1)
+    lw a1, entidade.X(t0)
+    lw a2, entidade.Y(t0)
 
     la t3, camera
     lw t1, camera_x(t3)
@@ -100,6 +100,8 @@ JOGADOR.DRAW:
 
     li a3, 32
     li a4, 32
+
+    addi a0, a0, 8
 
     jal PROC_IMPRIMIR_TEXTURA
 

@@ -5,10 +5,10 @@ PROC_FASE:
         addi sp, sp, -4
         sw ra, (sp)
 
+        # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
         li a1, 100
         li a2, 100
-
         jal PROC_ADICIONAR_ENTIDADE
 
         # gameloop
