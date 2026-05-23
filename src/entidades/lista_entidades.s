@@ -19,6 +19,12 @@ lista_entidades:
         .word EXEMPLO.PROC
         .word EXEMPLO.DRAW
 
+        .word ENTIDADE_JOGADOR
+        .word JOGADOR.TAMANHO_STRUCT
+        .word JOGADOR.NOVO
+        .word JOGADOR.PROC
+        .word JOGADOR.DRAW
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 20       # sao 5 words por entrada!
