@@ -47,4 +47,3 @@ main:
 .include "camera/posicionar_camera.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"
-.include "entidades/jogador.s"
