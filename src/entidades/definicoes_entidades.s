@@ -5,6 +5,7 @@
 # TIPOS DE ENTIDADES EM SI (sempre um numero positivo!!!)
 .eqv ENTIDADE_PROJETIL_COMUM                            0
 .eqv ENTIDADE_EXEMPLO                                   1
+.eqv ENTIDADE_JOGADOR                                   2
 
 .data
 

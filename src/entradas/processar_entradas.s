@@ -35,31 +35,51 @@ PROC_PROCESSAR_ENTRADAS:
         j P_PE1_RET
 
 P_PE1_W:
-        la t0, jogador
-        lw t1, jogador_y(t0)
-        addi t1, t1, -10
-        sw t1, jogador_y(t0)
+        #la t0, jogador
+        #lw t1, jogador_y(t0)
+        #addi t1, t1, -10
+        #sw t1, jogador_y(t0)
+
+        lw t1, entidade.Y(a0)
+        addi t1, t1, -4
+        sw t1, entidade.Y(a0)
+
         j P_PE1_RET
 
 P_PE1_A:
-        la t0, jogador
-        lw t1, jogador_x(t0)
-        addi t1, t1, -10
-        sw t1, jogador_x(t0)
+        #la t0, jogador
+        #lw t1, jogador_x(t0)
+        #addi t1, t1, -10
+        #sw t1, jogador_x(t0)
+
+        lw t1, entidade.X(a0)
+        addi t1, t1, -4
+        sw t1, entidade.X(a0)
+
         j P_PE1_RET
 
 P_PE1_S:
-        la t0, jogador
-        lw t1, jogador_y(t0)
-        addi t1, t1, 10
-        sw t1, jogador_y(t0)
+        #la t0, jogador
+        #lw t1, jogador_y(t0)
+        #addi t1, t1, 10
+        #sw t1, jogador_y(t0)
+
+        lw t1, entidade.Y(a0)
+        addi t1, t1, 4
+        sw t1, entidade.Y(a0)
+
         j P_PE1_RET
 
 P_PE1_D:
-        la t0, jogador
-        lw t1, jogador_x(t0)
-        addi t1, t1, 10
-        sw t1, jogador_x(t0)
+        #la t0, jogador
+        #lw t1, jogador_x(t0)
+        #addi t1, t1, 10
+        #sw t1, jogador_x(t0)
+
+        lw t1, entidade.X(a0)
+        addi t1, t1, 4
+        sw t1, entidade.X(a0)
+
         j P_PE1_RET
 
 P_PE1_ESC:

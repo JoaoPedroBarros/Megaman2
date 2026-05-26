@@ -26,10 +26,10 @@
 
         # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
-        .space 1000
+        .space 4096
 
         # qual textura estah atualmente carregada para os tiles da fase
-        textura_mapa: .word textura_teste
+        textura_mapa: .word 0
 
         # struct, com posicao de cada atributo
         .eqv jogador_x 0
@@ -51,10 +51,18 @@
 
         # ASSETS UTILIZADOS
         .include "../assets/mapa1.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
+        .include "../assets/tiles_teste/data/playground_tilemap.s"
+        .include "../assets/tiles_teste/data/preto0.s"
+        .include "../assets/tiles_teste/data/ceu1.s"
+        .include "../assets/tiles_teste/data/chao2.s"
+        .include "../assets/tiles_teste/data/chao3.s"
+        .include "../assets/tiles_teste/data/grama4.s"
         .include "../assets/textura_teste.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
+        .include "entidades/jogador.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"

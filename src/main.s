@@ -16,7 +16,7 @@ main:
         jal PROC_INICIALIZAR_HEAP
 
         # carrega o mapa
-        la a0, mapa1
+        la a0, playground_tilemap
         jal PROC_CARREGAR_MAPA
        
         # carrega a textura
@@ -46,3 +46,4 @@ main:
 .include "entradas/processar_entradas.s"
 .include "camera/posicionar_camera.s"
 .include "SYSTEMv24.s"
+.include "sleep.s"
