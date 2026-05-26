@@ -26,20 +26,9 @@ PROC_CARREGAR_MAPA:
         # t4 - Y limite
         # t5 - tile atual
 
-        li a1, TILE_INICIO_FASE
-        # a1 - tile de inicio de fase
-
 P_CM1_LOOP:
         lb t5, (a0)
         sb t5, (t0)
-        beq a1, t5, P_CM1_REGISTRAR_JOGADOR
-        j P_CM1_LOOP_CONT
-
-P_CM1_REGISTRAR_JOGADOR:
-        # guarda as posicoes do jogador
-        la t6, jogador
-        sw t1, jogador_x(t6)
-        sw t2, jogador_y(t6)
 
 P_CM1_LOOP_CONT:
         # proximo byte

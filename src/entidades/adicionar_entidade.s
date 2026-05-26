@@ -30,8 +30,8 @@ P_AE1_REGISTRAR:
 
         lw t0, lista_entidades.TAMANHO_STRUCT_ENTRADA(s0)
         li t1, struct_basica_entidade.TAMANHO
-        add a0, t0, t1
-        jal PROC_MALLOC         # aloca espaco para a struct basica e a struct especifica!
+        add a0, t0, t1 
+        jal PROC_MALLOC         # aloca espaco para a struct basica e a struct especifica!   
 
         # pula pro proximo espaco livre no array de *entidades*
         la t3, array_entidades
@@ -52,7 +52,7 @@ P_AE1_REGISTRAR:
 
         # guarda a referencia para a struct especifica dela
         # vamos guarda-la imediatamente depois da struct basica, no espaco alocado!
-        addi t0, a0, struct_basica_entidade.TAMANHO     
+        addi t0, a0, struct_basica_entidade.TAMANHO 
         sw t0, entidade.STRUCT_ESPECIFICA(a0)
 
         # guarda posicao tbm

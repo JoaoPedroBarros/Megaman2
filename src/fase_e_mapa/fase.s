@@ -20,14 +20,7 @@ P_F1_LOOP:
         li a7, 148
         ecall
 
-        #jal PROC_PROCESSAR_ENTRADAS             # processa entradas no teclado
-
         jal PROC_ENTIDADES_MANAGER              # administra entidades
-
-        #la t0, jogador
-        #lw a0, jogador_x(t0)
-        #lw a1, jogador_y(t0)
-        #jal PROC_POSICIONAR_CAMERA              # coloca a camera na posicao do jogador
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 
         jal PROC_IMPRIMIR_ENTIDADES             # imprime as entidades

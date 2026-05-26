@@ -10,7 +10,7 @@ JOGADOR.struct:
     .eqv JOGADOR.MARCADOR_ANIMACAO 2
     .eqv JOGADOR.DIRECAO 3
 
-JOGADOR.TAMANHO_STRUCT: .word 4
+.eqv JOGADOR.TAMANHO_STRUCT 4
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 

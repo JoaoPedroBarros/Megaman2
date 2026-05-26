@@ -16,7 +16,7 @@ main:
         jal PROC_INICIALIZAR_HEAP
 
         # carrega o mapa
-        la a0, mapa1
+        la a0, playground_tilemap
         jal PROC_CARREGAR_MAPA
        
         # carrega a textura
