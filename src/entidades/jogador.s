@@ -20,6 +20,10 @@ JOGADOR.struct:
 # a direcao serve para mudar o sprite a depender para onde o jogador esta olhando. Se for 0, aponta para os sprites
 # da direita. Caso contrario, para os da esquerda
 
+# informacao do maximo que a camera pode ir sem sair do mapa
+X_maximo_camera_mapa: .space 4
+Y_maximo_camera_mapa: .space 4
+
 .text
 
 # Argumentos:
@@ -48,6 +52,21 @@ JOGADOR.NOVO:
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
 
+    # guarda os limites do mapa
+    la t0, tilemap
+    lw t1, (t0)
+    lw t0, 4(t0)
+    li t2, TAMANHO_TILE
+    MULTIPLY(t0, t0, t2)
+    MULTIPLY(t1, t1, t2)
+    li t2, CENTRO_VGA_X
+    sub t0, t0, t2
+    li t2, CENTRO_VGA_Y
+    sub t1, t1, t2
+
+    sw t0, X_maximo_camera_mapa, t2
+    sw t1, Y_maximo_camera_mapa, t2
+
     ret
 
 # Argumentos:
@@ -70,6 +89,7 @@ JOGADOR.PROC:
  
     lw a0, entidade.X(s0)
     lw a1, entidade.Y(s0)
+    jal JOGADOR._CORRIGIR_CAMERA
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
@@ -116,7 +136,46 @@ JOGADOR.DRAW:
     addi sp, sp, 4
     ret
 
-    
+# Argumentos:
+# a0 - X
+# a1 - Y
+#
+# Retornos : 
+# a0 - X mais proximo sem que a camera nao saia do mapa
+# a1 - Y mais proximo sem que a camera nao saia do mapa
+
+JOGADOR._CORRIGIR_CAMERA:
+    addi sp, sp, -12
+    sw ra, (sp)
+    sw a1, 4(sp)
+
+    # nao deixa a camera sair pela direita ou esquerda
+
+    # a0 - X carregado
+    lw a1, X_maximo_camera_mapa
+    jal PROC_MIN
+
+    # a0 - X parcialmente corrigido
+    li a1, CENTRO_VGA_X
+    jal PROC_MAX
+
+    sw a0, 8(sp)    # salva o novo X
+
+    # nao deixa a camera sair por baixo ou por cima
+
+    lw a0, 4(sp)    # Y argumento
+    lw a1, Y_maximo_camera_mapa
+    jal PROC_MIN
+
+    # a0 - Y parcialmente corrigido
+    li a1, CENTRO_VGA_Y
+    jal PROC_MAX
+    mv a1, a0       # guarda o novo Y para retorno
+
+    lw ra, (sp)
+    lw a0, 8(sp)    # recupera novo X para retorno
+    addi sp, sp, 12
+    ret
 
 
 
