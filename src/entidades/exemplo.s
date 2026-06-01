@@ -121,6 +121,28 @@ EXEMPLO.PROC:
         addi sp, sp, 8
         ret
 
+# Os argumentos dos metodos podem variar.
+# Metodos especificos aos objetos devem receber em a0 a struct basica. 
+# Metodos estaticos, nao.
+# Os metodos tambem podem ter uma quantidade arbitraria de argumentos a mais.
+EXEMPLO.METODO1:
+        lw t0, entidade.X(a0)
+        addi t0, t0, 6
+        lw t1, entidade.Y(a0)
+        add t0, t0, t1
+        add a0, t0, a1
+        ret
+
+# exemplo de metodo de SET
+EXEMPLO.setAtributo2:
+        bltz a0, _EXEMPLO.setAtributo2.ret      # bounds checking
+        andi a0, a0, 0xFFE # e.g. zera o ultimo bit (arredonda para 2, para baixo em direcao ao 0)
+
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        sh a0, EXEMPLO.ATRIBUTO_2(t0)
+_EXEMPLO.setAtributo2.ret:
+        ret
+
 # Argumentos (obrigatoriamente):
 # a0 - struct basica
 # sem retornos!
@@ -129,7 +151,7 @@ EXEMPLO.DRAW:
         sw ra, (sp)
 
         mv t0, a0       # (struct)
-        la a0, mapa1                   # textura
+        la a0, playground_tilemap                   # textura
         lw a1, entidade.X(t0)           # pos x
         lw a2, entidade.Y(t0)           # pos y
 
@@ -153,4 +175,3 @@ EXEMPLO.DRAW:
         lw ra, (sp)
         addi sp, sp, 4
         ret
-
