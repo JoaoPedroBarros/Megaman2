@@ -8,7 +8,7 @@ PROC_FASE:
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
         li a1, 200
-        li a2, 200
+        li a2, 320
         jal PROC_ADICIONAR_ENTIDADE
 
         # gameloop
