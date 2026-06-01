@@ -93,7 +93,7 @@ JOGADOR.PROC:
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
-    lw t1, JOGADOR.VIDA(t0) # carrega a vida
+    lb t1, JOGADOR.VIDA(t0) # carrega a vida
 
     li a0, 1
     bgt t1, zero, JOGADOR_VIVE # se a vida for menor que 0, o jogador estah morto e retorna a0. Pode-se fazer diretamente com uma ecall
