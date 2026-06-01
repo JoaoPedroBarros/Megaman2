@@ -45,5 +45,7 @@ main:
 .include "fase_e_mapa/fase.s"
 .include "entradas/processar_entradas.s"
 .include "camera/posicionar_camera.s"
+.include "aritmetica/max.s"
+.include "aritmetica/min.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"
