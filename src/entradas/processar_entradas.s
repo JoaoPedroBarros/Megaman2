@@ -42,16 +42,20 @@ PROC_PROCESSAR_ENTRADAS:
         j P_PE1_RET
 
 P_PE1_W:
-        lw t1, entidade.Y(a0)
-        addi t1, t1, -4
-        sw t1, entidade.Y(a0)
+        lw t1, entidade.Y_Q12(a0)
+        li t0, -4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.Y_Q12(a0)
 
         j P_PE1_RET
 
 P_PE1_A:
-        lw t1, entidade.X(a0)
-        addi t1, t1, -4
-        sw t1, entidade.X(a0)
+        lw t1, entidade.X_Q12(a0)
+        li t0, -4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.X_Q12(a0)
 
         lw t1, entidade.STRUCT_ESPECIFICA(a0)
         li t0, -1
@@ -60,16 +64,20 @@ P_PE1_A:
         j P_PE1_RET
 
 P_PE1_S:
-        lw t1, entidade.Y(a0)
-        addi t1, t1, 4
-        sw t1, entidade.Y(a0)
+        lw t1, entidade.Y_Q12(a0)
+        li t0, 4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.Y_Q12(a0)
 
         j P_PE1_RET
 
 P_PE1_D:
-        lw t1, entidade.X(a0)
-        addi t1, t1, 4
-        sw t1, entidade.X(a0)
+        lw t1, entidade.X_Q12(a0)
+        li t0, 4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.X_Q12(a0)
 
         li t0, 1
         lw t1, entidade.STRUCT_ESPECIFICA(a0)
@@ -80,13 +88,17 @@ P_PE1_D:
 P_PE1_ENTER:
         mv s0, a0                       # guarda a entidade jogador
 
-        lw a1, entidade.X(s0)
-        lw a2, entidade.Y(s0)
+        lw a1, entidade.X_Q12(s0)
+        srai a1, a1, 12         # corrige para inteiro
+        lw a2, entidade.Y_Q12(s0)
+        srai a2, a2, 12         # corrige para inteiro
         li a0, ENTIDADE_PROJETIL_COMUM
         jal PROC_ADICIONAR_ENTIDADE
 
         # a0 - entidade 
-        li a1, 10
+        li a1, 10 # velocidade inteira
+        slli a1, a1, 12 # para q12
+
         lw t0, entidade.STRUCT_ESPECIFICA(s0)
         lb t1, JOGADOR.DIRECAO(t0)
         MULTIPLY (a1, a1, t1)           

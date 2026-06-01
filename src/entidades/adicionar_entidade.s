@@ -59,10 +59,6 @@ P_AE1_REGISTRAR:
         addi t0, s3, struct_basica_entidade.TAMANHO 
         sw t0, entidade.STRUCT_ESPECIFICA(s3)
 
-        # guarda posicao tbm
-        sw s1, entidade.X(s3)
-        sw s2, entidade.Y(s3)
-
         # chama a funcao de criacao passando a struct basica e a posicao X e Y
         # a0 - STRUCT BASICA - jah posicionado
         mv a1, s1               # recupera X

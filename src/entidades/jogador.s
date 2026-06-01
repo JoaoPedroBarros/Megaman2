@@ -32,10 +32,10 @@ Y_maximo_camera_mapa: .space 4
 # a2 - Y
 
 JOGADOR.NOVO:
-
-    mv s11, a0
-    sw a1, entidade.X(a0)
-    sw a2, entidade.Y(a0)
+    slli a1, a1, 12     # coloca em q12
+    slli a2, a2, 12     # coloca em q12
+    sw a1, entidade.X_Q12(a0)
+    sw a2, entidade.Y_Q12(a0)
 
     li t0, 32
     sw t0, entidade.ALTURA(a0)
@@ -86,9 +86,14 @@ JOGADOR.PROC:
     mv s0, a0 # aqui, deve-se manter referencia ah struct basica
 
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
+
+    mv a0, s0
+    #jal PROC_APLICAR_GRAVIDADE 
  
-    lw a0, entidade.X(s0)
-    lw a1, entidade.Y(s0)
+    lw a0, entidade.X_Q12(s0)
+    lw a1, entidade.Y_Q12(s0)
+    srai a0, a0, 12
+    srai a1, a1, 12
     jal JOGADOR._CORRIGIR_CAMERA
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
 
@@ -116,8 +121,12 @@ JOGADOR.DRAW:
 
     mv t0, a0
     la a0, sprite_bruxa
-    lw a1, entidade.X(t0)
-    lw a2, entidade.Y(t0)
+    lw a1, entidade.X_Q12(t0)
+    lw a2, entidade.Y_Q12(t0)
+
+    # pega o valor inteiro
+    srai a1, a1, 12
+    srai a2, a2, 12
 
     la t3, camera
     lw t1, camera_x(t3)
@@ -137,12 +146,12 @@ JOGADOR.DRAW:
     ret
 
 # Argumentos:
-# a0 - X
-# a1 - Y
+# a0 - X (inteiro)
+# a1 - Y (inteiro)
 #
 # Retornos : 
-# a0 - X mais proximo sem que a camera nao saia do mapa
-# a1 - Y mais proximo sem que a camera nao saia do mapa
+# a0 - X inteiro mais proximo sem que a camera nao saia do mapa
+# a1 - Y inteiro mais proximo sem que a camera nao saia do mapa
 
 JOGADOR._CORRIGIR_CAMERA:
     addi sp, sp, -12

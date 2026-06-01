@@ -46,8 +46,12 @@ EXEMPLO.struct:
 .text 
 
 EXEMPLO.NOVO:
-        sw a1, entidade.X(a0)
-        sw a2, entidade.Y(a0)
+        # transforma as coordenadas em Q12!!!!
+        slli a1, a1, 12
+        slli a2, a2, 12
+
+        sw a1, entidade.X_Q12(a0)
+        sw a2, entidade.Y_Q12(a0)
         lw t0, entidade.STRUCT_ESPECIFICA(a0)   # pega a struct com dados especificos a esse tipo de entidade
         
         # exemplo de inicializacao de atributos
@@ -87,9 +91,11 @@ EXEMPLO.PROC:
         slli t1, t1, 1
         addi t1, t1, -1
 
-        lw t0, entidade.Y(s0)
+        slli t1, t1, 12         # transforma 1 ou -1 em numero Q12
+
+        lw t0, entidade.Y_Q12(s0)
         add t0, t0, t1
-        sw t0, entidade.Y(s0)
+        sw t0, entidade.Y_Q12(s0)
 
         # + branches, condicionais, checagens, outros procs, etc.
         # inclusive a criacao de outras entidades!
@@ -98,8 +104,10 @@ EXEMPLO.PROC:
         li a0, ENTIDADE_EXEMPLO 
 
         # na posicao atual X e Y da entidade jah existente
-        lw a1, entidade.X(s0)   
-        lw a2, entidade.Y(s0)
+        lw a1, entidade.X_Q12(s0)   
+        lw a2, entidade.Y_Q12(s0)
+        srai a1, a1, 12 # para inteiro
+        srai a2, a2, 12 # para inteiro
 
         # ...adicionando, no Y, um atributo
         lw t0, entidade.STRUCT_ESPECIFICA(s0)
@@ -126,9 +134,9 @@ EXEMPLO.PROC:
 # Metodos estaticos, nao.
 # Os metodos tambem podem ter uma quantidade arbitraria de argumentos a mais.
 EXEMPLO.METODO1:
-        lw t0, entidade.X(a0)
-        addi t0, t0, 6
-        lw t1, entidade.Y(a0)
+        lw t0, entidade.X_Q12(a0)
+        addi t0, t0, 6000
+        lw t1, entidade.Y_Q12(a0)
         add t0, t0, t1
         add a0, t0, a1
         ret
@@ -152,8 +160,12 @@ EXEMPLO.DRAW:
 
         mv t0, a0       # (struct)
         la a0, playground_tilemap                   # textura
-        lw a1, entidade.X(t0)           # pos x
-        lw a2, entidade.Y(t0)           # pos y
+        lw a1, entidade.X_Q12(t0)           # pos x
+        lw a2, entidade.Y_Q12(t0)           # pos y
+
+        # pega o valor inteiro
+        srai a1, a1, 12
+        srai a1, a1, 12
 
         # corrige posicao x e y para ser impresso relativo ah camera
         la t3, camera
