@@ -7,11 +7,11 @@
 
 lista_entidades:
         # tipo, tamanho, funcao de criacao, funcao por frame, funcao de desenhar
-        #.word ENTIDADE_PROJETIL_COMUM,        
-        #.word PROJETIL_COMUM.TAMANHO_STRUCT
-        #.word PROJETIL_COMUM.NOVO
-        #.word PROJETIL_COMUM.PROC
-        #.word PROJETIL_COMUM.DRAW
+        .word ENTIDADE_PROJETIL_COMUM,        
+        .word PROJETIL_COMUM.TAMANHO_STRUCT
+        .word PROJETIL_COMUM.NOVO
+        .word PROJETIL_COMUM.PROC
+        .word PROJETIL_COMUM.DRAW
 
         .word ENTIDADE_EXEMPLO
         .word EXEMPLO.TAMANHO_STRUCT
