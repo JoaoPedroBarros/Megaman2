@@ -11,12 +11,15 @@
 
 struct_basica_entidade:
         .eqv entidade.STRUCT_ESPECIFICA                 0       # referencia para a struct especifica da entidade
-        .eqv entidade.X                                 4       # posicao X
-        .eqv entidade.Y                                 8       # posicao Y
+        .eqv entidade.X_Q12                             4       # posicao X (Fixed-point Q12!!!)
+        .eqv entidade.Y_Q12                             8       # posicao Y (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_X_Q12                  12      # velocidade X (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_Y_Q12                  16      # velocidade Y (Fixed-point Q12!!!)
         .eqv entidade.LARGURA                           12      # largura em pixeis
         .eqv entidade.ALTURA                            16      # altura em pixeis
         .eqv entidade.COLIDIVEL                         20      # se a entidade colide com o jogador e projeteis
         .eqv entidade.HOSTIL                            24      # se a entidade eh hostil ao jogador
+
         # adicione mais atributos conforme necessario e atualize o tamanho
         
         .eqv struct_basica_entidade.TAMANHO             28      # quantidade de bytes necessaria por atributo (1 word por atr)

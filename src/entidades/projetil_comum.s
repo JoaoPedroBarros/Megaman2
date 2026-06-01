@@ -1,0 +1,88 @@
+# Entidade que modela o projetil padrao do jogo, solto pelo jogador
+
+.data
+
+PROJETIL_COMUM.struct:
+        
+.eqv PROJETIL_COMUM.TAMANHO_STRUCT 0
+
+# Argumentos (obrigatoriamente):
+# a0 - struct basica
+# a1 - X
+# a2 - Y
+# Sem retornos!
+
+.text 
+
+PROJETIL_COMUM.NOVO:
+        slli a1, a1, 12     # coloca em q12
+        slli a2, a2, 12     # coloca em q12
+        sw a1, entidade.X_Q12(a0)
+        sw a2, entidade.Y_Q12(a0)
+
+        sw zero, entidade.VELOCIDADE_X_Q12(a0)
+        sw zero, entidade.VELOCIDADE_Y_Q12(a0)
+
+        # nao retorna nada! apenas deixa a entidade com valores iniciados.
+        ret     
+
+# Argumento (obrigatoriamente)
+# a0 - struct basica
+# Retorno (obrigatorialmente)
+# a0 - se a entidade ainda existe ou nao
+PROJETIL_COMUM.PROC:
+        lw t1, entidade.VELOCIDADE_X_Q12(a0)
+        lw t2, entidade.X_Q12(a0)
+        add t2, t2, t1
+        sw t2, entidade.X_Q12(a0)
+
+        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        addi t1, t1, 1024       # 0.5
+        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        lw t2, entidade.Y_Q12(a0)
+        add t2, t2, t1
+        sw t2, entidade.Y_Q12(a0)
+
+        li a0, 1                        # retorna que ainda existe
+        ret
+
+# Argumentos (obrigatoriamente):
+# a0 - struct basica
+# sem retornos!
+PROJETIL_COMUM.DRAW:
+        addi sp, sp, -4
+        sw ra, (sp)
+
+        mv t0, a0       # (struct)
+        la a0, playground_tilemap                   # textura
+        lw a1, entidade.X_Q12(t0)           # pos x
+        lw a2, entidade.Y_Q12(t0)           # pos y
+
+        # pega valor inteiro
+        srai a1, a1, 12
+        srai a2, a2, 12
+
+        # corrige posicao x e y para ser impresso relativo ah camera
+        la t3, camera
+        lw t1, camera_x(t3)
+        lw t2, camera_y(t3)
+        sub a1, a1, t1          
+        sub a2, a2, t2        
+        
+        # dimensoes da textura
+        li a3, 20
+        li a4, 20
+
+        jal PROC_IMPRIMIR_TEXTURA
+
+        lw ra, (sp)
+        addi sp, sp, 4
+        ret
+
+# argumentos
+# a0 - struct basica
+# a1 - nova velocidade (Q12)
+PROJETIL_COMUM.SET_VELOCIDADE_X:
+        sw a1, entidade.VELOCIDADE_X_Q12(a0)
+        ret
+
