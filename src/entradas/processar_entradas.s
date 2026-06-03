@@ -42,11 +42,15 @@ PROC_PROCESSAR_ENTRADAS:
         j P_PE1_RET
 
 P_PE1_W:
-        lw t1, entidade.Y_Q12(a0)
-        li t0, -4
+        lw t0, entidade.NO_CHAO(a0)
+        beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
+
+        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        li t0, -10
         slli t0, t0, 12
         add t1, t0, t1
-        sw t1, entidade.Y_Q12(a0)
+        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        sw zero, entidade.NO_CHAO(a0)
 
         j P_PE1_RET
 
@@ -64,12 +68,7 @@ P_PE1_A:
         j P_PE1_RET
 
 P_PE1_S:
-        lw t1, entidade.Y_Q12(a0)
-        li t0, 4
-        slli t0, t0, 12
-        add t1, t0, t1
-        sw t1, entidade.Y_Q12(a0)
-
+        # oq?
         j P_PE1_RET
 
 P_PE1_D:
