@@ -44,6 +44,8 @@
         .include "administracao_de_memoria/heap.s"
         .include "entidades/definicoes_entidades.s"
 
+        .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
+
         # ASSETS UTILIZADOS
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
         .include "../assets/tiles_teste/data/playground_tilemap.s"
