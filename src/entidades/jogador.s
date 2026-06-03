@@ -91,6 +91,9 @@ JOGADOR.PROC:
     mv a0, s0
     li a1, GRAVIDADE_PADRAO
     jal PROC_APLICAR_GRAVIDADE 
+
+    mv a0, s0
+    jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
  
     lw a0, entidade.X_Q12(s0)
     lw a1, entidade.Y_Q12(s0)
@@ -98,9 +101,6 @@ JOGADOR.PROC:
     srai a1, a1, 12
     jal JOGADOR._CORRIGIR_CAMERA
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
-
-    mv a0, s0
-    jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
     lb t1, JOGADOR.VIDA(t0) # carrega a vida
