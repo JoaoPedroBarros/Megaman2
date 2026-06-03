@@ -52,6 +52,8 @@ JOGADOR.NOVO:
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
 
+    sw zero, entidade.NO_CHAO(a0)
+
     # guarda os limites do mapa
     la t0, tilemap
     lw t1, (t0)
@@ -78,7 +80,6 @@ JOGADOR.NOVO:
 # a0 - jogador estah vivo (ou nao)
 
 JOGADOR.PROC:
-
     addi sp, sp, -8
     sw ra, 0(sp)
     sw s0, 4(sp)
@@ -88,7 +89,11 @@ JOGADOR.PROC:
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
 
     mv a0, s0
-    #jal PROC_APLICAR_GRAVIDADE 
+    li a1, GRAVIDADE_PADRAO
+    jal PROC_APLICAR_GRAVIDADE 
+
+    mv a0, s0
+    jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
  
     lw a0, entidade.X_Q12(s0)
     lw a1, entidade.Y_Q12(s0)

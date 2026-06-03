@@ -23,6 +23,10 @@ PROJETIL_COMUM.NOVO:
         sw zero, entidade.VELOCIDADE_X_Q12(a0)
         sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
+        li t0, 20
+        sw t0, entidade.ALTURA(a0)
+        sw t0, entidade.LARGURA(a0)
+
         # nao retorna nada! apenas deixa a entidade com valores iniciados.
         ret     
 
@@ -31,19 +35,18 @@ PROJETIL_COMUM.NOVO:
 # Retorno (obrigatorialmente)
 # a0 - se a entidade ainda existe ou nao
 PROJETIL_COMUM.PROC:
-        lw t1, entidade.VELOCIDADE_X_Q12(a0)
-        lw t2, entidade.X_Q12(a0)
-        add t2, t2, t1
-        sw t2, entidade.X_Q12(a0)
+        addi sp, sp, -4
+        sw ra, (sp)
+        
+        jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
 
-        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
-        addi t1, t1, 1024       # 0.5
-        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
-        lw t2, entidade.Y_Q12(a0)
-        add t2, t2, t1
-        sw t2, entidade.Y_Q12(a0)
+        li a1, 1024     # aplica gravidade de 0.25 px/frame
+        jal PROC_APLICAR_GRAVIDADE
 
         li a0, 1                        # retorna que ainda existe
+
+        lw ra, (sp)
+        addi sp, sp, 4
         ret
 
 # Argumentos (obrigatoriamente):
