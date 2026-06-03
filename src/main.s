@@ -42,6 +42,7 @@ main:
 .include "entidades/entidades_manager.s"
 .include "entidades/remover_entidade.s"
 .include "entidades/aplicar_gravidade.s"
+.include "entidades/aplicar_movimentacao.s"
 .include "fase_e_mapa/carregar_mapa.s"
 .include "fase_e_mapa/fase.s"
 .include "entradas/processar_entradas.s"

@@ -99,15 +99,8 @@ JOGADOR.PROC:
     jal JOGADOR._CORRIGIR_CAMERA
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
 
-    lw t1, entidade.VELOCIDADE_X_Q12(s0)
-    lw t2, entidade.X_Q12(s0)
-    add t2, t2, t1
-    sw t2, entidade.X_Q12(s0)
-
-    lw t1, entidade.VELOCIDADE_Y_Q12(s0)
-    lw t2, entidade.Y_Q12(s0)
-    add t2, t2, t1
-    sw t2, entidade.Y_Q12(s0)
+    mv a0, s0
+    jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
     lb t1, JOGADOR.VIDA(t0) # carrega a vida
