@@ -45,6 +45,7 @@ PROC_PROCESSAR_ENTRADAS:
 
 P_PE1_W:
         lw t0, entidade.NO_CHAO(a0)
+        safe_print_int_ln(t0)
         beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
 
         lw t1, entidade.VELOCIDADE_Y_Q12(a0)
@@ -115,6 +116,12 @@ SEM_MOVIMENTO_DIREITA:
         j P_PE1_RET
 
 P_PE1_ENTER:
+        lb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
+        li t1, 10
+        bne t0, t1, P_PE1_RET
+
+        li t0, 0
+        sb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
         mv s0, a0                       # guarda a entidade jogador
 
         lw a1, entidade.X_Q12(s0)

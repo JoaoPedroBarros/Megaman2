@@ -19,7 +19,7 @@ PROC_COLISAO_MAPA_DIREITA:
         srli t1, t1, 12 # volta as coordenadas para Q0
         srli t2, t2, 12
 
-        addi t1, t1, 28 # soma 24 para o fim do sprite: fica melhor visualmente
+        addi t1, t1, entidade.LARGURA # soma 24 para o fim do sprite: fica melhor visualmente
 
         li t3, TAMANHO_TILE # carrega o tamanho do tile
 
@@ -35,7 +35,6 @@ PROC_COLISAO_MAPA_DIREITA:
         add t0, t0, t1 # adiciona a localizacao do personagem ao primeiro tile
 
         lb t0, 0(t0) # carrega o tile
-        safe_print_int_ln(t0)
         beq t0, zero, MOVIMENTACAO_INVALIDA # 0 eh o tile preto: nao move
         li t1, 2
         beq t0, t1, MOVIMENTACAO_INVALIDA # 2 eh um tile de chao: nao move
@@ -70,7 +69,6 @@ PROC_COLISAO_MAPA_ESQUERDA:
         add t0, t0, t1 # adiciona a localizacao do personagem ao primeiro tile
 
         lb t0, 0(t0) # carrega o tile
-        safe_print_int_ln(t0)
         beq t0, zero, MOVIMENTACAO_INVALIDA # 0 eh o tile preto: nao move
         li t1, 2
         beq t0, t1, MOVIMENTACAO_INVALIDA # 2 eh um tile de chao: nao move
@@ -80,7 +78,9 @@ PROC_COLISAO_MAPA_ESQUERDA:
         beq t0, t1, MOVIMENTACAO_INVALIDA
         j MOVIMENTACAO_VALIDA
 
-PROC_COLISAO_MAPA_BAIXO:
+PROC_COLISAO_MAPA_CHAO:
+
+        
 
 PROC_COLISAO_MAPA_CIMA:
 
