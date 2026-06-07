@@ -47,6 +47,7 @@
         .include "fase_e_mapa/definicoes_mapas.s"
         .include "administracao_de_memoria/heap.s"
         .include "entidades/definicoes_entidades.s"
+        .include "dialogo/definicoes_dialogo.s"
 
         .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
