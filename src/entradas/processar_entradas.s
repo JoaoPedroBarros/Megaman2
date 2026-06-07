@@ -1,13 +1,19 @@
 # PROC_PROCESSAR_ENTRADAS
 # administra entradas do usuario no teclado
-# (sem argumentos)
+# Argumentos: a0 - entidade jogador
 
 PROC_PROCESSAR_ENTRADAS:
+        addi sp, sp, -8
+        sw ra, (sp)
+        sw s0, 4(sp)
+
         li      t0, KDMMIO_Ctrl
         lw     	t1, 0(t0)   			# le o bit de flag do teclado
         andi 	t1, t1, 0x0001			# mascara bit 0
-        beqz    t1, P_PE1_RET             	# nenhuma tecla precionada - termina
+        beqz    t1, P_PE1_SEM_TECLA             # nenhuma tecla precionada - termina
         lw 	t1, 4(t0)			# le o ascii da tecla pressionada
+
+        sw t1, TECLA_PRESSIONADA, t0            # salva a tecla!
 
         li t0, 'W'
         beq t1, t0, P_PE1_W
@@ -29,56 +35,75 @@ PROC_PROCESSAR_ENTRADAS:
         li t0, 'd'
         beq t1, t0, P_PE1_D
 
+        li t0, 10
+        beq t1, t0, P_PE1_ENTER
+
         li t0, 27
         beq t1, t0, P_PE1_ESC
 
         j P_PE1_RET
 
 P_PE1_W:
-        #la t0, jogador
-        #lw t1, jogador_y(t0)
-        #addi t1, t1, -10
-        #sw t1, jogador_y(t0)
+        lw t0, entidade.NO_CHAO(a0)
+        beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
 
-        lw t1, entidade.Y(a0)
-        addi t1, t1, -4
-        sw t1, entidade.Y(a0)
+        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        li t0, -10
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        sw zero, entidade.NO_CHAO(a0)
 
         j P_PE1_RET
 
 P_PE1_A:
-        #la t0, jogador
-        #lw t1, jogador_x(t0)
-        #addi t1, t1, -10
-        #sw t1, jogador_x(t0)
+        lw t1, entidade.X_Q12(a0)
+        li t0, -4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.X_Q12(a0)
 
-        lw t1, entidade.X(a0)
-        addi t1, t1, -4
-        sw t1, entidade.X(a0)
+        lw t1, entidade.STRUCT_ESPECIFICA(a0)
+        li t0, -1
+        sb t0, JOGADOR.DIRECAO(t1)      # salva para tras
 
         j P_PE1_RET
 
 P_PE1_S:
-        #la t0, jogador
-        #lw t1, jogador_y(t0)
-        #addi t1, t1, 10
-        #sw t1, jogador_y(t0)
-
-        lw t1, entidade.Y(a0)
-        addi t1, t1, 4
-        sw t1, entidade.Y(a0)
-
+        # oq?
         j P_PE1_RET
 
 P_PE1_D:
-        #la t0, jogador
-        #lw t1, jogador_x(t0)
-        #addi t1, t1, 10
-        #sw t1, jogador_x(t0)
+        lw t1, entidade.X_Q12(a0)
+        li t0, 4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.X_Q12(a0)
 
-        lw t1, entidade.X(a0)
-        addi t1, t1, 4
-        sw t1, entidade.X(a0)
+        li t0, 1
+        lw t1, entidade.STRUCT_ESPECIFICA(a0)
+        sb t0, JOGADOR.DIRECAO(t1)      # salva para frente
+
+        j P_PE1_RET
+
+P_PE1_ENTER:
+        mv s0, a0                       # guarda a entidade jogador
+
+        lw a1, entidade.X_Q12(s0)
+        srai a1, a1, 12         # corrige para inteiro
+        lw a2, entidade.Y_Q12(s0)
+        srai a2, a2, 12         # corrige para inteiro
+        li a0, ENTIDADE_PROJETIL_COMUM
+        jal PROC_ADICIONAR_ENTIDADE
+
+        # a0 - entidade 
+        li a1, 10 # velocidade inteira
+        slli a1, a1, 12 # para q12
+
+        lw t0, entidade.STRUCT_ESPECIFICA(s0)
+        lb t1, JOGADOR.DIRECAO(t0)
+        MULTIPLY (a1, a1, t1)           
+        jal PROJETIL_COMUM.SET_VELOCIDADE_X
 
         j P_PE1_RET
 
@@ -87,5 +112,11 @@ P_PE1_ESC:
         li a7, 10
         ecall
 
+P_PE1_SEM_TECLA:
+        sw zero, TECLA_PRESSIONADA, t0
+
 P_PE1_RET:
+        lw ra, (sp)
+        sw s0, 4(sp)
+        addi sp, sp, 8
         ret

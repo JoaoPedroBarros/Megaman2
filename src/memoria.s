@@ -6,6 +6,8 @@
 
         .eqv LARGURA_VGA 320
         .eqv ALTURA_VGA 240
+        .eqv CENTRO_VGA_X 160
+        .eqv CENTRO_VGA_Y 120
 
         .eqv FRAME_0 0xFF000000
         .eqv FRAME_0_FIM 0xFF012C00
@@ -31,12 +33,9 @@
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
 
-        # struct, com posicao de cada atributo
-        .eqv jogador_x 0
-        .eqv jogador_y 4
-        .eqv jogador_direcao 8
-        jogador: 
-                .space 12
+        # tecla atualmente pressionada nesse ciclo
+        # util enquanto estivermos rodando no fpgrars...
+        TECLA_PRESSIONADA: .word 0
 
         # x e y do canto superior esquerdo da camera
         .eqv camera_x 0
@@ -48,9 +47,11 @@
         .include "fase_e_mapa/definicoes_mapas.s"
         .include "administracao_de_memoria/heap.s"
         .include "entidades/definicoes_entidades.s"
+        .include "dialogo/definicoes_dialogo.s"
+
+        .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
         # ASSETS UTILIZADOS
-        .include "../assets/mapa1.data"
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
         .include "../assets/tiles_teste/data/playground_tilemap.s"
         .include "../assets/tiles_teste/data/preto0.s"
@@ -63,6 +64,7 @@
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
         .include "entidades/jogador.s"
+        .include "entidades/projetil_comum.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"

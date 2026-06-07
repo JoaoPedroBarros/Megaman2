@@ -46,8 +46,12 @@ EXEMPLO.struct:
 .text 
 
 EXEMPLO.NOVO:
-        sw a1, entidade.X(a0)
-        sw a2, entidade.Y(a0)
+        # transforma as coordenadas em Q12!!!!
+        slli a1, a1, 12
+        slli a2, a2, 12
+
+        sw a1, entidade.X_Q12(a0)
+        sw a2, entidade.Y_Q12(a0)
         lw t0, entidade.STRUCT_ESPECIFICA(a0)   # pega a struct com dados especificos a esse tipo de entidade
         
         # exemplo de inicializacao de atributos
@@ -87,9 +91,11 @@ EXEMPLO.PROC:
         slli t1, t1, 1
         addi t1, t1, -1
 
-        lw t0, entidade.Y(s0)
+        slli t1, t1, 12         # transforma 1 ou -1 em numero Q12
+
+        lw t0, entidade.Y_Q12(s0)
         add t0, t0, t1
-        sw t0, entidade.Y(s0)
+        sw t0, entidade.Y_Q12(s0)
 
         # + branches, condicionais, checagens, outros procs, etc.
         # inclusive a criacao de outras entidades!
@@ -98,8 +104,10 @@ EXEMPLO.PROC:
         li a0, ENTIDADE_EXEMPLO 
 
         # na posicao atual X e Y da entidade jah existente
-        lw a1, entidade.X(s0)   
-        lw a2, entidade.Y(s0)
+        lw a1, entidade.X_Q12(s0)   
+        lw a2, entidade.Y_Q12(s0)
+        srai a1, a1, 12 # para inteiro
+        srai a2, a2, 12 # para inteiro
 
         # ...adicionando, no Y, um atributo
         lw t0, entidade.STRUCT_ESPECIFICA(s0)
@@ -121,6 +129,29 @@ EXEMPLO.PROC:
         addi sp, sp, 8
         ret
 
+# Os argumentos dos metodos podem variar.
+# Metodos especificos aos objetos devem receber em a0 a struct basica. 
+# Metodos estaticos, nao.
+# Os metodos tambem podem ter uma quantidade arbitraria de argumentos a mais.
+EXEMPLO.METODO1:
+        lw t0, entidade.X_Q12(a0)
+        li t1, 6000
+        add t0, t0, t1
+        lw t1, entidade.Y_Q12(a0)
+        add t0, t0, t1
+        add a0, t0, a1
+        ret
+
+# exemplo de metodo de SET
+EXEMPLO.setAtributo2:
+        bltz a0, _EXEMPLO.setAtributo2.ret      # bounds checking
+        andi a0, a0, 0xFE # e.g. zera o ultimo bit (arredonda para 2, para baixo em direcao ao 0)
+
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        sh a0, EXEMPLO.ATRIBUTO_2(t0)
+_EXEMPLO.setAtributo2.ret:
+        ret
+
 # Argumentos (obrigatoriamente):
 # a0 - struct basica
 # sem retornos!
@@ -129,9 +160,13 @@ EXEMPLO.DRAW:
         sw ra, (sp)
 
         mv t0, a0       # (struct)
-        la a0, mapa1                   # textura
-        lw a1, entidade.X(t0)           # pos x
-        lw a2, entidade.Y(t0)           # pos y
+        la a0, playground_tilemap                   # textura
+        lw a1, entidade.X_Q12(t0)           # pos x
+        lw a2, entidade.Y_Q12(t0)           # pos y
+
+        # pega o valor inteiro
+        srai a1, a1, 12
+        srai a1, a1, 12
 
         # corrige posicao x e y para ser impresso relativo ah camera
         la t3, camera
@@ -153,4 +188,3 @@ EXEMPLO.DRAW:
         lw ra, (sp)
         addi sp, sp, 4
         ret
-
