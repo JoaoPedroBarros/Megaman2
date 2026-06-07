@@ -33,6 +33,10 @@
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
 
+        # tecla atualmente pressionada nesse ciclo
+        # util enquanto estivermos rodando no fpgrars...
+        TECLA_PRESSIONADA: .word 0
+
         # x e y do canto superior esquerdo da camera
         .eqv camera_x 0
         .eqv camera_y 4
@@ -43,6 +47,7 @@
         .include "fase_e_mapa/definicoes_mapas.s"
         .include "administracao_de_memoria/heap.s"
         .include "entidades/definicoes_entidades.s"
+        .include "dialogo/definicoes_dialogo.s"
 
         .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
