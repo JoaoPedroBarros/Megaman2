@@ -135,7 +135,8 @@ EXEMPLO.PROC:
 # Os metodos tambem podem ter uma quantidade arbitraria de argumentos a mais.
 EXEMPLO.METODO1:
         lw t0, entidade.X_Q12(a0)
-        addi t0, t0, 6000
+        li t1, 6000
+        add t0, t0, t1
         lw t1, entidade.Y_Q12(a0)
         add t0, t0, t1
         add a0, t0, a1
@@ -144,7 +145,7 @@ EXEMPLO.METODO1:
 # exemplo de metodo de SET
 EXEMPLO.setAtributo2:
         bltz a0, _EXEMPLO.setAtributo2.ret      # bounds checking
-        andi a0, a0, 0xFFE # e.g. zera o ultimo bit (arredonda para 2, para baixo em direcao ao 0)
+        andi a0, a0, 0xFE # e.g. zera o ultimo bit (arredonda para 2, para baixo em direcao ao 0)
 
         lw t0, entidade.STRUCT_ESPECIFICA(a0)
         sh a0, EXEMPLO.ATRIBUTO_2(t0)
