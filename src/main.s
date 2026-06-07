@@ -39,6 +39,7 @@ main:
 .include "impressao_e_tela/imprimir_tile.s"
 .include "impressao_e_tela/imprimir_entidades.s"
 .include "impressao_e_tela/imprimir_retangulo.s"
+.include "impressao_e_tela/imprimir_outline.s"
 .include "entidades/adicionar_entidade.s"
 .include "entidades/entidades_manager.s"
 .include "entidades/remover_entidade.s"
