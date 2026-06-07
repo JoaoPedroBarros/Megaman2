@@ -10,8 +10,10 @@ PROC_PROCESSAR_ENTRADAS:
         li      t0, KDMMIO_Ctrl
         lw     	t1, 0(t0)   			# le o bit de flag do teclado
         andi 	t1, t1, 0x0001			# mascara bit 0
-        beqz    t1, P_PE1_RET             	# nenhuma tecla precionada - termina
+        beqz    t1, P_PE1_SEM_TECLA             # nenhuma tecla precionada - termina
         lw 	t1, 4(t0)			# le o ascii da tecla pressionada
+
+        sw t1, TECLA_PRESSIONADA, t0            # salva a tecla!
 
         li t0, 'W'
         beq t1, t0, P_PE1_W
@@ -109,6 +111,9 @@ P_PE1_ESC:
         # termina execucao
         li a7, 10
         ecall
+
+P_PE1_SEM_TECLA:
+        sw zero, TECLA_PRESSIONADA, t0
 
 P_PE1_RET:
         lw ra, (sp)

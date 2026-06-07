@@ -33,6 +33,10 @@
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
 
+        # tecla atualmente pressionada nesse ciclo
+        # util enquanto estivermos rodando no fpgrars...
+        TECLA_PRESSIONADA: .word 0
+
         # x e y do canto superior esquerdo da camera
         .eqv camera_x 0
         .eqv camera_y 4
