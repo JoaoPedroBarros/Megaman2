@@ -66,3 +66,22 @@ MACRO_DATA_QUEBRA_DE_LINHA: .string "\n"
 	lw a7, 4(sp)
 	addi sp, sp, 8
 .end_macro
+
+.macro imprimir_retangulo(%cor, %X1, %Y1, %X2, %Y2)
+	li a0, %cor
+	li a1, %X1
+	li a2, %Y1
+	li a3, %X2
+	li a4, %Y2
+	jal PROC_IMPRIMIR_RETANGULO
+.end_macro
+
+.macro imprimir_outline(%cor, %X1, %Y1, %X2, %Y2, %grossura)
+	li a0, %cor
+	li a1, %X1
+	li a2, %Y1
+	li a3, %X2
+	li a4, %Y2
+        li a5, %grossura
+	jal PROC_IMPRIMIR_OUTLINE
+.end_macro

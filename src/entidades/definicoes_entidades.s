@@ -11,15 +11,20 @@
 
 struct_basica_entidade:
         .eqv entidade.STRUCT_ESPECIFICA                 0       # referencia para a struct especifica da entidade
-        .eqv entidade.X                                 4       # posicao X
-        .eqv entidade.Y                                 8       # posicao Y
-        .eqv entidade.LARGURA                           12      # largura em pixeis
-        .eqv entidade.ALTURA                            16      # altura em pixeis
-        .eqv entidade.COLIDIVEL                         20      # se a entidade colide com o jogador e projeteis
-        .eqv entidade.HOSTIL                            24      # se a entidade eh hostil ao jogador
+        .eqv entidade.X_Q12                             4       # posicao X (Fixed-point Q12!!!)
+        .eqv entidade.Y_Q12                             8       # posicao Y (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_X_Q12                  12      # velocidade X (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_Y_Q12                  16      # velocidade Y (Fixed-point Q12!!!)
+        .eqv entidade.LARGURA                           20      # largura em pixeis
+        .eqv entidade.ALTURA                            24      # altura em pixeis
+        .eqv entidade.COLIDIVEL                         28      # se a entidade colide com o jogador e projeteis
+        .eqv entidade.HOSTIL                            32      # se a entidade eh hostil ao jogador
+        .eqv entidade.NO_CHAO                           36      # se a entidade estah no chao atualmente ou nao (relevante
+                                                                # apenas se a entidade sofrer gravidade)
+
         # adicione mais atributos conforme necessario e atualize o tamanho
         
-        .eqv struct_basica_entidade.TAMANHO             28      # quantidade de bytes necessaria por atributo (1 word por atr)
+        .eqv struct_basica_entidade.TAMANHO             40      # quantidade de bytes necessaria por atributo (1 word por atr)
 
 # aqui eh onde as referencias para cada entidade serah guardada
 # 3 words por entidade:
@@ -27,7 +32,7 @@ struct_basica_entidade:
 #       - proc a ser chamada todo frame (logica de movimento, colisao, etc)
 #       - proc de desenho todo frame (impressao de textura, efeitos especiais da entidade, etc)
 
-.eqv ESPACO_ARRAY_ENTIDADES 1024
+.eqv ESPACO_ARRAY_ENTIDADES 2048
 array_entidades: .space ESPACO_ARRAY_ENTIDADES   
         tamanho_array_entidades: .word 0             # quantas entidades foram registradas ateh agora
         .eqv array_entidades.BYTES_POR_ENTRADA 12       # 3 words por entrada
