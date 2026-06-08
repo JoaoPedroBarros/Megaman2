@@ -10,8 +10,9 @@ JOGADOR.struct:
     .eqv JOGADOR.MARCADOR_ANIMACAO 2
     .eqv JOGADOR.DIRECAO 3
     .eqv JOGADOR.COOLDOWN_PROJETIL 4
+    .eqv JOGADOR.COOLDOWN_VASSOURA 5
 
-.eqv JOGADOR.TAMANHO_STRUCT 5
+.eqv JOGADOR.TAMANHO_STRUCT 6
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 
@@ -48,10 +49,10 @@ JOGADOR.NOVO:
 
     li t1, 10
     sb t1, JOGADOR.VIDA(t0)
+    sb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
-    sb zero, JOGADOR.COOLDOWN_PROJETIL(t0)
     
     sw zero, entidade.NO_CHAO(a0)
 

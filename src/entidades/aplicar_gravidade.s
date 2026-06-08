@@ -26,17 +26,18 @@ P_AG1_DETECTAR_COLISOES:
         #srli t2, t2, 12
         #srli t3, t3, 12
 
-        #addi t2, t2, 32 # pega o tile abaixo para ver se o personagem cai
+        #lw t4, entidade.ALTURA(a0)
+        #add t2, t2, t4 # pega a altura do personagem para ver se o peh dele esta tocando no chao
         #add t2, t2, t3
 
-        #li t3, TAMANHO_TILE # carrega o tamanho do tile
+        #li t4, TAMANHO_TILE # carrega o tamanho do tile
 
-        #div t1, t1, t3 # divide as coordenadas para obter a localizacao no tilemap
-        #div t2, t2, t3
+        #div t1, t1, t4 # divide as coordenadas para obter a localizacao no tilemap
+        #div t2, t2, t4
 
-        #lw t3, 4(t0) # calcula o comprimento do tilemap
+        #lw t4, 4(t0) # calcula o comprimento do tilemap
 
-        #mul t2, t2, t3 # multiplica o Y pelo comprimento para saber quantos tiles ja percorreu verticalmente
+        #mul t2, t2, t4 # multiplica o Y pelo comprimento para saber quantos tiles ja percorreu verticalmente
         #add t1, t1, t2 # adiciona o X para saber quantos tiles ja percorreu horizontalmente
 
         #addi t0, t0, 8 # pula as dimensoes do mapa

@@ -128,6 +128,7 @@ P_PE1_ENTER:
         srai a1, a1, 12         # corrige para inteiro
         lw a2, entidade.Y_Q12(s0)
         srai a2, a2, 12         # corrige para inteiro
+        addi a1, a1, entidade.LARGURA
         li a0, ENTIDADE_PROJETIL_COMUM
         jal PROC_ADICIONAR_ENTIDADE
 
