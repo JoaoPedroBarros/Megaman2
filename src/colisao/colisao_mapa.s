@@ -6,13 +6,14 @@
 
 ### RETORNO ###
 
-# a0 - 0 se o jogador nao pode se movimentar. 1 caso contrario.
+# a0 - 0 se a entidade nao pode se movimentar. 1 caso contrario.
 
 
 PROC_COLISAO_MAPA_DIREITA:
 
-        addi sp, sp, -4
+        addi sp, sp, -8
         sw ra, 0(sp)
+        sw s0, 4(sp)
 
         mv s0, a0
 
@@ -37,8 +38,9 @@ PROC_COLISAO_MAPA_DIREITA:
 
 PROC_COLISAO_MAPA_ESQUERDA:
 
-        addi sp, sp, -4
+        addi sp, sp, -8
         sw ra, 0(sp)
+        sw s0, 4(sp)
 
         mv s0, a0
 
@@ -67,14 +69,16 @@ MOVIMENTACAO_INVALIDA:
 
         li a0, 0 # 0 nao deixa o personagem completar o movimento
         lw ra, 0(sp)
-        addi sp, sp, 4
+        lw s0, 4(sp)
+        addi sp, sp, 8
         ret
 
 MOVIMENTACAO_VALIDA:
 
         li a0, 1 # 1 deixa o personagem completar o movimento
         lw ra, 0(sp)
-        addi sp, sp, 4
+        lw s0, 4(sp)
+        addi sp, sp, 8
         ret
 
 # procedimento para calcular o tile correspondente baseado em coordenadas brutas
