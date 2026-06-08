@@ -23,7 +23,7 @@ PROJETIL_COMUM.NOVO:
         sw zero, entidade.VELOCIDADE_X_Q12(a0)
         sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
-        li t0, 20
+        li t0, 16
         sw t0, entidade.ALTURA(a0)
         sw t0, entidade.LARGURA(a0)
 
@@ -64,7 +64,8 @@ PROJETIL_COMUM.DRAW:
         sw ra, (sp)
 
         mv t0, a0       # (struct)
-        la a0, playground_tilemap                   # textura
+        la a0, sprite_feitico5              # textura
+        addi a0, a0, 8
         lw a1, entidade.X_Q12(t0)           # pos x
         lw a2, entidade.Y_Q12(t0)           # pos y
 
@@ -80,8 +81,8 @@ PROJETIL_COMUM.DRAW:
         sub a2, a2, t2        
         
         # dimensoes da textura
-        li a3, 20
-        li a4, 20
+        li a3, 16
+        li a4, 16
 
         jal PROC_IMPRIMIR_TEXTURA
 

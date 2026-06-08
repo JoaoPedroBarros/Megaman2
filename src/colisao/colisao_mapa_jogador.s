@@ -19,7 +19,7 @@ PROC_COLISAO_MAPA_DIREITA:
         srli t1, t1, 12 # volta as coordenadas para Q0
         srli t2, t2, 12
 
-        addi t1, t1, entidade.LARGURA # soma 24 para o fim do sprite: fica melhor visualmente
+        addi t1, t1, entidade.LARGURA  # soma 24 para o fim do sprite: fica melhor visualmente
 
         li t3, TAMANHO_TILE # carrega o tamanho do tile
 

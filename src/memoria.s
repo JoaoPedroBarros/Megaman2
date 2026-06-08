@@ -60,6 +60,8 @@
         .include "../assets/tiles_teste/data/chao3.s"
         .include "../assets/tiles_teste/data/grama4.s"
         .include "../assets/textura_teste.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
+        .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
