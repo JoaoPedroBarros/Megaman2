@@ -25,6 +25,12 @@ lista_entidades:
         .word JOGADOR.PROC
         .word JOGADOR.DRAW
 
+        .word ENTIDADE_SCHNOZ
+        .word SCHNOZ.TAMANHO_STRUCT
+        .word SCHNOZ.NOVO
+        .word SCHNOZ.PROC
+        .word SCHNOZ.DRAW
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 20       # sao 5 words por entrada!

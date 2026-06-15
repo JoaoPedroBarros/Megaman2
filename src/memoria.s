@@ -67,6 +67,7 @@
         .include "entidades/exemplo.s"
         .include "entidades/jogador.s"
         .include "entidades/projetil_comum.s"
+        .include "entidades/schnoz.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"

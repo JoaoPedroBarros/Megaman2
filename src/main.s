@@ -59,5 +59,6 @@ main:
 .include "strings/copiar_string.s"
 .include "strings/tamanho_string.s"
 .include "colisao/colisao_mapa.s"
+.include "colisao/colisao_schnoz.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"

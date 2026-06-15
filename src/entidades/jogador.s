@@ -12,7 +12,7 @@ JOGADOR.struct:
     .eqv JOGADOR.COOLDOWN_PROJETIL 4
     .eqv JOGADOR.COOLDOWN_VASSOURA 5
 
-.eqv JOGADOR.TAMANHO_STRUCT 6
+.eqv JOGADOR.TAMANHO_STRUCT 9
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 

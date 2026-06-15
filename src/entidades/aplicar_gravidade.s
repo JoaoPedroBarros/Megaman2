@@ -55,16 +55,16 @@ P_AG1_DETECTAR_COLISOES:
         j P_AG1_RET
 
 P_AG1_PARAR:
-        #sw zero, entidade.VELOCIDADE_Y_Q12(s0)
-        #li t0, 1
-        #sw t0, entidade.NO_CHAO(s0)
-
-        sw zero, entidade.VELOCIDADE_Y_Q12(a0)
-        sub t2, t2, t3
-        slli t2, t2, 12
-        sw t2, entidade.Y_Q12(a0)
+        sw zero, entidade.VELOCIDADE_Y_Q12(s0)
         li t0, 1
-        sw t0, entidade.NO_CHAO(a0)
+        sw t0, entidade.NO_CHAO(s0)
+
+        #sw zero, entidade.VELOCIDADE_Y_Q12(a0)
+        #sub t2, t2, t3
+        #slli t2, t2, 12
+        #sw t2, entidade.Y_Q12(a0)
+        #li t0, 1
+        #sw t0, entidade.NO_CHAO(a0)
 
 P_AG1_RET:
         lw ra, 0(sp)
