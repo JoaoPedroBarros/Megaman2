@@ -21,8 +21,8 @@ JOGADOR.struct:
 # da direita. Caso contrario, para os da esquerda
 
 # informacao do maximo que a camera pode ir sem sair do mapa
-X_maximo_camera_mapa: .space 4
-Y_maximo_camera_mapa: .space 4
+X_maximo_camera_mapa: .word 0
+Y_maximo_camera_mapa: .word 0
 
 .text
 
