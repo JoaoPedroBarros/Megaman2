@@ -1,5 +1,5 @@
 .data
-	DADO: .word 0x05
+	DADO: .word 5:23
 	FLOAT: .float -2.5122918e29
 .text
 	li t0,0

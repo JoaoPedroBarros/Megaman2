@@ -28,7 +28,7 @@
 
         # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
-        .space 4096
+        .byte 0:4096
 
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
@@ -41,7 +41,7 @@
         .eqv camera_x 0
         .eqv camera_y 4
         camera:
-                .space 8
+                .word 0 0
 
         # definicoes e memoria adicional
         .include "fase_e_mapa/definicoes_mapas.s"
@@ -71,3 +71,5 @@
 
         # OUTROS
         .include "entidades/lista_entidades.s"
+
+        .word 0xF0CAF0FA

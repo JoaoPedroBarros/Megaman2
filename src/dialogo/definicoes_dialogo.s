@@ -11,7 +11,7 @@ struct_dialogo_estatica: .word 0 0 0
         .eqv struct_dialogo_estatica.EM_PROGRESSO               8       # se existe um dialogo sendo mostrado
 
 .eqv TAMANHO_DIALOGO_BUFFER 256                 # !!! tamanho maximo de um dialogo em caracteres
-dialogo_buffer: .space TAMANHO_DIALOGO_BUFFER   # buffer aonde o dialogo atual vai ter seu
+dialogo_buffer: .byte 0:TAMANHO_DIALOGO_BUFFER   # buffer aonde o dialogo atual vai ter seu
                                                 # texto copiado
 
 struct_dialogo:
