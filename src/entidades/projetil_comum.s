@@ -40,10 +40,17 @@ PROJETIL_COMUM.PROC:
         
         jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
 
-        li a1, 1024     # aplica gravidade de 0.25 px/frame
-        jal PROC_APLICAR_GRAVIDADE
+        lw t0, entidade.VELOCIDADE_X_Q12(a0)
+        bgez t0, ANALISE_PROJETIL_DIREITA
 
-        li a0, 1                        # retorna que ainda existe
+        jal PROC_COLISAO_MAPA_ESQUERDA
+        j FIM_COLISAO_PROJETIL
+
+ANALISE_PROJETIL_DIREITA:
+
+        jal PROC_COLISAO_MAPA_DIREITA
+
+FIM_COLISAO_PROJETIL:
 
         lw ra, (sp)
         addi sp, sp, 4
