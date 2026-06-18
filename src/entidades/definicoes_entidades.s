@@ -6,6 +6,7 @@
 .eqv ENTIDADE_PROJETIL_COMUM                            0
 .eqv ENTIDADE_EXEMPLO                                   1
 .eqv ENTIDADE_JOGADOR                                   2
+.eqv ENTIDADE_SCHNOZ                                    3
 
 .data
 

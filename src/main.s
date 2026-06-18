@@ -58,6 +58,7 @@ main:
 .include "dialogo/limpar_dialogo.s"
 .include "strings/copiar_string.s"
 .include "strings/tamanho_string.s"
-.include "colisao/colisao_mapa_jogador.s"
+.include "colisao/colisao_mapa.s"
+.include "colisao/colisao_schnoz.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"

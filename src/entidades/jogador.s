@@ -10,8 +10,9 @@ JOGADOR.struct:
     .eqv JOGADOR.MARCADOR_ANIMACAO 2
     .eqv JOGADOR.DIRECAO 3
     .eqv JOGADOR.COOLDOWN_PROJETIL 4
+    .eqv JOGADOR.COOLDOWN_VASSOURA 5
 
-.eqv JOGADOR.TAMANHO_STRUCT 5
+.eqv JOGADOR.TAMANHO_STRUCT 9
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 
@@ -48,10 +49,10 @@ JOGADOR.NOVO:
 
     li t1, 10
     sb t1, JOGADOR.VIDA(t0)
+    sb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
-    sb zero, JOGADOR.COOLDOWN_PROJETIL(t0)
     
     sw zero, entidade.NO_CHAO(a0)
 
@@ -99,9 +100,9 @@ JOGADOR.PROC:
     li t1, 10
     bgt t0, t1, NO_UPDATE_COOLDOWN
     sb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
-    safe_print_int_ln(t0)
 
-NO_UPDATE_COOLDOWN: 
+
+NO_UPDATE_COOLDOWN:
 
     mv a0, s0
     jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
@@ -136,7 +137,14 @@ JOGADOR.DRAW:
 # aritmetica de ponteiros
 
     mv t0, a0
-    la a0, sprite_bruxa
+    la a0, sprite_bruxa_feitico1
+
+    lb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
+    addi t1, t1, -1
+    li t2, AREA_TILE
+    mul t1, t1, t2
+    add a0, a0, t1
+
     lw a1, entidade.X_Q12(t0)
     lw a2, entidade.Y_Q12(t0)
 

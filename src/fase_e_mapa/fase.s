@@ -20,6 +20,11 @@ PROC_FASE:
         li a2, 320
         jal PROC_ADICIONAR_ENTIDADE
 
+        li a0, ENTIDADE_SCHNOZ
+        li a1, 250
+        li a2, 320
+        jal PROC_ADICIONAR_ENTIDADE
+
         la a0, dialogo1teste
         la a1, dialogo1nome
         li a2, 2
