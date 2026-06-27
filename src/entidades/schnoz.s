@@ -10,6 +10,8 @@ SCHNOZ.struct:
 
 .eqv SCHNOZ.TAMANHO_STRUCT 5
 
+.eqv SCHNOZ.VELOCIDADE 4096 # 1 
+
 .text
 
 # Argumentos:
@@ -27,9 +29,12 @@ SCHNOZ.NOVO:
     sw a1, entidade.X_Q12(a0) # armazena na struct generica
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, -4096
+    li t0, SCHNOZ.VELOCIDADE
+    neg t0, t0
     sw t0, entidade.VELOCIDADE_X_Q12(a0)
     sw zero, entidade.VELOCIDADE_Y_Q12(a0)
+
+    sw zero, entidade.FLAGS(a0) # nenhum comportamento especial de colisao!
 
     li t0, 32 # pode mudar a depender do sprite final
     sw t0, entidade.LARGURA(a0) 
@@ -53,17 +58,22 @@ SCHNOZ.NOVO:
 SCHNOZ.PROC:
 
 # aqui, aplicaremos os procedimentos de movimentacao, gravidade e colisao para o inimigo
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
 
-    jal PROC_APLICAR_MOVIMENTACAO
+    mv s0, a0
+
+    jal PROC_MOVER_ENTIDADE
+
+    mv a0, s0
     jal PROC_COLISAO_SCHNOZ
 
     li a0, 1
 
     lw ra, 0(sp)
-    addi sp, sp, 4
-
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 SCHNOZ.DRAW:

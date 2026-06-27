@@ -4,7 +4,7 @@
 
 .data
 
-        fila_entidades_a_serem_deletadas: .byte 0:ESPACO_ARRAY_ENTIDADES
+        fila_entidades_a_serem_deletadas: .space ESPACO_ARRAY_ENTIDADES
         tamanho_fila_entidades_a_serem_deletadas: .word 0
 
 .text

@@ -22,6 +22,11 @@ PROJETIL_COMUM.NOVO:
 
         sw zero, entidade.VELOCIDADE_X_Q12(a0)
         sw zero, entidade.VELOCIDADE_Y_Q12(a0)
+        li t0, 1
+        sw t0, entidade.COLIDIVEL(a0)
+        sw zero, entidade.HOSTIL(a0)
+        li t0, FLAG_ENTIDADE_IGNORAR_PLATAFORMAS
+        sw t0, entidade.FLAGS(a0)
 
         li t0, 16
         sw t0, entidade.ALTURA(a0)
@@ -35,24 +40,20 @@ PROJETIL_COMUM.NOVO:
 # Retorno (obrigatorialmente)
 # a0 - se a entidade ainda existe ou nao
 PROJETIL_COMUM.PROC:
-        addi sp, sp, -4
+        addi sp, sp, -8
         sw ra, (sp)
+        sw s0, 4(sp)
         
-        jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
+        mv s0, a0
 
-        lw t0, entidade.VELOCIDADE_X_Q12(a0)
-        bgez t0, COLISAO_PROJETIL_DIREITA
-        jal PROC_COLISAO_MAPA_ESQUERDA
-        j FIM_COLISAO_PROJETIL
+        jal PROC_MOVER_ENTIDADE   # move com base na velocidade
 
-COLISAO_PROJETIL_DIREITA:
-
-        jal PROC_COLISAO_MAPA_DIREITA
-
-FIM_COLISAO_PROJETIL:
+        lw t0, entidade.VELOCIDADE_X_Q12(s0)
+        snez a0, t0     # retorna (velocidade_x != 0)
 
         lw ra, (sp)
-        addi sp, sp, 4
+        lw s0, 4(sp)
+        addi sp, sp, 8
         ret
 
 # Argumentos (obrigatoriamente):

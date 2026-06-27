@@ -32,15 +32,14 @@ PROC_COLISAO_SCHNOZ:
     blt t0, zero, AJUSTA_SCHNOZ_ESQUERDA
     addi a0, a0, 32
 
+AJUSTA_SCHNOZ_DIREITA:
+    addi a0, a0, 2  # calcula X diretamente ah direita (e compensa pela adicao a seguir)
+
 AJUSTA_SCHNOZ_ESQUERDA:
+    addi a0, a0, -1 # calcula X diretamente ah esquerda
+    jal PROC_CALCULAR_TILE_COLISAO
 
-    jal CALCULA_TILE
-
-    beq a0, zero, INVERTE_SCHNOZ
-    li t0, 2
-    beq a0, t0, INVERTE_SCHNOZ
-    li t0, 9
-    beq a0, t0, INVERTE_SCHNOZ
+    bnez a0, INVERTE_SCHNOZ
 
     lw a0, entidade.X_Q12(s0)
     lw a1, entidade.Y_Q12(s0)
@@ -53,13 +52,11 @@ AJUSTA_SCHNOZ_ESQUERDA:
     addi a0, a0, 32
 
 AJUSTA_SCHNOZ_ESQUERDA_BAIXO:
-
     addi a1, a1, 64
 
-    jal CALCULA_TILE
+    jal PROC_CALCULAR_TILE_COLISAO
 
-    li t0, 1
-    beq a0, t0, INVERTE_SCHNOZ
+    beqz a0, INVERTE_SCHNOZ
     j RETURN_COLISAO_SCHNOZ
 
 INVERTE_SCHNOZ:
@@ -68,8 +65,9 @@ INVERTE_SCHNOZ:
     lw t1, entidade.VELOCIDADE_X_Q12(s0)
     lb t2, SCHNOZ.DIRECAO(t0)
 
-    neg t1, t1
     neg t2, t2
+    li t1, SCHNOZ.VELOCIDADE
+    mul t1, t1, t2
 
     sb t2, SCHNOZ.DIRECAO(t0)
     sw t1, entidade.VELOCIDADE_X_Q12(s0)

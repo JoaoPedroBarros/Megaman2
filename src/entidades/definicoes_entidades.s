@@ -18,14 +18,15 @@ struct_basica_entidade:
         .eqv entidade.VELOCIDADE_Y_Q12                  16      # velocidade Y (Fixed-point Q12!!!)
         .eqv entidade.LARGURA                           20      # largura em pixeis
         .eqv entidade.ALTURA                            24      # altura em pixeis
-        .eqv entidade.COLIDIVEL                         28      # se a entidade colide com o jogador e projeteis
+        .eqv entidade.COLIDIVEL                         28      # se a entidade colide com outras entidades
         .eqv entidade.HOSTIL                            32      # se a entidade eh hostil ao jogador
         .eqv entidade.NO_CHAO                           36      # se a entidade estah no chao atualmente ou nao (relevante
                                                                 # apenas se a entidade sofrer gravidade)
+        .eqv entidade.FLAGS                             40      # flags (ver secao mais embaixo)
 
         # adicione mais atributos conforme necessario e atualize o tamanho
         
-        .eqv struct_basica_entidade.TAMANHO             40      # quantidade de bytes necessaria por atributo (1 word por atr)
+        .eqv struct_basica_entidade.TAMANHO             44      # quantidade de bytes necessaria por atributo (1 word por atr)
 
 # aqui eh onde as referencias para cada entidade serah guardada
 # 3 words por entidade:
@@ -34,7 +35,7 @@ struct_basica_entidade:
 #       - proc de desenho todo frame (impressao de textura, efeitos especiais da entidade, etc)
 
 .eqv ESPACO_ARRAY_ENTIDADES 2048
-array_entidades: .byte 0:ESPACO_ARRAY_ENTIDADES   
+array_entidades: .space ESPACO_ARRAY_ENTIDADES   
         tamanho_array_entidades: .word 0             # quantas entidades foram registradas ateh agora
         .eqv array_entidades.BYTES_POR_ENTRADA 12       # 3 words por entrada
                                                         # importante manter o numero de bytes como multiplo de 4.
@@ -42,3 +43,9 @@ array_entidades: .byte 0:ESPACO_ARRAY_ENTIDADES
         .eqv array_entidades.STRUCT_BASICA              0
         .eqv array_entidades.PROC_POR_FRAME             4
         .eqv array_entidades.PROC_DESENHAR              8
+
+# FLAGS PARA ENTIDADES
+
+        # 32 bits
+        .eqv FLAG_ENTIDADE_IGNORAR_PLATAFORMAS 0x1      # bit 1
+        # bits 2-32: nao-utilizados

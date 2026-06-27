@@ -1,8 +1,11 @@
 # MEMORIA DO JOGO
 
 .data
-        .eqv TAMANHO_TILE 32    # tamanho do lado de um tile (32, no caso)
-        .eqv AREA_TILE 1024     # tamanho do lado de um tile, ao quadrado (32*32, no caso)
+        .eqv TAMANHO_TILE 32            # tamanho do lado de um tile (32, no caso) -- importante ser uma potencia de 2
+        .eqv AREA_TILE 1024             # tamanho do lado de um tile, ao quadrado (32*32, no caso)
+        .eqv LOG2_TAMANHO_TILE 5        # 2^LOG2_TAMANHO_TILE = TAMANHO_TILE -- importante manter
+                                        # a existencia de LOG2_TAMANHO_TILE permite substituir muitos divs e muls por
+                                        # srais e sllis
 
         .eqv LARGURA_VGA 320
         .eqv ALTURA_VGA 240
@@ -28,7 +31,10 @@
 
         # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
-        .byte 0:4096
+        .space 4096
+
+        tilemap_colisao: .word 0 0
+        .space 4096
 
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
@@ -54,6 +60,7 @@
         # ASSETS UTILIZADOS
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
         .include "../assets/tiles_teste/data/playground_tilemap.s"
+        .include "../assets/tiles_teste/data/playground_tilemap_colisao.s"
         .include "../assets/tiles_teste/data/preto0.s"
         .include "../assets/tiles_teste/data/ceu1.s"
         .include "../assets/tiles_teste/data/chao2.s"

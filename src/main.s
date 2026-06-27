@@ -17,6 +17,7 @@ main:
 
         # carrega o mapa
         la a0, playground_tilemap
+        la a1, playground_tilemap_colisao
         jal PROC_CARREGAR_MAPA
        
         # carrega a textura
@@ -45,7 +46,6 @@ main:
 .include "entidades/adicionar_entidade.s"
 .include "entidades/entidades_manager.s"
 .include "entidades/remover_entidade.s"
-.include "entidades/aplicar_gravidade.s"
 .include "entidades/aplicar_movimentacao.s"
 .include "fase_e_mapa/carregar_mapa.s"
 .include "fase_e_mapa/fase.s"
@@ -58,7 +58,11 @@ main:
 .include "dialogo/limpar_dialogo.s"
 .include "strings/copiar_string.s"
 .include "strings/tamanho_string.s"
-.include "colisao/colisao_mapa.s"
-.include "colisao/colisao_schnoz.s"
+.include "colisao_e_movimento/colisao_mapa.s"
+.include "colisao_e_movimento/colisao_schnoz.s"
+.include "colisao_e_movimento/calcular_tile_colisao.s"
+.include "colisao_e_movimento/calcular_tile_colisao_linha_coluna.s"
+.include "colisao_e_movimento/mover_entidade.s"
+.include "colisao_e_movimento/aplicar_friccao.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"

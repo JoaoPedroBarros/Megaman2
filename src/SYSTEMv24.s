@@ -69,7 +69,7 @@ LabelScanCodeShift:
 
 #buffer do ReadString, ReadFloat, SDread, etc. 512 caracteres/bytes
 TempBuffer:
-.byte 0:512
+.space 512
 
 # tabela de conversao hexa para ascii
 TabelaHexASCII:		.string "0123456789ABCDEF  "
