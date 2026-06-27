@@ -2,7 +2,7 @@
 
 .data
 
-# Struct especifica do jogador (perguntar depois a relacao com a struct basica)
+# Struct especifica do jogador
 
 JOGADOR.struct:
     .eqv JOGADOR.VIDA 0
@@ -10,9 +10,12 @@ JOGADOR.struct:
     .eqv JOGADOR.MARCADOR_ANIMACAO 2
     .eqv JOGADOR.DIRECAO 3
     .eqv JOGADOR.COOLDOWN_PROJETIL 4
-    .eqv JOGADOR.COOLDOWN_VASSOURA 5
+    .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 5
+    .eqv JOGADOR.COOLDOWN_VASSOURA 6
 
-.eqv JOGADOR.TAMANHO_STRUCT 9
+.eqv JOGADOR.TAMANHO_STRUCT 10
+
+.eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
 # limitar vida e municao em 10. Portanto, um byte deve ser suficiente
 
@@ -44,6 +47,7 @@ JOGADOR.NOVO:
     sw t0, entidade.LARGURA(a0)
     sw zero, entidade.COLIDIVEL(a0)
     sw zero, entidade.HOSTIL(a0)
+    sw zero, entidade.FLAGS(a0)
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
@@ -53,6 +57,7 @@ JOGADOR.NOVO:
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.DIRECAO(t0)
+    sb zero, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
     
     sw zero, entidade.NO_CHAO(a0)
 
@@ -90,22 +95,47 @@ JOGADOR.PROC:
 
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
 
-    mv a0, s0
-    li a1, GRAVIDADE_PADRAO
-    jal PROC_APLICAR_GRAVIDADE
+    # aplica gravidade
+    lw t0, entidade.VELOCIDADE_Y_Q12(s0)
+    addi t0, t0, GRAVIDADE_PADRAO
+    sw t0, entidade.VELOCIDADE_Y_Q12(s0)
 
-    mv a0, s0
-    lb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
+    lw t2, entidade.STRUCT_ESPECIFICA(s0)
+
+    # Verificar se precisamos decrementar o temporazidor
+    lw t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
+    blez t0, JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS
+
+    addi t0, t0, -1 # temporizador--
+    sw t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
+
+JOGADOR.PROC.ATIVAR_FLAG_IGNORAR_PLATAFORMAS:   # ativa a flag se temporizador > 0
+    lw t0, entidade.FLAGS(a0)
+    ori t0, t0, FLAG_ENTIDADE_IGNORAR_PLATAFORMAS
+    sw t0, entidade.FLAGS(a0)
+    j JOGADOR.PROC.CONT
+
+JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS: # desativa caso contrario
+    lw t0, entidade.FLAGS(a0)
+    li t1, FLAG_ENTIDADE_IGNORAR_PLATAFORMAS
+    not t1, t1
+    and t0, t0, t1
+    sw t0, entidade.FLAGS(a0)
+
+JOGADOR.PROC.CONT:
+    lbu t0, JOGADOR.COOLDOWN_PROJETIL(t2)
     addi t0, t0, 1
     li t1, 10
     bgt t0, t1, NO_UPDATE_COOLDOWN
-    sb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
-
+    sb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
 
 NO_UPDATE_COOLDOWN:
+    mv a0, s0
+    jal PROC_MOVER_ENTIDADE   # move com base na velocidade
 
     mv a0, s0
-    jal PROC_APLICAR_MOVIMENTACAO   # move com base na velocidade
+    jal PROC_APLICAR_FRICCAO  # aplica friccao normal
+
 
     lw a0, entidade.X_Q12(s0)
     lw a1, entidade.Y_Q12(s0)
@@ -139,7 +169,8 @@ JOGADOR.DRAW:
     mv t0, a0
     la a0, sprite_bruxa_feitico1
 
-    lb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
+    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lb t1, JOGADOR.COOLDOWN_PROJETIL(t1)
     addi t1, t1, -1
     li t2, AREA_TILE
     mul t1, t1, t2
@@ -164,6 +195,8 @@ JOGADOR.DRAW:
     addi a0, a0, 8 
 
     jal PROC_IMPRIMIR_TEXTURA
+
+
 
     lw ra, 0(sp)
     addi sp, sp, 4

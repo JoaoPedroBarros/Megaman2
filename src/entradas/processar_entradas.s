@@ -45,69 +45,46 @@ PROC_PROCESSAR_ENTRADAS:
 
 P_PE1_W:
         lw t0, entidade.NO_CHAO(a0)
-        safe_print_int_ln(t0)
         beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
 
         lw t1, entidade.VELOCIDADE_Y_Q12(a0)
-        li t0, -10
+        li t0, -11
         slli t0, t0, 12
         add t1, t0, t1
         sw t1, entidade.VELOCIDADE_Y_Q12(a0)
-        sw zero, entidade.NO_CHAO(a0)
 
         j P_PE1_RET
 
 P_PE1_A:
-        addi sp, sp, -8
-        sw a0, 0(sp) # guarda a referencia pra entidade basica
-        sw ra, 4(sp) # return adress
-
-        jal PROC_COLISAO_MAPA_ESQUERDA 
-        mv t0, a0 # move o resultado do procedimento pra t0
-        lw a0, 0(sp) # restaura a entidade basica
-        lw ra, 4(sp) # restaura o return adress
-        addi sp, sp, 8
-
-        beq t0, zero, SEM_MOVIMENTO_ESQUERDA # se t0 for 0, identificou uma colisao: nao move
-
-        lw t1, entidade.X_Q12(a0) # caso contrario, pega o endereco do t1 e adiciona, em Q12, o movimento
-        li t0, -4 # quantidade do movimento
-        slli t0, t0, 12 # colocando o t0 em Q12
-        add t1, t0, t1 # adicionando o movimento
-        sw t1, entidade.X_Q12(a0) # salvando o movimento na struct
-
-SEM_MOVIMENTO_ESQUERDA:
+        lw t1, entidade.VELOCIDADE_X_Q12(a0) # caso contrario, pega o endereco do t1 e adiciona, em Q12, o movimento
+        li t0, JOGADOR.ACELERACAO_Q12
+        neg t0, t0
+        add t1, t0, t1 # acelera
+        sw t1, entidade.VELOCIDADE_X_Q12(a0) # salvando o movimento na struct
 
         li t0, -1
         lw t1, entidade.STRUCT_ESPECIFICA(a0)
         sb t0, JOGADOR.DIRECAO(t1)      # salva para frente
 
         j P_PE1_RET
-
 P_PE1_S:
-        # oq?
+ 
+        lw t0, entidade.VELOCIDADE_Y_Q12(a0)
+        addi t0, t0, GRAVIDADE_PADRAO    # dobra o efeito da gravidade
+        sw t0, entidade.VELOCIDADE_Y_Q12(a0)
+
+        # ativa a flag de ignorar plataforma apenas por 5 frames.
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        li t1, 5
+        sb t1, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
+        
         j P_PE1_RET
 
 P_PE1_D:
-        addi sp, sp, -8
-        sw a0, 0(sp) # guarda a referencia pra entidade basica
-        sw ra, 4(sp) # return adress
-
-        jal PROC_COLISAO_MAPA_DIREITA 
-        mv t0, a0 # move o resultado do procedimento pra t0
-        lw a0, 0(sp) # restaura a entidade basica
-        lw ra, 4(sp) # restaura o return adress
-        addi sp, sp, 8
-
-        beq t0, zero, SEM_MOVIMENTO_DIREITA # se t0 for 0, identificou uma colisao: nao move
-
-        lw t1, entidade.X_Q12(a0) # caso contrario, pega o endereco do t1 e adiciona, em Q12, o movimento
-        li t0, 4 # quantidade do movimento
-        slli t0, t0, 12 # colocando o t0 em Q12
-        add t1, t0, t1 # adicionando o movimento
-        sw t1, entidade.X_Q12(a0) # salvando o movimento na struct
-
-SEM_MOVIMENTO_DIREITA:
+        lw t1, entidade.VELOCIDADE_X_Q12(a0) 
+        li t0, JOGADOR.ACELERACAO_Q12
+        add t1, t0, t1 # acelera
+        sw t1, entidade.VELOCIDADE_X_Q12(a0) # salvando o movimento na struct
 
         li t0, 1
         lw t1, entidade.STRUCT_ESPECIFICA(a0)
@@ -116,12 +93,13 @@ SEM_MOVIMENTO_DIREITA:
         j P_PE1_RET
 
 P_PE1_ENTER:
-        lb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
+        lw t2, entidade.STRUCT_ESPECIFICA(a0)
+        lb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
         li t1, 10
         bne t0, t1, P_PE1_RET
 
         li t0, 0
-        sb t0, JOGADOR.COOLDOWN_PROJETIL(a0)
+        sb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
         mv s0, a0                       # guarda a entidade jogador
 
         lw a1, entidade.X_Q12(s0)
