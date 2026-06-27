@@ -34,7 +34,7 @@ struct_basica_entidade:
 #       - proc de desenho todo frame (impressao de textura, efeitos especiais da entidade, etc)
 
 .eqv ESPACO_ARRAY_ENTIDADES 2048
-array_entidades: .byte 0:ESPACO_ARRAY_ENTIDADES   
+array_entidades: .space ESPACO_ARRAY_ENTIDADES   
         tamanho_array_entidades: .word 0             # quantas entidades foram registradas ateh agora
         .eqv array_entidades.BYTES_POR_ENTRADA 12       # 3 words por entrada
                                                         # importante manter o numero de bytes como multiplo de 4.

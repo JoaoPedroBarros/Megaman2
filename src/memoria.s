@@ -28,7 +28,7 @@
 
         # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
-        .byte 0:4096
+        .space 4096
 
         # qual textura estah atualmente carregada para os tiles da fase
         textura_mapa: .word 0
