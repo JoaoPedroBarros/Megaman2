@@ -45,7 +45,6 @@ JOGADOR.NOVO:
     li t0, 32
     sw t0, entidade.ALTURA(a0)
     sw t0, entidade.LARGURA(a0)
-    sw zero, entidade.COLIDIVEL(a0)
     sw zero, entidade.HOSTIL(a0)
     sw zero, entidade.FLAGS(a0)
 
@@ -56,10 +55,12 @@ JOGADOR.NOVO:
     sb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
-    sb zero, JOGADOR.DIRECAO(t0)
     sb zero, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
-    
     sw zero, entidade.NO_CHAO(a0)
+
+    li t1, 1
+    sb t1, JOGADOR.DIRECAO(t0)
+    sw t1, entidade.COLIDIVEL(a0)
 
     # guarda os limites do mapa
     la t0, tilemap
@@ -97,7 +98,8 @@ JOGADOR.PROC:
 
     # aplica gravidade
     lw t0, entidade.VELOCIDADE_Y_Q12(s0)
-    addi t0, t0, GRAVIDADE_PADRAO
+    li t1, GRAVIDADE_PADRAO
+    add t0, t0, t1
     sw t0, entidade.VELOCIDADE_Y_Q12(s0)
 
     lw t2, entidade.STRUCT_ESPECIFICA(s0)

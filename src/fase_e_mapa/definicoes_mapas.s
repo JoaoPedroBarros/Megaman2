@@ -18,8 +18,9 @@
         .eqv FLAG_COLISAO_DIREITA       0x8     # bit 3
 
         # FRICCAO
-        .eqv FATOR_FRICCAO_AR           3       # velocidade decresce por 2^(-3) = 1/8 por frame
-        .eqv FATOR_FRICCAO_CHAO         2       # velocidade decresce por 2^(-2) = 1/4 por frame
+        .eqv FATOR_FRICCAO_AR           5       # velocidade decresce por 2^(-5) = 1/32 por frame (desaceleracao proporcional ah velocidade)
+        .eqv FATOR_FRICCAO_CHAO         3       # velocidade decresce por 2^(-3) = 1/8 por frame (desaceleracao proporcional ah velocidade)
+        .eqv FRICCAO_CONSTANTE_CHAO_Q12 128     # velocidade decresce em 0.03125 px/frame todo frame (desaceleracao constante)
 
         .byte   0x0  # 0000     - sem colisao
         .byte   0xF  # 1111     - colisao total

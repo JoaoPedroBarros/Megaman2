@@ -97,3 +97,17 @@ PROJETIL_COMUM.SET_VELOCIDADE_X:
         sw a1, entidade.VELOCIDADE_X_Q12(a0)
         ret
 
+# argumentos
+# a0 - struct basica propria
+# a1 - struct basica do colidido
+#
+# retornos
+# a0 - se o projetil ainda existe ou nao
+PROJETIL_COMUM.COLISAO:
+
+        # se destroi quando colidir com uma entidade hostil!!!
+        lw t0, entidade.HOSTIL(a1)
+        seqz a0, t0
+        ret
+
+

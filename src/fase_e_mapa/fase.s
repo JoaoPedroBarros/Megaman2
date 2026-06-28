@@ -35,8 +35,6 @@ PROC_FASE:
         li a2, 2
         jal PROC_ADICIONAR_DIALOGO
 
-        
-
         # gameloop
 P_F1_LOOP:
         # limpa a tela, preenchendo de preto
@@ -47,6 +45,9 @@ P_F1_LOOP:
         ecall
 
         jal PROC_ENTIDADES_MANAGER              # administra entidades
+        jal PROC_COLISOES_MANAGER               # lida com colisoes
+        
+        jal PROC_DELETAR_ENTIDADES_ENFILEIRADAS # deleta entidades mortas
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 
         jal PROC_IMPRIMIR_ENTIDADES             # imprime as entidades
