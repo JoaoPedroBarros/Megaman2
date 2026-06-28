@@ -9,21 +9,23 @@
 #       a0 - endereco da entidade registrada
 
 PROC_ADICIONAR_ENTIDADE:
-        addi sp, sp, -20
+        addi sp, sp, -24
         sw ra, (sp)
         sw s0, 4(sp)
         sw s1, 8(sp)
         sw s2, 12(sp)
         sw s3, 16(sp)
+        sw s4, 20(sp)
 
         la s0, lista_entidades
         mv s1, a1       # salva X
         mv s2, a2       # salva Y
+        mv s4, a0       # guarda o tipo
 
 P_AE1_PROCURAR_LOOP:
         lw t1, lista_entidades.TIPO_ENTRADA(s0) # pega o tipo da entrada na tabela
         bltz t1, P_AE1_RET_NULL         # se < 0, significa que chegamos ao fim da tabela sem encontrara a entidade.
-        beq a0, t1, P_AE1_REGISTRAR     # se tipo_tabela == tipo_argumento, encontramos! registrar
+        beq s4, t1, P_AE1_REGISTRAR     # se tipo_tabela == tipo_argumento, encontramos! registrar
         addi s0, s0, lista_entidades.BYTES_POR_ENTRADA # pula para a proxima entrada
         j P_AE1_PROCURAR_LOOP           # continua procurando se nao encontramos ainda
 
@@ -49,10 +51,14 @@ P_AE1_REGISTRAR:
 
         # salva a entidade
         sw s3, array_entidades.STRUCT_BASICA(t3)
+        sw s4, entidade.TIPO(s3)        # salva o tipo!
+
         lw t5, lista_entidades.PROC_POR_FRAME(s0)
         sw t5, array_entidades.PROC_POR_FRAME(t3)
         lw t5, lista_entidades.PROC_DESENHAR(s0)
         sw t5, array_entidades.PROC_DESENHAR(t3)
+        lw t5, lista_entidades.PROC_COLISAO(s0)
+        sw t5, array_entidades.PROC_COLISAO(t3)
 
         # guarda a referencia para a struct especifica dela
         # vamos guarda-la imediatamente depois da struct basica, no espaco alocado!
@@ -74,7 +80,8 @@ P_AE1_RET:
         lw s1, 8(sp)
         lw s2, 12(sp)
         lw s3, 16(sp)
-        addi sp, sp, 20
+        lw s4, 20(sp)
+        addi sp, sp, 24
         ret
 
 P_AE1_RET_NULL:                 # retorna nulo

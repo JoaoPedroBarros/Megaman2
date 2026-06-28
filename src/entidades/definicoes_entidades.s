@@ -11,22 +11,24 @@
 .data
 
 struct_basica_entidade:
-        .eqv entidade.STRUCT_ESPECIFICA                 0       # referencia para a struct especifica da entidade
-        .eqv entidade.X_Q12                             4       # posicao X (Fixed-point Q12!!!)
-        .eqv entidade.Y_Q12                             8       # posicao Y (Fixed-point Q12!!!)
-        .eqv entidade.VELOCIDADE_X_Q12                  12      # velocidade X (Fixed-point Q12!!!)
-        .eqv entidade.VELOCIDADE_Y_Q12                  16      # velocidade Y (Fixed-point Q12!!!)
-        .eqv entidade.LARGURA                           20      # largura em pixeis
-        .eqv entidade.ALTURA                            24      # altura em pixeis
-        .eqv entidade.COLIDIVEL                         28      # se a entidade colide com outras entidades
-        .eqv entidade.HOSTIL                            32      # se a entidade eh hostil ao jogador
-        .eqv entidade.NO_CHAO                           36      # se a entidade estah no chao atualmente ou nao (relevante
+        .eqv entidade.TIPO                              0       # tipo da entidade, que nem mais em cima
+        .eqv entidade.FLAGS                             4       # flags (ver secao mais embaixo)
+        .eqv entidade.X_Q12                             8       # posicao X (Fixed-point Q12!!!)
+        .eqv entidade.Y_Q12                             12      # posicao Y (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_X_Q12                  16      # velocidade X (Fixed-point Q12!!!)
+        .eqv entidade.VELOCIDADE_Y_Q12                  20      # velocidade Y (Fixed-point Q12!!!)
+        .eqv entidade.LARGURA                           24      # largura em pixeis
+        .eqv entidade.ALTURA                            28      # altura em pixeis
+        .eqv entidade.COLIDIVEL                         32      # se a entidade colide com outras entidades
+        .eqv entidade.HOSTIL                            36      # se a entidade eh hostil ao jogador
+        .eqv entidade.NO_CHAO                           40      # se a entidade estah no chao atualmente ou nao (relevante
                                                                 # apenas se a entidade sofrer gravidade)
-        .eqv entidade.FLAGS                             40      # flags (ver secao mais embaixo)
+        
+        .eqv entidade.STRUCT_ESPECIFICA                 44       # referencia para a struct especifica da entidade
 
         # adicione mais atributos conforme necessario e atualize o tamanho
         
-        .eqv struct_basica_entidade.TAMANHO             44      # quantidade de bytes necessaria por atributo (1 word por atr)
+        .eqv struct_basica_entidade.TAMANHO             48      # quantidade de bytes necessaria por atributo (1 word por atr)
 
 # aqui eh onde as referencias para cada entidade serah guardada
 # 3 words por entidade:
@@ -34,18 +36,26 @@ struct_basica_entidade:
 #       - proc a ser chamada todo frame (logica de movimento, colisao, etc)
 #       - proc de desenho todo frame (impressao de textura, efeitos especiais da entidade, etc)
 
-.eqv ESPACO_ARRAY_ENTIDADES 2048
+.eqv ESPACO_ARRAY_ENTIDADES 4096
 array_entidades: .space ESPACO_ARRAY_ENTIDADES   
         tamanho_array_entidades: .word 0             # quantas entidades foram registradas ateh agora
-        .eqv array_entidades.BYTES_POR_ENTRADA 12       # 3 words por entrada
+        .eqv array_entidades.BYTES_POR_ENTRADA 16       # 4 words por entrada
                                                         # importante manter o numero de bytes como multiplo de 4.
 
         .eqv array_entidades.STRUCT_BASICA              0
         .eqv array_entidades.PROC_POR_FRAME             4
         .eqv array_entidades.PROC_DESENHAR              8
+        .eqv array_entidades.PROC_COLISAO               12
+
+fila_entidades_a_serem_deletadas: .space ESPACO_ARRAY_ENTIDADES
+tamanho_fila_entidades_a_serem_deletadas: .word 0
 
 # FLAGS PARA ENTIDADES
 
         # 32 bits
-        .eqv FLAG_ENTIDADE_IGNORAR_PLATAFORMAS 0x1      # bit 1
-        # bits 2-32: nao-utilizados
+        .eqv FLAG_ENTIDADE_IGNORAR_PLATAFORMAS  0x1             # bit 1 (0000 .. 0001)
+        .eqv FLAG_EXEMPLO2                      0x2             # bit 2 (0000 .. 0010)
+        .eqv FLAG_EXEMPLO3                      0x4             # bit 3 (0000 .. 0100)
+        .eqv FLAG_EXEMPLO4                      0x8             # bit 4 (0000 .. 1000)
+        #...
+        .eqv FLAG_EXEMPLO32                     0x80000000      # bit 32 (1000 .. 0000)

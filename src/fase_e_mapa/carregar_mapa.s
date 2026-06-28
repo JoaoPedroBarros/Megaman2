@@ -16,9 +16,8 @@ P_CM1_COLISAO:
         lw t2, 4(a0)
         sw t2, 4(t0)
 
-        li t3, TAMANHO_TILE
-        MULTIPLY(t4,t2,t3)
-        MULTIPLY(t3,t1,t3)
+        slli t4, t2, LOG2_TAMANHO_TILE
+        slli t3, t1, LOG2_TAMANHO_TILE
         
         mv t1, zero
         mv t2, zero

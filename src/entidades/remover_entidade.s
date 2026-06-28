@@ -16,7 +16,7 @@ PROC_REMOVER_ENTIDADE:
 
         lw t1, tamanho_array_entidades
         add t0, t0, t1
-        bge a0, t0, P_RE1_RET      # retorna se &entidade > &array_entidades[n-1]
+        bgt a0, t0, P_RE1_RET      # retorna se &entidade > &array_entidades[n-1]
 
         mv s0, a0               # guarda a entidade em um registrador seguro
 

@@ -188,3 +188,35 @@ EXEMPLO.DRAW:
         lw ra, (sp)
         addi sp, sp, 4
         ret
+
+# ArgumentoS (obrigatoriamente)
+# a0 - struct basica da entidade desse tipo envolvida na colisao
+# a1 - struct basica da outra entidade que colidiu com ela
+
+# Retorno (obrigatorialmente)
+# a0 - se a entidade desse tipo ainda existe ou nao
+EXEMPLO.COLISAO:
+        lw t0, entidade.HOSTIL(a1)
+
+        # nao destroi se a entidade com quem colidimos nao for hostil, por exemplo
+        beqz t0, EXEMPLO.COLISAO._VIVE  
+
+        lw t1, entidade.STRUCT_ESPECIFICA(a0)
+        lhu t2, EXEMPLO.ATRIBUTO_2(t1)
+        li t3, 4
+        beq t2, t3, EXEMPLO.COLISAO._MORRE      # e.g. se autodestroi dependendo de um atributo
+
+        sb zero, EXEMPLO.ATRIBUTO_3(t1)         # altera algum atributo
+        sw zero, entidade.COLIDIVEL(a0)         # pode ser da entidade em si tbm
+
+        # dica: EVITE modificar a entidade com quem vc colidiu.
+        # deixa isso para o proprio proc de colisao dela, que tbm
+        # vai ser invocado quando ela colidir com vc.
+
+EXEMPLO.COLISAO._VIVE:
+        li a0, 1
+        ret
+
+EXEMPLO.COLISAO._MORRE:
+        mv a0, zero
+        ret

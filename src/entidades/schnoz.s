@@ -111,6 +111,35 @@ SCHNOZ.DRAW:
     ret
 
 
+# Argumentos (obrigatoriamente)
+# a0 - struct basica de si mesmo
+# a1 - struct basica daquele com quem colidiu
+#
+# Retorno (obrigatoriamente) 
+# a0: se estah vivo (1) ou nao (0)
+SCHNOZ.COLISAO:
+    addi sp, sp, -4
+    sw ra, (sp)
+
+    lw t0, entidade.TIPO(a1)
+    li t1, ENTIDADE_PROJETIL_COMUM
+    bne t0, t1, SCHNOZ.COLISAO._VIVO
+
+    # se o tipo de entidade eh um projetil comum, morre
+SCHNOZ.COLISAO._MORTO:
+    mv a0, zero
+    j SCHNOZ.COLISAO._RET
+
+SCHNOZ.COLISAO._VIVO:
+    li a0, 1
+    
+SCHNOZ.COLISAO._RET:
+    lw ra, (sp)
+    addi sp, sp, 4
+    ret
+
+
+
     
 
 

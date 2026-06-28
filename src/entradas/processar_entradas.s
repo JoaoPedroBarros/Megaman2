@@ -48,7 +48,7 @@ P_PE1_W:
         beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
 
         lw t1, entidade.VELOCIDADE_Y_Q12(a0)
-        li t0, -11
+        li t0, -13
         slli t0, t0, 12
         add t1, t0, t1
         sw t1, entidade.VELOCIDADE_Y_Q12(a0)
@@ -70,7 +70,8 @@ P_PE1_A:
 P_PE1_S:
  
         lw t0, entidade.VELOCIDADE_Y_Q12(a0)
-        addi t0, t0, GRAVIDADE_PADRAO    # dobra o efeito da gravidade
+        li t1, GRAVIDADE_PADRAO    
+        add t0, t0 ,t1 	# dobra o efeito da gravidade
         sw t0, entidade.VELOCIDADE_Y_Q12(a0)
 
         # ativa a flag de ignorar plataforma apenas por 5 frames.
