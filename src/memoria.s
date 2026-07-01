@@ -69,12 +69,15 @@
         .include "../assets/textura_teste.data"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
+        .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
         .include "entidades/jogador.s"
         .include "entidades/projetil_comum.s"
         .include "entidades/schnoz.s"
+        .include "entidades/jumper.s"
+        .include "entidades/projetil_inimigo.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"

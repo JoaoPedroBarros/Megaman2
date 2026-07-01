@@ -11,9 +11,11 @@ JOGADOR.struct:
     .eqv JOGADOR.DIRECAO 3
     .eqv JOGADOR.COOLDOWN_PROJETIL 4
     .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 5
-    .eqv JOGADOR.COOLDOWN_VASSOURA 6
+    .eqv JOGADOR.TEMPO_USO_VASSOURA 6
+    .eqv JOGADOR.COOLDOWN_USO_VASSOURA 8
+    .eqv JOGADOR.FLAG_VASSOURA 10
 
-.eqv JOGADOR.TAMANHO_STRUCT 10
+.eqv JOGADOR.TAMANHO_STRUCT 11
 
 .eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
@@ -58,6 +60,12 @@ JOGADOR.NOVO:
     sb zero, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
     sw zero, entidade.NO_CHAO(a0)
 
+    sh zero, JOGADOR.TEMPO_USO_VASSOURA(t0)
+    sh zero, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+
+    li t1, -1
+    sb t1, JOGADOR.FLAG_VASSOURA(t0)
+
     li t1, 1
     sb t1, JOGADOR.DIRECAO(t0)
     sw t1, entidade.COLIDIVEL(a0)
@@ -96,6 +104,11 @@ JOGADOR.PROC:
 
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
 
+    lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lb t1, JOGADOR.FLAG_VASSOURA(t0)
+
+    bgtz t1, SEM_GRAVIDADE
+
     # aplica gravidade
     lw t0, entidade.VELOCIDADE_Y_Q12(s0)
     li t1, GRAVIDADE_PADRAO
@@ -124,7 +137,14 @@ JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS: # desativa caso contrario
     and t0, t0, t1
     sw t0, entidade.FLAGS(a0)
 
+SEM_GRAVIDADE:
+
+    mv a0, s0
+    jal JOGADOR.MODO_VASSOURA
+
 JOGADOR.PROC.CONT:
+    mv a0, s0
+    lw t2, entidade.STRUCT_ESPECIFICA(s0)
     lbu t0, JOGADOR.COOLDOWN_PROJETIL(t2)
     addi t0, t0, 1
     li t1, 10
@@ -243,4 +263,27 @@ JOGADOR._CORRIGIR_CAMERA:
     lw ra, (sp)
     lw a0, 8(sp)    # recupera novo X para retorno
     addi sp, sp, 12
+    ret
+
+JOGADOR.MODO_VASSOURA:
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lh t1, JOGADOR.TEMPO_USO_VASSOURA(t0) # carrega o tempo que o jogador pode usar a vassoura
+    beqz t1, SEM_ATUALIZACAO_TEMPO_VASSOURA # se for 0, quer dizer que nao esta usando: nao atualiza
+    addi t1, t1, -1 # caso contrario, decrementa
+    sh t1, JOGADOR.TEMPO_USO_VASSOURA(t0) # armazena no atributo do jogador
+
+    bnez t1, SEM_ATUALIZACAO_TEMPO_VASSOURA # se chegar a 0 depois de decrementar, quer dizer que acabou o tempo
+    li t1, -1
+    sh t1, JOGADOR.FLAG_VASSOURA(t0) # desativa a vassoura
+
+SEM_ATUALIZACAO_TEMPO_VASSOURA:
+
+    lh t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0) # carrega o cooldown da vassoura
+    beqz t1, SEM_ATUALIZACAO_COOLDOWN_VASSOURA # se for igual a 0, nao tem pq decrementar: a vassoura estah pronta para usar
+    addi t1, t1, -1 # caso contrario, decrementa
+    sh t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0) # quando chega a 0, deixa o jogador usar a vassoura novamente
+
+SEM_ATUALIZACAO_COOLDOWN_VASSOURA:
+
     ret

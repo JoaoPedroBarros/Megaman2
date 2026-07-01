@@ -35,6 +35,19 @@ lista_entidades:
         .word SCHNOZ.DRAW
         .word SCHNOZ.COLISAO
 
+        .word ENTIDADE_JUMPER
+        .word JUMPER.TAMANHO_STRUCT
+        .word JUMPER.NOVO
+        .word JUMPER.PROC
+        .word JUMPER.DRAW
+        .word JUMPER.PULA
+
+        .word ENTIDADE_PROJETIL_INIMIGO,
+        .word PROJETIL_INIMIGO.TAMANHO_STRUCT
+        .word PROJETIL_INIMIGO.NOVO
+        .word PROJETIL_INIMIGO.PROC
+        .word PROJETIL_INIMIGO.DRAW
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 24       # sao 6 words por entrada!

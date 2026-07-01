@@ -33,6 +33,8 @@ PROC_COLISAO_MAPA_DIREITA:
         beq a0, t1, MOVIMENTACAO_INVALIDA # 2 eh um tile de chao: nao move
         li t1, 3
         beq a0, t1, MOVIMENTACAO_INVALIDA # 3 eh um tile de chao: nao move
+        li t1, 9
+        beq a0, t1, MOVIMENTACAO_INVALIDA
         j MOVIMENTACAO_VALIDA
 
 
@@ -62,6 +64,28 @@ PROC_COLISAO_MAPA_ESQUERDA:
         j MOVIMENTACAO_VALIDA
 
 PROC_COLISAO_MAPA_CHAO:
+
+        addi sp, sp, -8
+        sw ra, 0(sp)
+        sw s0, 4(sp)
+
+        mv s0, a0
+        lw a0, entidade.X_Q12(s0)
+        lw a1, entidade.Y_Q12(s0)
+
+        srai a0, a0, 12
+        srai a1, a1, 12
+
+        lw t0, entidade.ALTURA(s0)
+        add a1, a1, t0
+
+        jal CALCULA_TILE
+        beq a0, zero, MOVIMENTACAO_INVALIDA
+        li t1, 2
+        beq a0, t1, MOVIMENTACAO_INVALIDA
+        li t1, 3
+        beq a0, t1, MOVIMENTACAO_INVALIDA
+        j MOVIMENTACAO_VALIDA
 
 PROC_COLISAO_MAPA_CIMA:
 

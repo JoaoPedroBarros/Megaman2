@@ -7,6 +7,8 @@
 .eqv ENTIDADE_EXEMPLO                                   1
 .eqv ENTIDADE_JOGADOR                                   2
 .eqv ENTIDADE_SCHNOZ                                    3
+.eqv ENTIDADE_JUMPER                                    4
+.eqv ENTIDADE_PROJETIL_INIMIGO                          5
 
 .data
 

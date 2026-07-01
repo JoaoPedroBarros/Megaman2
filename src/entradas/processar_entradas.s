@@ -35,6 +35,11 @@ PROC_PROCESSAR_ENTRADAS:
         li t0, 'd'
         beq t1, t0, P_PE1_D
 
+        li t0, 'V'
+        beq t1, t0, P_PE1_V
+        li t0, 'v'
+        beq t1, t0, P_PE1_V
+
         li t0, 10
         beq t1, t0, P_PE1_ENTER
 
@@ -44,6 +49,22 @@ PROC_PROCESSAR_ENTRADAS:
         j P_PE1_RET
 
 P_PE1_W:
+
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        lb t1, JOGADOR.FLAG_VASSOURA(t0)
+
+        bltz t1, JOGADOR_PULA
+
+        lw t0, entidade.Y_Q12(a0)
+        srai t0, t0, 12
+        addi t0, t0, -4
+        slli t0, t0, 12
+        sw t0, entidade.Y_Q12(a0)
+
+        j P_PE1_RET
+
+JOGADOR_PULA:
+
         lw t0, entidade.NO_CHAO(a0)
         beqz t0, P_PE1_RET      # nao deixa pular se estiver no ar
 
@@ -68,6 +89,33 @@ P_PE1_A:
 
         j P_PE1_RET
 P_PE1_S:
+
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        lb t1, JOGADOR.FLAG_VASSOURA(t0)
+
+        bltz t1, JOGADOR_DESCE
+
+        addi sp, sp, -8
+        sw a0, 0(sp)
+        sw ra, 4(sp)
+
+        jal PROC_COLISAO_MAPA_CHAO
+        mv t0, a0
+        lw a0, 0(sp)
+        lw ra, 4(sp)
+        addi sp, sp, 8
+
+        beq t0, zero, P_PE1_RET
+
+        lw t1, entidade.Y_Q12(a0)
+        li t0, 4
+        slli t0, t0, 12
+        add t1, t0, t1
+        sw t1, entidade.Y_Q12(a0)
+
+        j P_PE1_RET
+
+JOGADOR_DESCE:
  
         lw t0, entidade.VELOCIDADE_Y_Q12(a0)
         li t1, GRAVIDADE_PADRAO    
@@ -119,6 +167,29 @@ P_PE1_ENTER:
         lb t1, JOGADOR.DIRECAO(t0)
         MULTIPLY (a1, a1, t1)           
         jal PROJETIL_COMUM.SET_VELOCIDADE_X
+
+        j P_PE1_RET
+
+P_PE1_V:
+
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        lb t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+
+        bnez t1, P_PE1_RET # se o cooldown nao estiver zerado, nao deixa ativar o modo vassoura
+
+        lb t1, JOGADOR.FLAG_VASSOURA(t0)
+        sub t1, zero, t1 # caso contrario, inverte a flag da vassoura
+        sb t1, JOGADOR.FLAG_VASSOURA(t0)
+
+        li t1, 1000
+        sh t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+
+        li t1, 100
+        sh t1, JOGADOR.TEMPO_USO_VASSOURA(t0)
+
+        sb zero, entidade.NO_CHAO(a0)
+
+        sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
         j P_PE1_RET
 
