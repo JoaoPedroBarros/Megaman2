@@ -115,6 +115,11 @@ JOGADOR.PROC:
     add t0, t0, t1
     sw t0, entidade.VELOCIDADE_Y_Q12(s0)
 
+SEM_GRAVIDADE:
+
+    mv a0, s0
+    jal JOGADOR.MODO_VASSOURA
+
     lw t2, entidade.STRUCT_ESPECIFICA(s0)
 
     # Verificar se precisamos decrementar o temporazidor
@@ -136,11 +141,6 @@ JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS: # desativa caso contrario
     not t1, t1
     and t0, t0, t1
     sw t0, entidade.FLAGS(a0)
-
-SEM_GRAVIDADE:
-
-    mv a0, s0
-    jal JOGADOR.MODO_VASSOURA
 
 JOGADOR.PROC.CONT:
     mv a0, s0
@@ -275,7 +275,7 @@ JOGADOR.MODO_VASSOURA:
 
     bnez t1, SEM_ATUALIZACAO_TEMPO_VASSOURA # se chegar a 0 depois de decrementar, quer dizer que acabou o tempo
     li t1, -1
-    sh t1, JOGADOR.FLAG_VASSOURA(t0) # desativa a vassoura
+    sb t1, JOGADOR.FLAG_VASSOURA(t0) # desativa a vassoura
 
 SEM_ATUALIZACAO_TEMPO_VASSOURA:
 

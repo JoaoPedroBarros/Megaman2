@@ -55,11 +55,11 @@ P_PE1_W:
 
         bltz t1, JOGADOR_PULA
 
-        lw t0, entidade.Y_Q12(a0)
-        srai t0, t0, 12
-        addi t0, t0, -4
-        slli t0, t0, 12
-        sw t0, entidade.Y_Q12(a0)
+        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        li t0, JOGADOR.ACELERACAO_Q12
+        neg t0, t0
+        add t1, t0, t1
+        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
 
         j P_PE1_RET
 
@@ -95,23 +95,10 @@ P_PE1_S:
 
         bltz t1, JOGADOR_DESCE
 
-        addi sp, sp, -8
-        sw a0, 0(sp)
-        sw ra, 4(sp)
-
-        jal PROC_COLISAO_MAPA_CHAO
-        mv t0, a0
-        lw a0, 0(sp)
-        lw ra, 4(sp)
-        addi sp, sp, 8
-
-        beq t0, zero, P_PE1_RET
-
-        lw t1, entidade.Y_Q12(a0)
-        li t0, 4
-        slli t0, t0, 12
+        lw t1, entidade.VELOCIDADE_Y_Q12(a0)
+        li t0, JOGADOR.ACELERACAO_Q12
         add t1, t0, t1
-        sw t1, entidade.Y_Q12(a0)
+        sw t1, entidade.VELOCIDADE_Y_Q12(a0)
 
         j P_PE1_RET
 
@@ -173,7 +160,9 @@ P_PE1_ENTER:
 P_PE1_V:
 
         lw t0, entidade.STRUCT_ESPECIFICA(a0)
-        lb t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+        lh t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+
+        safe_print_int_ln(t1)
 
         bnez t1, P_PE1_RET # se o cooldown nao estiver zerado, nao deixa ativar o modo vassoura
 
