@@ -56,7 +56,7 @@ tamanho_fila_entidades_a_serem_deletadas: .word 0
 
         # 32 bits
         .eqv FLAG_ENTIDADE_IGNORAR_PLATAFORMAS  0x1             # bit 1 (0000 .. 0001)
-        .eqv FLAG_EXEMPLO2                      0x2             # bit 2 (0000 .. 0010)
+        .eqv FLAG_ENTIDADE_DELECAO_PENDENTE     0x2             # bit 2 (0000 .. 0010)
         .eqv FLAG_EXEMPLO3                      0x4             # bit 3 (0000 .. 0100)
         .eqv FLAG_EXEMPLO4                      0x8             # bit 4 (0000 .. 1000)
         #...

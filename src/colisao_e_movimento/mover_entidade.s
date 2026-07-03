@@ -62,7 +62,7 @@ P_ME1_EIXO_X:
                                 
                                 la t0, flags_tile_colisao
                                 add t0, t0, a0
-                                lw t0, (t0)
+                                lb t0, (t0)
                                 andi t0, t0, FLAG_COLISAO_DIREITA
 
                                 beqz t0, P_ME1_FOR_LOOP_LINHA_XP_CONTINUE
@@ -100,7 +100,7 @@ P_ME1_EIXO_X:
                                 
                                 la t0, flags_tile_colisao
                                 add t0, t0, a0
-                                lw t0, (t0)
+                                lb t0, (t0)
                                 andi t0, t0, FLAG_COLISAO_ESQUERDA
 
                                 beqz t0, P_ME1_FOR_LOOP_LINHA_XN_CONTINUE
@@ -185,7 +185,7 @@ P_ME1_EIXO_Y:
 
                                 la t0, flags_tile_colisao
                                 add t0, t0, a0
-                                lw t0, (t0)
+                                lb t0, (t0)
                                 andi t0, t0, FLAG_COLISAO_CIMA
 
                                 beqz t0, P_ME1_FOR_LOOP_COLUNA_YP_CONTINUE
@@ -227,7 +227,7 @@ P_ME1_EIXO_Y:
                                 
                                 la t0, flags_tile_colisao
                                 add t0, t0, a0
-                                lw t0, (t0)
+                                lb t0, (t0)
                                 andi t0, t0, FLAG_COLISAO_BAIXO
 
                                 beqz t0, P_ME1_FOR_LOOP_COLUNA_YN_CONTINUE
