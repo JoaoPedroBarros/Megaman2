@@ -51,8 +51,8 @@ P_F1_LOOP:
 
         jal PROC_ENTIDADES_MANAGER              # administra entidades
         jal PROC_COLISOES_MANAGER               # lida com colisoes
-        
-        jal PROC_DELETAR_ENTIDADES_ENFILEIRADAS # deleta entidades mortas
+
+        jal PROC_DELETAR_ENTIDADES_PENDENTES 	# deleta entidades mortas
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 
         jal PROC_IMPRIMIR_ENTIDADES             # imprime as entidades

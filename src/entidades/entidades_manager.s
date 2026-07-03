@@ -25,9 +25,11 @@ P_EM1_LOOP:
 
         bnez a0, P_EM1_LOOP                     # continua o loop se a entidade ainda existe
 
-        mv a0, s2
-        jal PROC_ENFILEIRAR_DELECAO_ENTIDADE    # coloca a entidade para ser deletada
         lw t0, array_entidades.STRUCT_BASICA(s2)
+        lw t1, entidade.FLAGS(t0)
+        ori t1, t1, FLAG_ENTIDADE_DELECAO_PENDENTE
+        sw t1, entidade.FLAGS(t0)
+
         sw zero, entidade.COLIDIVEL(t0)         # marca ela como nao colidivel para garantir que ela nao interaja com
                                                 # outras entidades antes de ser deletada
 

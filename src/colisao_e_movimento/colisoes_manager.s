@@ -50,9 +50,11 @@ P_CM2_LOOP:
                 bnez a0, P_CM2_CHECAR_COLISAO_LOOP_ENTIDADE1
                 # se entidade retornou que morreu, deleta ela
 
-                mv a0, s5
-                jal PROC_ENFILEIRAR_DELECAO_ENTIDADE
+                # marca para delecao
                 lw t0, array_entidades.STRUCT_BASICA(s5)
+                lw t1, entidade.FLAGS(t0)
+                ori t1, t1, FLAG_ENTIDADE_DELECAO_PENDENTE
+                sw t1, entidade.FLAGS(t0)
                 sw zero, entidade.COLIDIVEL(t0)
 
         P_CM2_CHECAR_COLISAO_LOOP_ENTIDADE1:
@@ -64,10 +66,13 @@ P_CM2_LOOP:
                 bnez a0, P_CM2_CHECAR_COLISAO_LOOP_CONTINUE
                 # se entidade retornou que morreu, deleta ela
 
-                mv a0, s3
-                jal PROC_ENFILEIRAR_DELECAO_ENTIDADE
+                # marca para delecao
                 lw t0, array_entidades.STRUCT_BASICA(s3)
+                lw t1, entidade.FLAGS(t0)
+                ori t1, t1, FLAG_ENTIDADE_DELECAO_PENDENTE
+                sw t1, entidade.FLAGS(t0)
                 sw zero, entidade.COLIDIVEL(t0)
+
                 j P_CM2_CHECAR_COLISAO_LOOP_FIM # TERMINA o loop para essa entidade se ela nao existe mais!!
 
         P_CM2_CHECAR_COLISAO_LOOP_CONTINUE:

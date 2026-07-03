@@ -52,6 +52,7 @@ P_AE1_REGISTRAR:
         # salva a entidade
         sw s3, array_entidades.STRUCT_BASICA(t3)
         sw s4, entidade.TIPO(s3)        # salva o tipo!
+        sw zero, entidade.FLAGS(s3)     # zera as flags
 
         lw t5, lista_entidades.PROC_POR_FRAME(s0)
         sw t5, array_entidades.PROC_POR_FRAME(t3)
