@@ -92,7 +92,6 @@ main:
 .include "strings/tamanho_string.s"
 .include "colisao_e_movimento/colisao_mapa.s"
 .include "colisao_e_movimento/colisao_schnoz.s"
-.include "colisao_e_movimento/colisao_jumper.s"
 .include "colisao_e_movimento/calcular_tile_colisao.s"
 .include "colisao_e_movimento/calcular_tile_colisao_linha_coluna.s"
 .include "colisao_e_movimento/mover_entidade.s"
