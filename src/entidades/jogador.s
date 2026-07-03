@@ -122,11 +122,11 @@ SEM_GRAVIDADE:
 
     lw t2, entidade.STRUCT_ESPECIFICA(s0)
     # Verificar se precisamos decrementar o temporazidor
-    lw t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
+    lb t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
     blez t0, JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS
 
     addi t0, t0, -1 # temporizador--
-    sw t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
+    sb t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
 
 JOGADOR.PROC.ATIVAR_FLAG_IGNORAR_PLATAFORMAS:   # ativa a flag se temporizador > 0
     lw t0, entidade.FLAGS(a0)
