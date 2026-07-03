@@ -22,7 +22,7 @@ PROJETIL_INIMIGO.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, 10
+    li t0, 5
     slli t0, t0, 12
     sw t0, entidade.VELOCIDADE_X_Q12(a0)
     sw zero, entidade.VELOCIDADE_Y_Q12(a0)
@@ -84,5 +84,29 @@ PROJETIL_INIMIGO.DRAW:
     jal PROC_IMPRIMIR_TEXTURA
 
     lw ra, (sp)
+    addi sp, sp, 4
+    ret
+
+PROJETIL_INIMIGO.COLISAO:
+
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    lw t0, entidade.TIPO(a1)
+    li t1, ENTIDADE_JOGADOR
+    bne t0, t1, PROJETIL_INIMIGO.COLISAO._VIVO
+
+PROJETIL_INIMIGO.COLISAO._MORTO:
+
+    mv a0, zero
+    j PROJETIL_INIMIGO.COLISAO._RET
+
+PROJETIL_INIMIGO.COLISAO._VIVO:
+
+    li a0, 1
+
+PROJETIL_INIMIGO.COLISAO._RET:
+
+    lw ra, 0(sp)
     addi sp, sp, 4
     ret

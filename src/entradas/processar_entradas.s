@@ -162,8 +162,6 @@ P_PE1_V:
         lw t0, entidade.STRUCT_ESPECIFICA(a0)
         lh t1, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
 
-        safe_print_int_ln(t1)
-
         bnez t1, P_PE1_RET # se o cooldown nao estiver zerado, nao deixa ativar o modo vassoura
 
         lb t1, JOGADOR.FLAG_VASSOURA(t0)

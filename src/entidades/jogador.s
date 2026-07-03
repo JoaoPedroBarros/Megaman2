@@ -121,7 +121,6 @@ SEM_GRAVIDADE:
     jal JOGADOR.MODO_VASSOURA
 
     lw t2, entidade.STRUCT_ESPECIFICA(s0)
-
     # Verificar se precisamos decrementar o temporazidor
     lw t0, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t2)
     blez t0, JOGADOR.PROC.DESATIVAR_FLAG_IGNORAR_PLATAFORMAS

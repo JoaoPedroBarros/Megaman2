@@ -30,9 +30,9 @@ BOSS.NOVO:
     sw t0, entidade.COLIDIVEL(a0)
     sw t0, entidade.HOSTIL(a0)
 
-    # nao havera tratamento de gravidade para o chefe, visto que ele voara
+    # nao havera tratamento de gravidade para o chefe, visto que ele voarah
 
-    li t1, 1000 #
+    li t1, 1000 # o chefe tera 1000 de vida
     slli t1, t1, 12
     sw t1, BOSS.VIDA(t0)
     sb zero, BOSS.COOLDOWN_MOVESET(t0)

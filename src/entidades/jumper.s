@@ -79,6 +79,13 @@ JUMPER.PROC:
     li a0, ENTIDADE_PROJETIL_INIMIGO
     jal PROC_ADICIONAR_ENTIDADE
 
+    lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lb t1, JUMPER.DIRECAO(t0)
+
+    lw t2, entidade.VELOCIDADE_X_Q12(a0)
+    mul t2, t1, t2
+    sw t2, entidade.VELOCIDADE_X_Q12(a0)
+
 JUMPER_PULA:
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
@@ -105,6 +112,8 @@ SEM_ATUALIZACAO_VELOCIDADE:
 
     mv a0, s0
     jal PROC_MOVER_ENTIDADE
+
+    
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
@@ -173,5 +182,29 @@ JUMPER.PULA:
 
 JUMPER_PULA_RETORNO:
 
+    ret
+
+JUMPER.COLISAO:
+    
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    lw t0, entidade.TIPO(a1)
+    li t1, ENTIDADE_PROJETIL_COMUM
+    bne t0, t1, JUMPER.COLISAO._VIVO
+
+JUMPER.COLISAO._MORTO:
+
+    mv a0, zero
+    j JUMPER.COLISAO._RET
+
+JUMPER.COLISAO._VIVO:
+
+    li a0, 1
+
+JUMPER.COLISAO._RET:
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
     ret
 

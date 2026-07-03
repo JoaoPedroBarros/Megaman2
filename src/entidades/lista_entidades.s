@@ -40,13 +40,14 @@ lista_entidades:
         .word JUMPER.NOVO
         .word JUMPER.PROC
         .word JUMPER.DRAW
-        .word JUMPER.PULA
+        .word JUMPER.COLISAO
 
-        .word ENTIDADE_PROJETIL_INIMIGO,
+        .word ENTIDADE_PROJETIL_INIMIGO
         .word PROJETIL_INIMIGO.TAMANHO_STRUCT
         .word PROJETIL_INIMIGO.NOVO
         .word PROJETIL_INIMIGO.PROC
         .word PROJETIL_INIMIGO.DRAW
+        .word PROJETIL_INIMIGO.COLISAO
 
         .word -1 # fim
 

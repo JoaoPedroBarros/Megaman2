@@ -49,37 +49,5 @@
         camera:
                 .word 0 0
 
-        # definicoes e memoria adicional
-        .include "fase_e_mapa/definicoes_mapas.s"
-        .include "administracao_de_memoria/heap.s"
-        .include "entidades/definicoes_entidades.s"
-        .include "dialogo/definicoes_dialogo.s"
-
-        .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
-
-        # ASSETS UTILIZADOS
-        .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
-        .include "../assets/tiles_teste/data/playground_tilemap.s"
-        .include "../assets/tiles_teste/data/playground_tilemap_colisao.s"
-        .include "../assets/tiles_teste/data/preto0.s"
-        .include "../assets/tiles_teste/data/ceu1.s"
-        .include "../assets/tiles_teste/data/chao2.s"
-        .include "../assets/tiles_teste/data/chao3.s"
-        .include "../assets/tiles_teste/data/grama4.s"
-        .include "../assets/textura_teste.data"
-        .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
-        .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
-        .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
-
-        # ENTIDADES NO JOGO
-        .include "entidades/exemplo.s"
-        .include "entidades/jogador.s"
-        .include "entidades/projetil_comum.s"
-        .include "entidades/schnoz.s"
-        .include "entidades/jumper.s"
-        .include "entidades/projetil_inimigo.s"
-
-        # OUTROS
-        .include "entidades/lista_entidades.s"
 
         .word 0xF0CAF0FA
