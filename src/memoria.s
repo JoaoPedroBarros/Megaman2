@@ -1,9 +1,9 @@
 # MEMORIA DO JOGO
 
 .data
-        .eqv TAMANHO_TILE 32            # tamanho do lado de um tile (32, no caso) -- importante ser uma potencia de 2
-        .eqv AREA_TILE 1024             # tamanho do lado de um tile, ao quadrado (32*32, no caso)
-        .eqv LOG2_TAMANHO_TILE 5        # 2^LOG2_TAMANHO_TILE = TAMANHO_TILE -- importante manter
+        .eqv TAMANHO_TILE 16            # tamanho do lado de um tile (16, no caso) -- importante ser uma potencia de 2
+        .eqv AREA_TILE 256             # tamanho do lado de um tile, ao quadrado (16*16, no caso)
+        .eqv LOG2_TAMANHO_TILE 4        # 2^LOG2_TAMANHO_TILE = TAMANHO_TILE -- importante manter
                                         # a existencia de LOG2_TAMANHO_TILE permite substituir muitos divs e muls por
                                         # srais e sllis
 
