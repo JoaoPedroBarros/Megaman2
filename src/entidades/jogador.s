@@ -14,8 +14,9 @@ JOGADOR.struct:
     .eqv JOGADOR.TEMPO_USO_VASSOURA 6
     .eqv JOGADOR.COOLDOWN_USO_VASSOURA 8
     .eqv JOGADOR.FLAG_VASSOURA 10
+    .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 11
 
-.eqv JOGADOR.TAMANHO_STRUCT 11
+.eqv JOGADOR.TAMANHO_STRUCT 12
 
 .eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
@@ -62,6 +63,7 @@ JOGADOR.NOVO:
 
     sh zero, JOGADOR.TEMPO_USO_VASSOURA(t0)
     sh zero, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
+    sb zero, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
 
     li t1, -1
     sb t1, JOGADOR.FLAG_VASSOURA(t0)
@@ -105,6 +107,14 @@ JOGADOR.PROC:
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lbu t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
+    blez t1, JOGADOR.PROC._CONT0
+
+    # se o jogador ainda estah invencivel, decrementa o tempo restante ateh ele nao estar
+    addi t1, t1, -1
+    sb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0) 
+
+JOGADOR.PROC._CONT0:
     lb t1, JOGADOR.FLAG_VASSOURA(t0)
 
     bgtz t1, SEM_GRAVIDADE
@@ -184,17 +194,22 @@ JOGADOR.DRAW:
     addi sp, sp, -4
     sw ra, 0(sp)
 
+    mv t0, a0
+    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lbu t2, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t1)
+    andi t2, t2, 0x2
+    seqz t2, t2
+    beqz t2, JOGADOR.DRAW._RET
+
 # por enquanto, como so temos um sprite, nao vou adicionar a direcao e a animacao. No entanto, eh apenas uma
 # aritmetica de ponteiros
 
-    mv t0, a0
-    la a0, sprite_bruxa_feitico1
-
-    lw t1, entidade.STRUCT_ESPECIFICA(t0)
     lb t1, JOGADOR.COOLDOWN_PROJETIL(t1)
     addi t1, t1, -1
-    li t2, AREA_TILE
+    li t2, 1024
     mul t1, t1, t2
+
+    la a0, sprite_bruxa_feitico1
     add a0, a0, t1
 
     lw a1, entidade.X_Q12(t0)
@@ -217,11 +232,54 @@ JOGADOR.DRAW:
 
     jal PROC_IMPRIMIR_TEXTURA
 
-
+JOGADOR.DRAW._RET:
 
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
+
+# argumentos: a0 - entidade desse tipo envolvida na colisao
+#             a1 - a outra entidade envolvida na colisao
+#
+# retorno: a0 - se a entidade desse tipo estah viva ou nao
+JOGADOR.COLISAO:
+    lw t0, entidade.HOSTIL(a1)
+    beqz t0, JOGADOR.COLISAO._RET   # nao faz nada se a outra entidade nao for hostil
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+
+    lw t2, entidade.X_Q12(a1)
+    lw t3, entidade.X_Q12(a0)
+
+    li t1, 1024
+    lw t4, entidade.VELOCIDADE_X_Q12(a0)
+    bgt t2, t3, JOGADOR.COLISAO._KNOCKBACK_ESQUERDA 
+#   se a entidade estah a direita do jogador, joga ele para a esquerda
+#   senao, joga para a direita
+JOGADOR.COLISAO._KNOCKBACK_DIREITA:
+    add t4, t4, t1
+    j JOGADOR.COLISAO._CONT
+
+JOGADOR.COLISAO._KNOCKBACK_ESQUERDA:
+    sub t4, t4, t1
+
+JOGADOR.COLISAO._CONT:
+    sw t4, entidade.VELOCIDADE_X_Q12(a0)
+
+    lb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
+    bgtz t1, JOGADOR.COLISAO._RET   # ignora colisao se o jogador estah invencivel
+
+    li t1, 10
+    sb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
+
+JOGADOR.COLISAO._RET:
+    li a0, 1
+    ret
+
+
+
+
+
 
 # Argumentos:
 # a0 - X (inteiro)

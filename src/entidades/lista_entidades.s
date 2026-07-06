@@ -26,7 +26,7 @@ lista_entidades:
         .word JOGADOR.NOVO
         .word JOGADOR.PROC
         .word JOGADOR.DRAW
-        .word NULL_PROC
+        .word JOGADOR.COLISAO
 
         .word ENTIDADE_SCHNOZ
         .word SCHNOZ.TAMANHO_STRUCT
