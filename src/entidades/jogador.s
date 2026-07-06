@@ -344,3 +344,22 @@ SEM_ATUALIZACAO_TEMPO_VASSOURA:
 SEM_ATUALIZACAO_COOLDOWN_VASSOURA:
 
     ret
+
+## procedimento para avaliar se o jogador morre de queda
+
+## ARGUMENTOS:
+
+# a0 - struct basica do jogador
+
+## RETORNO:
+
+# a0 - se o jogador vive (1) ou morre (2)
+
+JOGADOR.MORTE_QUEDA:
+
+    ret
+
+JOGADOR.MORTE_QUEDA_RET:
+
+    ret
+

@@ -20,6 +20,8 @@
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
         .include "../assets/tilemaps/final_tilemap_1.s"
         .include "../assets/tilemaps/final_tilemap_1_colisao.s"
+        .include "../assets/tilemaps/boss-fight-tilemap.data"
+        .include "../assets/tilemaps/boss-fight-tilemap-colisao.data"
         .include "../assets/tiles_mapa/tileset.s"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"

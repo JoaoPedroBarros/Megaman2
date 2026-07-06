@@ -40,6 +40,11 @@ PROC_PROCESSAR_ENTRADAS:
         li t0, 'v'
         beq t1, t0, P_PE1_V
 
+        li t0, 'B'
+        beq t1, t0, P_PE1_B
+        li t0, 'b'
+        beq t1, t0, P_PE1_B
+
         li t0, 10
         beq t1, t0, P_PE1_ENTER
 
@@ -177,6 +182,15 @@ P_PE1_V:
         sb zero, entidade.NO_CHAO(a0)
 
         sw zero, entidade.VELOCIDADE_Y_Q12(a0)
+
+        j P_PE1_RET
+
+P_PE1_B:
+
+       #la a0, boss_fight_tilemap
+       #la a1, boss_fight_tilemap_colisao
+
+       #jal PROC_CARREGAR_MAPA
 
         j P_PE1_RET
 
