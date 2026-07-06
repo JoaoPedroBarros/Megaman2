@@ -18,14 +18,9 @@
 
         # ASSETS UTILIZADOS
         .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
-        .include "../assets/tiles_teste/data/playground_tilemap.s"
-        .include "../assets/tiles_teste/data/playground_tilemap_colisao.s"
-        .include "../assets/tiles_teste/data/preto0.s"
-        .include "../assets/tiles_teste/data/ceu1.s"
-        .include "../assets/tiles_teste/data/chao2.s"
-        .include "../assets/tiles_teste/data/chao3.s"
-        .include "../assets/tiles_teste/data/grama4.s"
-        .include "../assets/textura_teste.data"
+        .include "../assets/tilemaps/final_tilemap_1.s"
+        .include "../assets/tilemaps/final_tilemap_1_colisao.s"
+        .include "../assets/tiles_mapa/tileset.s"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
@@ -48,12 +43,12 @@ main:
         jal PROC_INICIALIZAR_HEAP
 
         # carrega o mapa
-        la a0, playground_tilemap
-        la a1, playground_tilemap_colisao
+        la a0, final_tilemap_1
+        la a1, final_tilemap_1_colisao
         jal PROC_CARREGAR_MAPA
        
         # carrega a textura
-        la t0, textura_teste
+        la t0, tileset
         sw t0, textura_mapa, t1
 
         # chama o procedimento de fase

@@ -16,18 +16,18 @@ PROC_FASE:
 
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
-        li a1, 200
-        li a2, 320
+        li a1, 30
+        li a2, 144
         jal PROC_ADICIONAR_ENTIDADE
 
         li a0, ENTIDADE_SCHNOZ
-        li a1, 250
-        li a2, 320
+        li a1, 150
+        li a2, 144
         jal PROC_ADICIONAR_ENTIDADE
 
         li a0, ENTIDADE_JUMPER
-        li a1, 220
-        li a2, 320
+        li a1, 250
+        li a2, 144
         jal PROC_ADICIONAR_ENTIDADE
 
         la a0, dialogo1teste

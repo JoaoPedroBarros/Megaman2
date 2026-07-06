@@ -160,7 +160,7 @@ EXEMPLO.DRAW:
         sw ra, (sp)
 
         mv t0, a0       # (struct)
-        la a0, playground_tilemap                   # textura
+        la a0, final_tilemap_1              # textura
         lw a1, entidade.X_Q12(t0)           # pos x
         lw a2, entidade.Y_Q12(t0)           # pos y
 
