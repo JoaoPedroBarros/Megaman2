@@ -28,7 +28,7 @@ PROJETIL_INIMIGO.NOVO:
     sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
     li t0, 1
-    sw zero, entidade.COLIDIVEL(a0)
+    sw t0, entidade.COLIDIVEL(a0)
     sw t0, entidade.HOSTIL(a0)
 
     li t0, FLAG_ENTIDADE_IGNORAR_PLATAFORMAS
