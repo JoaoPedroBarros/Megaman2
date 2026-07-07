@@ -48,6 +48,3 @@
         .eqv camera_y 4
         camera:
                 .word 0 0
-
-
-        .word 0xF0CAF0FA

@@ -147,7 +147,17 @@ JUMPER.DRAW:
     li a3, 32 
     li a4, 32
 
+    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lb t2, JUMPER.DIRECAO(t1)
+    bltz t2, JUMPER.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
+
     jal PROC_IMPRIMIR_TEXTURA
+    j JUMPER.DRAW._RET
+
+JUMPER.DRAW._INVERTIDO:
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+
+JUMPER.DRAW._RET:
 
     lw ra, 0(sp)
     addi sp, sp, 4

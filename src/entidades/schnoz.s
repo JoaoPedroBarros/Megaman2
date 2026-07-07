@@ -103,9 +103,17 @@ SCHNOZ.DRAW:
     li a3, 32 
     li a4, 32
 
+    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lb t2, SCHNOZ.DIRECAO(t1)
+    bltz t2, SCHNOZ.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
     jal PROC_IMPRIMIR_TEXTURA
+    j SCHNOZ.DRAW._RET
 
+SCHNOZ.DRAW._INVERTIDO:
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+
+SCHNOZ.DRAW._RET:
     lw ra, 0(sp)
     addi sp, sp, 4
     ret
