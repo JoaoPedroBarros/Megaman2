@@ -85,3 +85,14 @@ MACRO_DATA_QUEBRA_DE_LINHA: .string "\n"
         li a5, %grossura
 	jal PROC_IMPRIMIR_OUTLINE
 .end_macro
+
+.macro definir_hitbox(%entidade, %x, %y, %w, %h)
+	li t0, %x
+	sw t0, entidade.HITBOX_DESLOCAMENTO_X(%entidade)
+	li t0, %y
+	sw t0, entidade.HITBOX_DESLOCAMENTO_Y(%entidade)
+	li t0, %w
+	sw t0, entidade.HITBOX_LARGURA(%entidade)
+	li t0, %h
+	sw t0, entidade.HITBOX_ALTURA(%entidade)
+.end_macro

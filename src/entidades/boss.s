@@ -22,9 +22,7 @@ BOSS.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, 64 # o boss deve ser um pouco maior que o personagem
-    sw t0, entidade.ALTURA(a0)
-    sw t0, entidade.LARGURA(a0)
+    definir_hitbox(s0, 0, 0, 64, 64) #temporario, deve ser definido de acordo com o sprite de boss!
 
     li t0, 1
     sw t0, entidade.COLIDIVEL(a0)

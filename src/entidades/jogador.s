@@ -47,9 +47,8 @@ JOGADOR.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, 32
-    sw t0, entidade.ALTURA(a0)
-    sw t0, entidade.LARGURA(a0)
+    definir_hitbox(a0, 5, 6, 22, 26)
+    
     sw zero, entidade.HOSTIL(a0)
     sw zero, entidade.FLAGS(a0)
 
