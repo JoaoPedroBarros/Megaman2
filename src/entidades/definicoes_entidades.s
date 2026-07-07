@@ -19,18 +19,20 @@ struct_basica_entidade:
         .eqv entidade.Y_Q12                             12      # posicao Y (Fixed-point Q12!!!)
         .eqv entidade.VELOCIDADE_X_Q12                  16      # velocidade X (Fixed-point Q12!!!)
         .eqv entidade.VELOCIDADE_Y_Q12                  20      # velocidade Y (Fixed-point Q12!!!)
-        .eqv entidade.LARGURA                           24      # largura em pixeis
-        .eqv entidade.ALTURA                            28      # altura em pixeis
-        .eqv entidade.COLIDIVEL                         32      # se a entidade colide com outras entidades
-        .eqv entidade.HOSTIL                            36      # se a entidade eh hostil ao jogador
-        .eqv entidade.NO_CHAO                           40      # se a entidade estah no chao atualmente ou nao (relevante
+        .eqv entidade.HITBOX_DESLOCAMENTO_X             24      # deslocamento em X int da hitbox em pixeis (desde o canto superior esquerdo)
+        .eqv entidade.HITBOX_DESLOCAMENTO_Y             28      # deslocamento em Y int da hitbox em pixeis (desde o canto superior esquerdo)
+        .eqv entidade.HITBOX_LARGURA                    32      # largura da hitbox em pixeis
+        .eqv entidade.HITBOX_ALTURA                     36      # altura da hitbox em pixeis
+        .eqv entidade.COLIDIVEL                         40      # se a entidade colide com outras entidades
+        .eqv entidade.HOSTIL                            44      # se a entidade eh hostil ao jogador
+        .eqv entidade.NO_CHAO                           48      # se a entidade estah no chao atualmente ou nao (relevante
                                                                 # apenas se a entidade sofrer gravidade)
         
-        .eqv entidade.STRUCT_ESPECIFICA                 44       # referencia para a struct especifica da entidade
+        .eqv entidade.STRUCT_ESPECIFICA                 52       # referencia para a struct especifica da entidade
 
         # adicione mais atributos conforme necessario e atualize o tamanho
         
-        .eqv struct_basica_entidade.TAMANHO             48      # quantidade de bytes necessaria por atributo (1 word por atr)
+        .eqv struct_basica_entidade.TAMANHO             56      # quantidade de bytes necessaria para a struct (1 word por atr)
 
 # aqui eh onde as referencias para cada entidade serah guardada
 # 3 words por entidade:

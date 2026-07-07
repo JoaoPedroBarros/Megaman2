@@ -26,9 +26,7 @@ JUMPER.NOVO:
     sw a1, entidade.X_Q12(a0) # armazena os valores na struct basica
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, 32 # valor atual, pode mudar a depender do sprite final
-    sw t0, entidade.ALTURA(a0)
-    sw t0, entidade.LARGURA(a0)
+    definir_hitbox(a0, 8, 6, 17, 26)    # temporario! deve mudar de acordo com o novo sprite
 
     li t0, 1
     sw t0, entidade.COLIDIVEL(a0) # o inimigo serah colidivel
@@ -75,7 +73,7 @@ JUMPER.PROC:
     srai a1, a1, 12         # corrige para inteiro
     lw a2, entidade.Y_Q12(s0)
     srai a2, a2, 12         # corrige para inteiro
-    addi a1, a1, entidade.LARGURA
+    addi a1, a1, entidade.HITBOX_LARGURA #??????
     li a0, ENTIDADE_PROJETIL_INIMIGO
     jal PROC_ADICIONAR_ENTIDADE
 

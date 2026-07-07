@@ -29,16 +29,14 @@ SCHNOZ.NOVO:
     sw a1, entidade.X_Q12(a0) # armazena na struct generica
     sw a2, entidade.Y_Q12(a0)
 
+    definir_hitbox(a0, 8, 6, 17, 26)    # temporario! deve mudar de acordo com o novo sprite
+
     li t0, SCHNOZ.VELOCIDADE
     neg t0, t0
     sw t0, entidade.VELOCIDADE_X_Q12(a0)
     sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
     sw zero, entidade.FLAGS(a0) # nenhum comportamento especial de colisao!
-
-    li t0, 32 # pode mudar a depender do sprite final
-    sw t0, entidade.LARGURA(a0) 
-    sw t0, entidade.ALTURA(a0)
 
     li t0, 1 # o inimigo serah colidivel e hostil
     sw t0, entidade.COLIDIVEL(a0)
