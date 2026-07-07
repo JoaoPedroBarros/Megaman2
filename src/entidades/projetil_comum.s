@@ -84,8 +84,16 @@ PROJETIL_COMUM.DRAW:
         li a3, 16
         li a4, 16
 
-        jal PROC_IMPRIMIR_TEXTURA
+        lw t1, entidade.VELOCIDADE_X_Q12(t0)
+        bltz t1, PROJETIL_COMUM.DRAW._IMPRIMIR_INVERTIDO
 
+        jal PROC_IMPRIMIR_TEXTURA
+        j PROJETIL_COMUM.DRAW._RET
+
+PROJETIL_COMUM.DRAW._IMPRIMIR_INVERTIDO:
+        jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+
+PROJETIL_COMUM.DRAW._RET:
         lw ra, (sp)
         addi sp, sp, 4
         ret
@@ -108,6 +116,16 @@ PROJETIL_COMUM.COLISAO:
         # se destroi quando colidir com uma entidade hostil!!!
         lw t0, entidade.HOSTIL(a1)
         seqz a0, t0
+
+        #...exceto quando for um projetil inimigo
+        lw t0, entidade.TIPO(a1)
+        li t1, ENTIDADE_PROJETIL_INIMIGO
+        sub t0, t0, t1
+        
+        seqz t0, t0     # t0 = other.tipo != projetil_inimigo
+
+        or a0, a0, t0  # nao se destroi se (!other.hostil || other.tipo != projetil_inimigo)
+
         ret
 
 
