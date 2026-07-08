@@ -9,6 +9,7 @@
 .eqv ENTIDADE_SCHNOZ                                    3
 .eqv ENTIDADE_JUMPER                                    4
 .eqv ENTIDADE_PROJETIL_INIMIGO                          5
+.eqv ENTIDADE_BOSS                                      6
 
 .data
 

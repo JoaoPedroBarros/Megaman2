@@ -189,7 +189,7 @@ P_PE1_V:
 
         j P_PE1_RET
 
-P_PE1_B:
+P_PE1_B: ## APENAS PARA DESENVOLVIMENTO - tirar na versao final
 
        j JOGADOR.TRANSICAO_BOSS
 

@@ -49,6 +49,13 @@ lista_entidades:
         .word PROJETIL_INIMIGO.DRAW
         .word PROJETIL_INIMIGO.COLISAO
 
+        .word ENTIDADE_BOSS
+        .word BOSS.TAMANHO_STRUCT
+        .word BOSS.NOVO
+        .word BOSS.PROC
+        .word BOSS.DRAW
+        .word BOSS.COLISAO
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 24       # sao 6 words por entrada!

@@ -26,6 +26,7 @@
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
+        .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -34,9 +35,11 @@
         .include "entidades/schnoz.s"
         .include "entidades/jumper.s"
         .include "entidades/projetil_inimigo.s"
+        .include "entidades/boss.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"
+        .include "aritmetica/lemniscata_bernoulli.data"
 
 .text
 main:

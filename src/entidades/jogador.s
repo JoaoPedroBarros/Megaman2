@@ -455,6 +455,11 @@ JOGADOR.TRANSICAO_BOSS:
     la a1, boss_fight_tilemap_colisao # carrega o tilemap de colisao
     jal PROC_CARREGAR_MAPA # chama o procedimento para armazenar os arquivos na memoria
 
+    li a0, ENTIDADE_BOSS
+    li a1, 144
+    li a2, 104
+    jal PROC_ADICIONAR_ENTIDADE
+
     j JOGADOR.ANALISE_MAPA_RET # retorna
 
 
