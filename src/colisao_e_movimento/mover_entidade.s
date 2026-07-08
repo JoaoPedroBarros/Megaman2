@@ -20,24 +20,32 @@ PROC_MOVER_ENTIDADE:
 
 P_ME1_EIXO_X:
         lw t5, entidade.X_Q12(s0)               
-        srai t0, t5, 12                         # t0 = esquerda_antiga = (int) entidade.x
-        lw t3, entidade.LARGURA(s0)     
-        add t1, t3, t0
-        addi t1, t1, -1                         # t1 = direita_antiga = (int) entidade.x + entidade.largura - 1
+        srai t0, t5, 12                         
+        lw t6, entidade.HITBOX_DESLOCAMENTO_X(s0)
+        add t0, t0, t6                          # t0 = esquerda_antiga = entidade.hitbox_x
 
         lw t4, entidade.VELOCIDADE_X_Q12(s0)    # t4 = entidade.velocidade_x
         add t2, t5, t4                          
-        srai t2, t2, 12                         # t2 = esquerda_nova = (int) (entidade.x + entidade.velocidade_x)
-        add t3, t3, t2
-        addi t3, t3, -1                         # t3 = direita_nova = esquerda_nova + entidade.largura - 1
+        srai t2, t2, 12                         
+        add t2, t2, t6                          # t2 = esquerda_nova = (int) (entidade.x + entidade.velocidade_x) + entidade.hitbox_x
 
-        lw t6, entidade.Y_Q12(s0)       
-        srai t6, t6, 12        
-        srai s1, t6, LOG2_TAMANHO_TILE          # s1 = tile_cima = (int) entidade.y / TAMANHO_TILE 
+        lw t3, entidade.HITBOX_LARGURA(s0)     
+        add t1, t3, t0
+        addi t1, t1, -1                         # t1 = direita_antiga = entidade.hitbox_x + entidade.hitbox_largura - 1
+
+        add t3, t3, t2
+        addi t3, t3, -1                         # t3 = direita_nova = esquerda_nova + entidade.hitbox_largura - 1
+
+        lw t5, entidade.Y_Q12(s0)       
+        srai t5, t5, 12        
+        lw t6, entidade.HITBOX_DESLOCAMENTO_Y(s0)
+        add t6, t5, t6
+        srai s1, t6, LOG2_TAMANHO_TILE          # s1 = tile_cima = (int) entidade.hitbox_y / TAMANHO_TILE 
+
         addi s2, t6, -1
-        lw t6, entidade.ALTURA(s0)
+        lw t6, entidade.HITBOX_ALTURA(s0)
         add s2, s2, t6
-        srai s2, s2, LOG2_TAMANHO_TILE          # s2 = tile_baixo = ((int) entidade.y + entidade.altura - 1) / TAMANHO_TILE
+        srai s2, s2, LOG2_TAMANHO_TILE          # s2 = tile_baixo = ((int) entidade.hitbox_y + entidade.hitbox_altura - 1) / TAMANHO_TILE
 
         beqz t4, P_ME1_EIXO_Y                   # if (entidade.velocidade_x == 0) goto eixo_y
         blt t0, t2, P_ME1_VELOCIDADE_X_POSITIVA # if (esquerda_antiga < esquerda_nova) goto x_positivo
@@ -69,10 +77,12 @@ P_ME1_EIXO_X:
                                
                                 sw zero, entidade.VELOCIDADE_X_Q12(s0)  # entidade.velocidade_x = 0
                                 slli t0, s5, LOG2_TAMANHO_TILE                 
-                                lw t1, entidade.LARGURA(s0)
+                                lw t1, entidade.HITBOX_LARGURA(s0)
                                 sub t0, t0, t1                  
+                                lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
+                                sub t0, t0, t1
                                 slli t0, t0, 12
-                                sw t0, entidade.X_Q12(s0)       # entidade.x = (int_q12) (coluna * TAMANHO_TILE - entidade.largura)
+                                sw t0, entidade.X_Q12(s0)       # entidade.x = (int_q12) (coluna * TAMANHO_TILE - entidade.hitbox_largura - entidade.hitbox_deslocamento_x)
                                 j P_ME1_EIXO_Y                  # goto eixo_y
 
                                 P_ME1_FOR_LOOP_LINHA_XP_CONTINUE:
@@ -108,8 +118,11 @@ P_ME1_EIXO_X:
                                 sw zero, entidade.VELOCIDADE_X_Q12(s0)  # entidade.velocidade_x = 0
                                 addi t0, s5, 1
                                 slli t0, t0, LOG2_TAMANHO_TILE                                
+                                lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
+                                sub t0, t0, t1
+
                                 slli t0, t0, 12
-                                sw t0, entidade.X_Q12(s0)       # entidade.x = (int_q12) ((coluna + 1) * TAMANHO_TILE)
+                                sw t0, entidade.X_Q12(s0)       # entidade.x = (int_q12) ((coluna + 1) * TAMANHO_TILE) - entidade.hitbox_x
                                 j P_ME1_EIXO_Y                  # goto eixo_y
 
                                 P_ME1_FOR_LOOP_LINHA_XN_CONTINUE:
@@ -129,24 +142,33 @@ P_ME1_EIXO_X_APLICAR:
 
 P_ME1_EIXO_Y:
         lw t5, entidade.Y_Q12(s0)               
-        srai t0, t5, 12                         # t0 = topo_antigo = (int) entidade.y
-        lw t3, entidade.ALTURA(s0)     
+        srai t0, t5, 12                         
+        lw t6, entidade.HITBOX_DESLOCAMENTO_Y(s0)
+        add t0, t0, t6                          # t0 = topo_antigo = entidade.hitbox_y
+
+        lw t3, entidade.HITBOX_ALTURA(s0)     
         add t1, t3, t0
-        addi t1, t1, -1                         # t1 = base_antiga = (int) entidade.y + entidade.altura - 1
+        addi t1, t1, -1                         # t1 = base_antiga = entidade.hitbox_y + entidade.altura - 1
 
         lw t4, entidade.VELOCIDADE_Y_Q12(s0)    # t4 = entidade.velocidade_y
         add t2, t5, t4                          
-        srai t2, t2, 12                         # t2 = topo_novo = (int) (entidade.y + entidade.velocidade_y)
+        srai t2, t2, 12                         
+        lw t6, entidade.HITBOX_DESLOCAMENTO_Y(s0)
+        add t2, t2, t6 # t2 = topo_novo = (int) (entidade.y + entidade.velocidade_y)
+
         add t3, t3, t2
         addi t3, t3, -1                         # t3 = base_nova = topo_novo + entidade.altura - 1
 
         lw t6, entidade.X_Q12(s0)       
         srai t6, t6, 12        
-        srai s1, t6, LOG2_TAMANHO_TILE          # s1 = tile_esquerda = (int) entidade.x / TAMANHO_TILE 
+        lw t5, entidade.HITBOX_DESLOCAMENTO_X(s0)
+        add t6, t6, t5
+        srai s1, t6, LOG2_TAMANHO_TILE          # s1 = tile_esquerda = entidade.hitbox_x / TAMANHO_TILE 
+
         addi s2, t6, -1
-        lw t6, entidade.LARGURA(s0)
+        lw t6, entidade.HITBOX_LARGURA(s0)
         add s2, s2, t6
-        srai s2, s2, LOG2_TAMANHO_TILE          # s2 = tile_direita = ((int) entidade.x + entidade.largura - 1) / TAMANHO_TILE
+        srai s2, s2, LOG2_TAMANHO_TILE          # s2 = tile_direita = (entidade.hitbox_x + entidade.hitbox_largura - 1) / TAMANHO_TILE
 
         beqz t4, P_ME1_RET                      # if (entidade.velocidade_x == 0) ret
         blt t0, t2, P_ME1_VELOCIDADE_Y_POSITIVA # if (topo_antigo < topo_novo) goto y_positivo
@@ -192,10 +214,12 @@ P_ME1_EIXO_Y:
                                
                                 sw zero, entidade.VELOCIDADE_Y_Q12(s0)  # entidade.velocidade_y = 0
                                 slli t0, s5, LOG2_TAMANHO_TILE                 
-                                lw t1, entidade.ALTURA(s0)
+                                lw t1, entidade.HITBOX_ALTURA(s0)
                                 sub t0, t0, t1                  
+                                lw t1, entidade.HITBOX_DESLOCAMENTO_Y(s0)
+                                sub t0, t0, t1
                                 slli t0, t0, 12
-                                sw t0, entidade.Y_Q12(s0)       # entidade.y = (int_q12) (linha * TAMANHO_TILE - entidade.altura)
+                                sw t0, entidade.Y_Q12(s0)       # entidade.y = (int_q12) (linha * TAMANHO_TILE - entidade.hitbox_altura - entidade.hitbox_deslocamento_y)
                                 li t0, 1
                                 sw t0, entidade.NO_CHAO(s0)
                                 j P_ME1_RET                     # return
@@ -234,9 +258,11 @@ P_ME1_EIXO_Y:
                                
                                 sw zero, entidade.VELOCIDADE_Y_Q12(s0)  # entidade.velocidade_y = 0
                                 addi t0, s5, 1
-                                slli t0, t0, LOG2_TAMANHO_TILE                                
+                                slli t0, t0, LOG2_TAMANHO_TILE            
+                                lw t1, entidade.HITBOX_DESLOCAMENTO_Y(s0)
+                                sub t0, t0, t1                    
                                 slli t0, t0, 12
-                                sw t0, entidade.Y_Q12(s0)       # entidade.x = (int_q12) ((linha + 1) * TAMANHO_TILE)
+                                sw t0, entidade.Y_Q12(s0)       # entidade.x = (int_q12) ((linha + 1) * TAMANHO_TILE) - entidade.hitbox_deslocamento_y
                                 j P_ME1_RET                     # return
 
                                 P_ME1_FOR_LOOP_COLUNA_YN_CONTINUE:

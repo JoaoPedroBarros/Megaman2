@@ -6,17 +6,19 @@
 
 JOGADOR.struct:
     .eqv JOGADOR.VIDA 0
-    .eqv JOGADOR.MUNICAO 1 
-    .eqv JOGADOR.MARCADOR_ANIMACAO 2
-    .eqv JOGADOR.DIRECAO 3
-    .eqv JOGADOR.COOLDOWN_PROJETIL 4
-    .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 5
+    .eqv JOGADOR.VIDA_MAXIMA 1
+    .eqv JOGADOR.MUNICAO 2
+    .eqv JOGADOR.MARCADOR_ANIMACAO 3
+    .eqv JOGADOR.DIRECAO 4
+    .eqv JOGADOR.COOLDOWN_PROJETIL 5
     .eqv JOGADOR.TEMPO_USO_VASSOURA 6
     .eqv JOGADOR.COOLDOWN_USO_VASSOURA 8
     .eqv JOGADOR.FLAG_VASSOURA 10
     .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 11
+    .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 12
+    
 
-.eqv JOGADOR.TAMANHO_STRUCT 12
+.eqv JOGADOR.TAMANHO_STRUCT 13
 
 .eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
@@ -45,9 +47,8 @@ JOGADOR.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
-    li t0, 32
-    sw t0, entidade.ALTURA(a0)
-    sw t0, entidade.LARGURA(a0)
+    definir_hitbox(a0, 5, 6, 22, 26)
+    
     sw zero, entidade.HOSTIL(a0)
     sw zero, entidade.FLAGS(a0)
 
@@ -55,6 +56,7 @@ JOGADOR.NOVO:
 
     li t1, 10
     sb t1, JOGADOR.VIDA(t0)
+    sb t1, JOGADOR.VIDA_MAXIMA(t0)
     sb t1, JOGADOR.COOLDOWN_PROJETIL(t0)
 
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
@@ -197,20 +199,22 @@ JOGADOR_VIVE:
 
 JOGADOR.DRAW:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
 
-    mv t0, a0
-    lw t1, entidade.STRUCT_ESPECIFICA(t0)
-    lbu t2, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t1)
+    mv s0, a0
+    lw t6, entidade.STRUCT_ESPECIFICA(s0)
+    lbu t2, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t6)
     andi t2, t2, 0x2
     seqz t2, t2
-    beqz t2, JOGADOR.DRAW._RET
+    beqz t2, JOGADOR.DRAW._RENDERIZAR_GUI   # se o jogador estah invencivel, faz ele piscar:
+#                                             apenas imprime ele quando o n mod 4 == 2 | 3.
 
 # por enquanto, como so temos um sprite, nao vou adicionar a direcao e a animacao. No entanto, eh apenas uma
 # aritmetica de ponteiros
 
-    lb t1, JOGADOR.COOLDOWN_PROJETIL(t1)
+    lb t1, JOGADOR.COOLDOWN_PROJETIL(t6)
     addi t1, t1, -1
     li t2, 1024
     mul t1, t1, t2
@@ -218,8 +222,8 @@ JOGADOR.DRAW:
     la a0, sprite_bruxa_feitico1
     add a0, a0, t1
 
-    lw a1, entidade.X_Q12(t0)
-    lw a2, entidade.Y_Q12(t0)
+    lw a1, entidade.X_Q12(s0)
+    lw a2, entidade.Y_Q12(s0)
 
     # pega o valor inteiro
     srai a1, a1, 12
@@ -236,12 +240,25 @@ JOGADOR.DRAW:
 
     addi a0, a0, 8 
 
+    lb t0, JOGADOR.DIRECAO(t6)
+    bltz t0, JOGADOR.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
+
     jal PROC_IMPRIMIR_TEXTURA
+    j JOGADOR.DRAW._RENDERIZAR_GUI
+
+JOGADOR.DRAW._INVERTIDO:
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+
+JOGADOR.DRAW._RENDERIZAR_GUI:
+
+    mv a0, s0
+    jal PROC_RENDERIZAR_GUI
 
 JOGADOR.DRAW._RET:
 
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 # argumentos: a0 - entidade desse tipo envolvida na colisao
@@ -250,7 +267,7 @@ JOGADOR.DRAW._RET:
 # retorno: a0 - se a entidade desse tipo estah viva ou nao
 JOGADOR.COLISAO:
     lw t0, entidade.HOSTIL(a1)
-    beqz t0, JOGADOR.COLISAO._RET   # nao faz nada se a outra entidade nao for hostil
+    beqz t0, JOGADOR.COLISAO._VIVO   # nao faz nada se a outra entidade nao for hostil
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
@@ -273,13 +290,22 @@ JOGADOR.COLISAO._CONT:
     sw t4, entidade.VELOCIDADE_X_Q12(a0)
 
     lb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
-    bgtz t1, JOGADOR.COLISAO._RET   # ignora colisao se o jogador estah invencivel
+    bgtz t1, JOGADOR.COLISAO._VIVO  # ignora colisao se o jogador estah invencivel
+
+    lw t1, JOGADOR.VIDA(t0)         # senao, decrementa vida
+    addi t1, t1, -1
+    sw t1, JOGADOR.VIDA(t0)
+    blez t1, JOGADOR.COLISAO._MORTO     # morre se vida >=0
 
     li t1, 10
     sb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
 
-JOGADOR.COLISAO._RET:
+JOGADOR.COLISAO._VIVO:
     li a0, 1
+    ret
+
+JOGADOR.COLISAO._MORTO:
+    li a0, 0
     ret
 
 

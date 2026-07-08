@@ -22,6 +22,8 @@ PROJETIL_INIMIGO.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
+    definir_hitbox(a0, 2, 3, 12, 10)
+
     li t0, 5
     slli t0, t0, 12
     sw t0, entidade.VELOCIDADE_X_Q12(a0)
@@ -33,10 +35,6 @@ PROJETIL_INIMIGO.NOVO:
 
     li t0, FLAG_ENTIDADE_IGNORAR_PLATAFORMAS
     sw t0, entidade.FLAGS(a0)
-
-    li t0, 16
-    sw t0, entidade.ALTURA(a0)
-    sw t0, entidade.LARGURA(a0)
 
     ret
 
@@ -81,7 +79,16 @@ PROJETIL_INIMIGO.DRAW:
     li a3, 16
     li a4, 16
 
+    lw t1, entidade.VELOCIDADE_X_Q12(t0)
+    bltz t1, PROJETIL_INIMIGO.DRAW._IMPRIMIR_INVERTIDO
+
     jal PROC_IMPRIMIR_TEXTURA
+    j PROJETIL_INIMIGO.DRAW._RET
+
+PROJETIL_INIMIGO.DRAW._IMPRIMIR_INVERTIDO:
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+
+PROJETIL_INIMIGO.DRAW._RET:
 
     lw ra, (sp)
     addi sp, sp, 4

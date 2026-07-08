@@ -147,7 +147,11 @@ P_PE1_ENTER:
         srai a1, a1, 12         # corrige para inteiro
         lw a2, entidade.Y_Q12(s0)
         srai a2, a2, 12         # corrige para inteiro
-        addi a1, a1, entidade.LARGURA
+
+        lw t0, entidade.HITBOX_LARGURA(s0)
+        lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
+        add t0, t0, t1
+        add a1, a1, t0  # x += largura e deslocamento
         li a0, ENTIDADE_PROJETIL_COMUM
         jal PROC_ADICIONAR_ENTIDADE
 
