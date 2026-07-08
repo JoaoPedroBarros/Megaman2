@@ -16,9 +16,10 @@ JOGADOR.struct:
     .eqv JOGADOR.FLAG_VASSOURA 10
     .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 11
     .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 12
+    .eqv JOGADOR.FLAG_BOSSFIGHT 13
     
 
-.eqv JOGADOR.TAMANHO_STRUCT 13
+.eqv JOGADOR.TAMANHO_STRUCT 14
 
 .eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
@@ -73,6 +74,8 @@ JOGADOR.NOVO:
     li t1, 1
     sb t1, JOGADOR.DIRECAO(t0)
     sw t1, entidade.COLIDIVEL(a0)
+
+    sb zero, JOGADOR.FLAG_BOSSFIGHT(t0)
 
     # guarda os limites do mapa
     la t0, tilemap
@@ -134,7 +137,7 @@ SEM_GRAVIDADE:
     jal JOGADOR.MODO_VASSOURA
 
     mv a0, s0
-    jal JOGADOR.MORTE_QUEDA
+    jal JOGADOR.ANALISE_MAPA
 
     mv a0, s0
 
@@ -175,6 +178,10 @@ NO_UPDATE_COOLDOWN:
     mv a0, s0
     jal PROC_APLICAR_FRICCAO  # aplica friccao normal
 
+    lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lw t1, JOGADOR.FLAG_BOSSFIGHT(t0)
+
+    bgtz t1, SEM_CORRECAO_CAMERA
 
     lw a0, entidade.X_Q12(s0)
     lw a1, entidade.Y_Q12(s0)
@@ -182,6 +189,8 @@ NO_UPDATE_COOLDOWN:
     srai a1, a1, 12
     jal JOGADOR._CORRIGIR_CAMERA
     jal PROC_POSICIONAR_CAMERA # posiciona a camera no jogador
+
+SEM_CORRECAO_CAMERA:
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
     lb t1, JOGADOR.VIDA(t0) # carrega a vida
@@ -383,7 +392,7 @@ SEM_ATUALIZACAO_COOLDOWN_VASSOURA:
 
 # a0 - se o jogador vive (1) ou morre (0)
 
-JOGADOR.MORTE_QUEDA:
+JOGADOR.ANALISE_MAPA:
 
     addi sp, sp, -8
     sw ra, 0(sp)
@@ -392,7 +401,7 @@ JOGADOR.MORTE_QUEDA:
     mv s0, a0
 
     lb t0, entidade.NO_CHAO(a0) # so analisa se o jogador estiver caindo, economiza algumas instrucoes
-    bnez t0, JOGADOR.MORTE_QUEDA_RET # se nao, pula pro retorno e mantem a unidade viva
+    bnez t0, JOGADOR.ANALISE_MAPA_RET # se nao, pula pro retorno e mantem a unidade viva
 
     lw a1, entidade.Y_Q12(a0) # carrega Y
     lw a0, entidade.X_Q12(a0) # carrega X
@@ -402,18 +411,50 @@ JOGADOR.MORTE_QUEDA:
 
     jal PROC_CALCULAR_TILE_COLISAO # procedimento para calcular o tile atual no mapa de colisao
 
-    li t0, 4 # 4 eh o tile de morte. Se der positivo, por enquanto fecha o programa. Depois, fazer tela de game over
-    bne a0, t0, JOGADOR.MORTE_QUEDA_RET
+    li t0, TILE_TRANSICAO_BOSS
+    beq a0, t0, JOGADOR.TRANSICAO_BOSS
 
-    mv a0, s0
+    li t0, TILE_COLISAO_MORTE # 4 eh o tile de morte. Se der positivo, por enquanto fecha o programa. Depois, fazer tela de game over
+    beq a0, t0, JOGADOR.MORTE_QUEDA
 
-    lw t0, entidade.STRUCT_ESPECIFICA(a0)
-    sw zero, JOGADOR.VIDA(t0)
-
-JOGADOR.MORTE_QUEDA_RET:
+JOGADOR.ANALISE_MAPA_RET:
 
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
     ret
+
+JOGADOR.MORTE_QUEDA:
+
+    mv a0, s0
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    sw zero, JOGADOR.VIDA(t0) # soh seta a vida pra zero. O proc padrao mata a entidade
+
+    j JOGADOR.ANALISE_MAPA_RET
+
+JOGADOR.TRANSICAO_BOSS:
+
+    mv a0, s0 ## carrega referencia pra struct basica do jogador
+
+    li t0, 32
+    slli t0, t0, 12
+    
+    sw t0, entidade.X_Q12(a0) # reinicia as coordenadas para o jogador ir pro inicio da arena
+    sw zero, entidade.Y_Q12(a0)
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    li t1, 1
+    sw t1, JOGADOR.FLAG_BOSSFIGHT(t0) # seta a flag de bossfight para 1
+
+    la t0, camera
+    sw zero, camera_x(t0) # reseta a camera para 0. A arena tem o tamanho da tela, entao deixar a camera livre estraga
+    sw zero, camera_y(t0)
+
+    la a0, boss_fight_tilemap # carrega o tilemap de sprites
+    la a1, boss_fight_tilemap_colisao # carrega o tilemap de colisao
+    jal PROC_CARREGAR_MAPA # chama o procedimento para armazenar os arquivos na memoria
+
+    j JOGADOR.ANALISE_MAPA_RET # retorna
+
 

@@ -9,6 +9,7 @@
         .eqv TILE_COLISAO_PLATAFORMA    2
         .eqv TILE_COLISAO_PERIGO        3
         .eqv TILE_COLISAO_MORTE         4
+        .eqv TILE_TRANSICAO_BOSS        5
 
         # FLAGS DIRECIONAIS DE TILES DE COLISAO 
         flags_tile_colisao:

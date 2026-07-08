@@ -191,12 +191,7 @@ P_PE1_V:
 
 P_PE1_B:
 
-       #la a0, boss_fight_tilemap
-       #la a1, boss_fight_tilemap_colisao
-
-       #jal PROC_CARREGAR_MAPA
-
-        j P_PE1_RET
+       j JOGADOR.TRANSICAO_BOSS
 
 P_PE1_ESC:
         # termina execucao
