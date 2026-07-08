@@ -385,8 +385,11 @@ SEM_ATUALIZACAO_COOLDOWN_VASSOURA:
 
 JOGADOR.MORTE_QUEDA:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
+
+    mv s0, a0
 
     lb t0, entidade.NO_CHAO(a0) # so analisa se o jogador estiver caindo, economiza algumas instrucoes
     bnez t0, JOGADOR.MORTE_QUEDA_RET # se nao, pula pro retorno e mantem a unidade viva
@@ -402,13 +405,15 @@ JOGADOR.MORTE_QUEDA:
     li t0, 4 # 4 eh o tile de morte. Se der positivo, por enquanto fecha o programa. Depois, fazer tela de game over
     bne a0, t0, JOGADOR.MORTE_QUEDA_RET
 
-    li a7, 10 # ecall que fecha o programa
-    ecall
+    mv a0, s0
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    sw zero, JOGADOR.VIDA(t0)
 
 JOGADOR.MORTE_QUEDA_RET:
 
-    li a0, 1
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
