@@ -114,6 +114,7 @@ JOGADOR.PROC:
     addi t1, t1, -1
     sb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0) 
 
+
 JOGADOR.PROC._CONT0:
     lb t1, JOGADOR.FLAG_VASSOURA(t0)
 
@@ -129,6 +130,11 @@ SEM_GRAVIDADE:
 
     mv a0, s0
     jal JOGADOR.MODO_VASSOURA
+
+    mv a0, s0
+    jal JOGADOR.MORTE_QUEDA
+
+    mv a0, s0
 
     lw t2, entidade.STRUCT_ESPECIFICA(s0)
     # Verificar se precisamos decrementar o temporazidor
@@ -277,10 +283,6 @@ JOGADOR.COLISAO._RET:
     ret
 
 
-
-
-
-
 # Argumentos:
 # a0 - X (inteiro)
 # a1 - Y (inteiro)
@@ -353,13 +355,34 @@ SEM_ATUALIZACAO_COOLDOWN_VASSOURA:
 
 ## RETORNO:
 
-# a0 - se o jogador vive (1) ou morre (2)
+# a0 - se o jogador vive (1) ou morre (0)
 
 JOGADOR.MORTE_QUEDA:
 
-    ret
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    lb t0, entidade.NO_CHAO(a0) # so analisa se o jogador estiver caindo, economiza algumas instrucoes
+    bnez t0, JOGADOR.MORTE_QUEDA_RET # se nao, pula pro retorno e mantem a unidade viva
+
+    lw a1, entidade.Y_Q12(a0) # carrega Y
+    lw a0, entidade.X_Q12(a0) # carrega X
+
+    srai a1, a1, 12 # transforma ambos em Q0
+    srai a0, a0, 12
+
+    jal PROC_CALCULAR_TILE_COLISAO # procedimento para calcular o tile atual no mapa de colisao
+
+    li t0, 4 # 4 eh o tile de morte. Se der positivo, por enquanto fecha o programa. Depois, fazer tela de game over
+    bne a0, t0, JOGADOR.MORTE_QUEDA_RET
+
+    li a7, 10 # ecall que fecha o programa
+    ecall
 
 JOGADOR.MORTE_QUEDA_RET:
 
+    li a0, 1
+    lw ra, 0(sp)
+    addi sp, sp, 4
     ret
 

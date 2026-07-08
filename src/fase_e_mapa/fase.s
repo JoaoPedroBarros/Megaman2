@@ -2,7 +2,7 @@
 # (sem argumentos e retorno)
 
 .data 
-        dialogo1nome: .asciz "Narrador"
+        dialogo1nome: .asciz "FLORA:\n"
         dialogo1teste: .asciz "Lorem ipsum dolor sit amet."
 
         dialogo2nome: .asciz "Vento"
