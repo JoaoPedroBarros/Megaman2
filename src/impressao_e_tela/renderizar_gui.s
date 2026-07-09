@@ -37,24 +37,24 @@ P_RG1_IMPRIMIR_BARRA_DE_VIDA:
         jal PROC_IMPRIMIR_OUTLINE       # imprime um outline ao redor
 
 P_RG1_IMPRIMIR_BARRA_DE_MUNICAO:
-        lb t0, JOGADOR.VIDA_MAXIMA(s1)
-        lb t1, JOGADOR.VIDA(s1)
+        lb t0, JOGADOR.MUNICAO_MAXIMA(s1)
+        lb t1, JOGADOR.MUNICAO_PROJETIL_VENTO(s1)
 
         li t2, 100
         mul t1, t1, t2
         div t1, t1, t0  # pega a porcentagem de vida do jogador
 
-        li a0, 0x2D             # barra amarela
-        li a1, 16               # x1 = 16
-        li a3, 20               # x2 = 20
+        li a0, 0xF0             # barra amarela
+        li a1, 32               # x1 = 16
+        li a3, 36               # x2 = 20
         li a4, 200              # y2 = 200
         sub a2, a4, t1          # y1 = 200 - % 
         jal PROC_IMPRIMIR_RETANGULO
 
         li a0, 0x00
-        li a1, 16
+        li a1, 32
         li a2, 100
-        li a3, 20
+        li a3, 36
         li a4, 200
         li a5, 1        # grossura 1
         jal PROC_IMPRIMIR_OUTLINE       # imprime um outline ao redor

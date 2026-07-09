@@ -36,7 +36,6 @@ JUMPER.NOVO:
     lw t0, entidade.STRUCT_ESPECIFICA(a0) # carrega a struct especifica
 
     li t1, 25 # o jumper terah um pouco menos de vida, visto que tem movimentacao mais complexa
-    slli t1, t1, 12
     sw t1, JUMPER.VIDA(t0)
     sb zero, JUMPER.COOLDOWN_MOVIMENTO(t0)
 

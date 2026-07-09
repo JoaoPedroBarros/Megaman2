@@ -205,6 +205,12 @@ P_PE1_C:
         li t1, 10
         bne t0, t1, P_PE1_RET
 
+        lb t0, JOGADOR.MUNICAO_PROJETIL_VENTO(t2)
+        blez t0, P_PE1_RET
+
+        addi t0, t0, -1
+        sb t0, JOGADOR.MUNICAO_PROJETIL_VENTO(t2)
+
         li t0, 0
         sb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
         mv s0, a0                       # guarda a entidade jogador
