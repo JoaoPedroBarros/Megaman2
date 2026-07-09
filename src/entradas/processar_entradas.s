@@ -45,6 +45,11 @@ PROC_PROCESSAR_ENTRADAS:
         li t0, 'b'
         beq t1, t0, P_PE1_B
 
+        li t0, 'C'
+        beq t1, t0, P_PE1_C
+        li t0, 'c'
+        beq t1, t0, P_PE1_C
+
         li t0, 10
         beq t1, t0, P_PE1_ENTER
 
@@ -192,6 +197,40 @@ P_PE1_V:
 P_PE1_B: ## APENAS PARA DESENVOLVIMENTO - tirar na versao final
 
        j JOGADOR.TRANSICAO_BOSS
+
+P_PE1_C:
+
+        lw t2, entidade.STRUCT_ESPECIFICA(a0)
+        lb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
+        li t1, 10
+        bne t0, t1, P_PE1_RET
+
+        li t0, 0
+        sb t0, JOGADOR.COOLDOWN_PROJETIL(t2)
+        mv s0, a0                       # guarda a entidade jogador
+
+        lw a1, entidade.X_Q12(s0)
+        srai a1, a1, 12         # corrige para inteiro
+        lw a2, entidade.Y_Q12(s0)
+        srai a2, a2, 12         # corrige para inteiro
+
+        lw t0, entidade.HITBOX_LARGURA(s0)
+        lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
+        add t0, t0, t1
+        add a1, a1, t0  # x += largura e deslocamento
+        li a0, ENTIDADE_PROJETIL_VENTO
+        jal PROC_ADICIONAR_ENTIDADE
+
+        # a0 - entidade 
+        li a1, 10 # velocidade inteira
+        slli a1, a1, 12 # para q12
+
+        lw t0, entidade.STRUCT_ESPECIFICA(s0)
+        lb t1, JOGADOR.DIRECAO(t0)
+        MULTIPLY (a1, a1, t1)           
+        jal PROJETIL_COMUM.SET_VELOCIDADE_X
+
+        j P_PE1_RET
 
 P_PE1_ESC:
         # termina execucao

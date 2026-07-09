@@ -26,6 +26,7 @@
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
+        .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
         .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
 
         # ENTIDADES NO JOGO
@@ -35,6 +36,7 @@
         .include "entidades/schnoz.s"
         .include "entidades/jumper.s"
         .include "entidades/projetil_inimigo.s"
+        .include "entidades/projetil_vento.s"
         .include "entidades/boss.s"
 
         # OUTROS

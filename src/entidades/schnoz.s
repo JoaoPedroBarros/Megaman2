@@ -5,8 +5,9 @@
 
 SCHNOZ.struct:
 
-    .eqv SCHNOZ.VIDA 0 # a vida serah um valor em Q12, para administrar valores mais facilmente
+    .eqv SCHNOZ.VIDA 0 # a vida serah um valor inteiro, visto que nao havera mais habilidade de perda progressiva de vida
     .eqv SCHNOZ.DIRECAO 4 # marcacao para saber para qual a direcao o monstro ta olhando. -1 esquerda, 1 direita
+    .eqv SCHNOZ.CONTADOR_KNOCKBACK 5
 
 .eqv SCHNOZ.TAMANHO_STRUCT 5
 
@@ -32,9 +33,9 @@ SCHNOZ.NOVO:
     definir_hitbox(a0, 8, 6, 17, 26)    # temporario! deve mudar de acordo com o novo sprite
 
     li t0, SCHNOZ.VELOCIDADE
+    sw t0, entidade.VELOCIDADE_Y_Q12(a0)
     neg t0, t0
     sw t0, entidade.VELOCIDADE_X_Q12(a0)
-    sw zero, entidade.VELOCIDADE_Y_Q12(a0)
 
     sw zero, entidade.FLAGS(a0) # nenhum comportamento especial de colisao!
 
@@ -45,11 +46,12 @@ SCHNOZ.NOVO:
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
     li t1, 50
-    slli t1, t1, 12
     sw t1, SCHNOZ.VIDA(t0)
 
     li t1, -1
     sb t1, SCHNOZ.DIRECAO(t0) # a direcao padrao sera para a esquerda
+
+    sb zero, SCHNOZ.CONTADOR_KNOCKBACK(t0)
 
     ret
 
@@ -62,10 +64,29 @@ SCHNOZ.PROC:
 
     mv s0, a0
 
-    jal PROC_MOVER_ENTIDADE
+    li t0, SCHNOZ.VELOCIDADE
+    
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lb t2, SCHNOZ.CONTADOR_KNOCKBACK(t1)
+    bnez t2, SEM_CORRECAO_VELOCIDADE_SCHNOZ
 
+    lb t2, SCHNOZ.DIRECAO(t1)
+    mul t0, t0, t2
+    sw t0, entidade.VELOCIDADE_X_Q12(s0)
     mv a0, s0
     jal PROC_COLISAO_SCHNOZ
+    j CONTINUAR_SCHNOZ
+
+SEM_CORRECAO_VELOCIDADE_SCHNOZ:
+
+    addi t2, t2, -1
+    sb t2, SCHNOZ.CONTADOR_KNOCKBACK(t1)
+
+CONTINUAR_SCHNOZ:
+
+
+    mv a0, s0
+    jal PROC_MOVER_ENTIDADE
 
     li a0, 1
 
@@ -129,11 +150,43 @@ SCHNOZ.COLISAO:
 
     lw t0, entidade.TIPO(a1)
     li t1, ENTIDADE_PROJETIL_COMUM
-    bne t0, t1, SCHNOZ.COLISAO._VIVO
+    beq t0, t1, SCHNOZ.COLISAO._PROJETIL_COMUM
 
+    li t1, ENTIDADE_PROJETIL_VENTO
+    beq t0, t1, SCHNOZ.COLISAO._PROJETIL_VENTO
+
+    j SCHNOZ.COLISAO._VIVO
     # se o tipo de entidade eh um projetil comum, morre
-SCHNOZ.COLISAO._MORTO:
-    mv a0, zero
+SCHNOZ.COLISAO._PROJETIL_COMUM:
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lw t1, SCHNOZ.VIDA(t0)
+    addi t1, t1, PROJETIL_COMUM.DANO
+    sw t1, SCHNOZ.VIDA(t0)
+    sgtz a0, t1
+    j SCHNOZ.COLISAO._RET
+
+SCHNOZ.COLISAO._PROJETIL_VENTO:
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+
+    li t1, 16384
+    lw t3, entidade.VELOCIDADE_X_Q12(a1)
+
+    bgtz t3, SEM_CORRECAO_KNOCKBACK_VENTO_SCHNOZ
+    sub t1, zero, t1
+
+SEM_CORRECAO_KNOCKBACK_VENTO_SCHNOZ:
+
+    sw t1, entidade.VELOCIDADE_X_Q12(a0)
+    li t1, 10
+    sb t1, SCHNOZ.CONTADOR_KNOCKBACK(t0)
+
+    lw t1, SCHNOZ.VIDA(t0)
+    addi t1, t1, -10
+    sw t1, SCHNOZ.VIDA(t0)
+
+    sgtz a0, t1
+    
     j SCHNOZ.COLISAO._RET
 
 SCHNOZ.COLISAO._VIVO:

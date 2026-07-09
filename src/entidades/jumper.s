@@ -35,7 +35,7 @@ JUMPER.NOVO:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0) # carrega a struct especifica
 
-    li t1, 40 # o jumper terah um pouco menos de vida, visto que tem movimentacao mais complexa
+    li t1, 25 # o jumper terah um pouco menos de vida, visto que tem movimentacao mais complexa
     slli t1, t1, 12
     sw t1, JUMPER.VIDA(t0)
     sb zero, JUMPER.COOLDOWN_MOVIMENTO(t0)
@@ -111,7 +111,6 @@ SEM_ATUALIZACAO_VELOCIDADE:
     mv a0, s0
     jal PROC_MOVER_ENTIDADE
 
-    
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
@@ -193,26 +192,55 @@ JUMPER_PULA_RETORNO:
     ret
 
 JUMPER.COLISAO:
-    
     addi sp, sp, -4
-    sw ra, 0(sp)
+    sw ra, (sp)
 
     lw t0, entidade.TIPO(a1)
     li t1, ENTIDADE_PROJETIL_COMUM
-    bne t0, t1, JUMPER.COLISAO._VIVO
+    beq t0, t1, JUMPER.COLISAO._PROJETIL_COMUM
 
-JUMPER.COLISAO._MORTO:
+    li t1, ENTIDADE_PROJETIL_VENTO
+    beq t0, t1, JUMPER.COLISAO._PROJETIL_VENTO
 
-    mv a0, zero
+    j JUMPER.COLISAO._VIVO
+    # se o tipo de entidade eh um projetil comum, morre
+JUMPER.COLISAO._PROJETIL_COMUM:
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lw t1, JUMPER.VIDA(t0)
+    addi t1, t1, PROJETIL_COMUM.DANO
+    sw t1, JUMPER.VIDA(t0)
+    sgtz a0, t1
+    j JUMPER.COLISAO._RET
+
+JUMPER.COLISAO._PROJETIL_VENTO:
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+
+    li t1, 16384
+    lw t3, entidade.VELOCIDADE_X_Q12(a1)
+
+    bgtz t3, SEM_CORRECAO_KNOCKBACK_VENTO_JUMPER
+    sub t1, zero, t1
+
+SEM_CORRECAO_KNOCKBACK_VENTO_JUMPER:
+
+    lw t2, entidade.VELOCIDADE_X_Q12(a0)
+    add t2, t2, t1
+    sw t1, entidade.VELOCIDADE_X_Q12(a0)
+
+    lw t1, JUMPER.VIDA(t0)
+    addi t1, t1, -10
+    sw t1, JUMPER.VIDA(t0)
+
+    sgtz a0, t1
+    
     j JUMPER.COLISAO._RET
 
 JUMPER.COLISAO._VIVO:
-
     li a0, 1
-
+    
 JUMPER.COLISAO._RET:
-
-    lw ra, 0(sp)
+    lw ra, (sp)
     addi sp, sp, 4
     ret
 

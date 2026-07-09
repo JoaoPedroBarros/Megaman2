@@ -56,6 +56,13 @@ lista_entidades:
         .word BOSS.DRAW
         .word BOSS.COLISAO
 
+        .word ENTIDADE_PROJETIL_VENTO
+        .word PROJETIL_VENTO.TAMANHO_STRUCT
+        .word PROJETIL_VENTO.NOVO
+        .word PROJETIL_VENTO.PROC
+        .word PROJETIL_VENTO.DRAW
+        .word PROJETIL_VENTO.COLISAO
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 24       # sao 6 words por entrada!

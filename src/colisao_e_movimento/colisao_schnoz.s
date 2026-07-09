@@ -41,22 +41,6 @@ AJUSTA_SCHNOZ_ESQUERDA:
 
     bnez a0, INVERTE_SCHNOZ
 
-    lw a0, entidade.X_Q12(s0)
-    lw a1, entidade.Y_Q12(s0)
-    lb t0, SCHNOZ.DIRECAO(s0)
-
-    srai a0, a0, 12
-    srai a1, a1, 12
-
-    blt t0, zero, AJUSTA_SCHNOZ_ESQUERDA_BAIXO
-    addi a0, a0, 32
-
-AJUSTA_SCHNOZ_ESQUERDA_BAIXO:
-    addi a1, a1, 64
-
-    jal PROC_CALCULAR_TILE_COLISAO
-
-    beqz a0, INVERTE_SCHNOZ
     j RETURN_COLISAO_SCHNOZ
 
 INVERTE_SCHNOZ:

@@ -5,6 +5,7 @@
 PROJETIL_COMUM.struct:
         
 .eqv PROJETIL_COMUM.TAMANHO_STRUCT 0
+.eqv PROJETIL_COMUM.DANO -25
 
 # Argumentos (obrigatoriamente):
 # a0 - struct basica
@@ -125,5 +126,6 @@ PROJETIL_COMUM.COLISAO:
         or a0, a0, t0  # nao se destroi se (!other.hostil || other.tipo != projetil_inimigo)
 
         ret
+
 
 
