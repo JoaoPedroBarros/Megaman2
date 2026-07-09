@@ -79,6 +79,7 @@ main:
 .include "impressao_e_tela/imprimir_outline.s"
 .include "impressao_e_tela/imprimir_string.s"
 .include "impressao_e_tela/renderizar_gui.s"
+.include "impressao_e_tela/renderizar_gui_boss.s"
 .include "entidades/adicionar_entidade.s"
 .include "entidades/entidades_manager.s"
 .include "entidades/remover_entidade.s"

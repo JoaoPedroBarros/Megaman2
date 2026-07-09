@@ -2,11 +2,12 @@
 
 BOSS.struct:
     .eqv BOSS.VIDA 0
-    .eqv BOSS.CONTADOR_MOVESET 4 # a cada certa quantidade de gameloops, o boss escolhera um moveset aleatoriamente entre
+    .eqv BOSS.VIDA_MAXIMA 4
+    .eqv BOSS.CONTADOR_MOVESET 8 # a cada certa quantidade de gameloops, o boss escolhera um moveset aleatoriamente entre
     # os presets
-    .eqv BOSS.CONTADOR_MOVIMENTACAO 5 # conta a localizacao atual na lemniscata
+    .eqv BOSS.CONTADOR_MOVIMENTACAO 9 # conta a localizacao atual na lemniscata
 
-.eqv BOSS.TAMANHO_STRUCT 9
+.eqv BOSS.TAMANHO_STRUCT 13
 
 .text
 
@@ -32,9 +33,9 @@ BOSS.NOVO:
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
     li t1, 1000 # o chefe tera 1000 de vida
-    slli t1, t1, 12
-
     sw t1, BOSS.VIDA(t0)
+    sw t1, BOSS.VIDA_MAXIMA(t0)
+
     sb zero, BOSS.CONTADOR_MOVIMENTACAO(t0)
 
     li t1, 2
@@ -44,13 +45,23 @@ BOSS.NOVO:
 
 BOSS.PROC:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
+
+    mv s0, a0
+
 
     jal BOSS.MOVIMENTACAO_PADRAO
 
+    mv a0, s0
+    jal PROC_RENDERIZAR_GUI_BOSS
+
+    li a0, 1
+
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
 
     ret
 
@@ -139,5 +150,31 @@ BOSS.FINALIZA_PADRAO:
 
 BOSS.COLISAO:
 
+    addi sp, sp, -4
+    sw ra, (sp)
+
+    lw t0, entidade.TIPO(a1)
+    li t1, ENTIDADE_PROJETIL_COMUM
+    beq t0, t1, BOSS.COLISAO._PROJETIL_COMUM
+
+    j BOSS.COLISAO._VIVO
+
+BOSS.COLISAO._PROJETIL_COMUM:
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lw t1, BOSS.VIDA(t0)
+    addi t1, t1, PROJETIL_COMUM.DANO
+    sw t1, BOSS.VIDA(t0)
+    sgtz a0, t1
+    j BOSS.COLISAO._RET
+
+BOSS.COLISAO._VIVO:
+    li a0, 1
+    
+BOSS.COLISAO._RET:
+    lw ra, (sp)
+    addi sp, sp, 4
     ret
+
+
 

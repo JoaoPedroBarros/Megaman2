@@ -42,11 +42,11 @@ P_RG1_IMPRIMIR_BARRA_DE_MUNICAO:
 
         li t2, 100
         mul t1, t1, t2
-        div t1, t1, t0  # pega a porcentagem de vida do jogador
+        div t1, t1, t0  # pega a porcentagem da municao do jogador
 
-        li a0, 0xF0             # barra amarela
-        li a1, 32               # x1 = 16
-        li a3, 36               # x2 = 20
+        li a0, 0xF0             # barra azul
+        li a1, 32               # x1 = 32
+        li a3, 36               # x2 = 36
         li a4, 200              # y2 = 200
         sub a2, a4, t1          # y1 = 200 - % 
         jal PROC_IMPRIMIR_RETANGULO
