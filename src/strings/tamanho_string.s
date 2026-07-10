@@ -10,13 +10,12 @@
 #################################################################
 
 PROC_TAMANHO_STRING:
-        mv t1, zero             # t1 = tamanho
+        mv t1, a0               # t1 = endereco atual
 P_TS1_LOOP:
-        lb t0, (a0)             # pega o caractere atual
+        lb t0, (t1)             # pega o caractere atual
         beqz t0, P_TS1_RET      # se o caractere eh \0, retorna t1
-        addi t1, t1, 1          # senao, aumenta o tamanho da string
-        addi a0, a0, 1          # vai pro proximo caractere
+        addi t1, t1, 1          # senao, vai para o prox caractere
         j P_TS1_LOOP
 P_TS1_RET:
-        mv a0, t1               # retorna a qtd de caracteres
+        sub a0, t1, a0          # retorna a quantidade de caracteres que andamos
         ret

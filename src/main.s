@@ -13,6 +13,7 @@
         .include "administracao_de_memoria/heap.s"
         .include "entidades/definicoes_entidades.s"
         .include "dialogo/definicoes_dialogo.s"
+        .include "eventos/definicao_eventos.s"
 
         .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
@@ -38,6 +39,7 @@
         .include "entidades/projetil_inimigo.s"
         .include "entidades/projetil_vento.s"
         .include "entidades/boss.s"
+        .include "entidades/powerup.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"
@@ -102,6 +104,11 @@ main:
 .include "colisao_e_movimento/aplicar_friccao.s"
 .include "colisao_e_movimento/colisoes_manager.s"
 .include "colisao_e_movimento/detectar_colisao.s"
+.include "eventos/adicionar_evento.s"
+.include "eventos/eventos_manager.s"
+.include "eventos/limpar_eventos.s"
+.include "powerups/powerup_drop_tables.s"
+.include "powerups/rolar_powerup.s"
 .include "null_proc.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"
