@@ -63,6 +63,13 @@ lista_entidades:
         .word PROJETIL_VENTO.DRAW
         .word PROJETIL_VENTO.COLISAO
 
+        .word ENTIDADE_POWERUP
+        .word ENTIDADE_POWERUP.TAMANHO_STRUCT
+        .word ENTIDADE_POWERUP.NOVO
+        .word ENTIDADE_POWERUP.PROC
+        .word ENTIDADE_POWERUP.DRAW
+        .word ENTIDADE_POWERUP.COLISAO
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 24       # sao 6 words por entrada!

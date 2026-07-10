@@ -39,6 +39,7 @@
         .include "entidades/projetil_inimigo.s"
         .include "entidades/projetil_vento.s"
         .include "entidades/boss.s"
+        .include "entidades/powerup.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"
@@ -106,6 +107,8 @@ main:
 .include "eventos/adicionar_evento.s"
 .include "eventos/eventos_manager.s"
 .include "eventos/limpar_eventos.s"
+.include "powerups/powerup_drop_tables.s"
+.include "powerups/rolar_powerup.s"
 .include "null_proc.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"

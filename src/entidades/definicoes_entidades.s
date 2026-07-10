@@ -11,9 +11,11 @@
 .eqv ENTIDADE_PROJETIL_INIMIGO                          5
 .eqv ENTIDADE_BOSS                                      6
 .eqv ENTIDADE_PROJETIL_VENTO                            7
+.eqv ENTIDADE_POWERUP                                   8
 
 .data
 
+# TODO: Transformar colidivel, hostil e no_chao em flags
 struct_basica_entidade:
         .eqv entidade.TIPO                              0       # tipo da entidade, que nem mais em cima
         .eqv entidade.FLAGS                             4       # flags (ver secao mais embaixo)
@@ -52,9 +54,6 @@ array_entidades: .space ESPACO_ARRAY_ENTIDADES
         .eqv array_entidades.PROC_POR_FRAME             4
         .eqv array_entidades.PROC_DESENHAR              8
         .eqv array_entidades.PROC_COLISAO               12
-
-fila_entidades_a_serem_deletadas: .space ESPACO_ARRAY_ENTIDADES
-tamanho_fila_entidades_a_serem_deletadas: .word 0
 
 # FLAGS PARA ENTIDADES
 

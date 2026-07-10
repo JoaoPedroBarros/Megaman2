@@ -156,15 +156,17 @@ SCHNOZ.COLISAO:
     beq t0, t1, SCHNOZ.COLISAO._PROJETIL_VENTO
 
     j SCHNOZ.COLISAO._VIVO
-    # se o tipo de entidade eh um projetil comum, morre
+
 SCHNOZ.COLISAO._PROJETIL_COMUM:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     lw t1, SCHNOZ.VIDA(t0)
     addi t1, t1, PROJETIL_COMUM.DANO
     sw t1, SCHNOZ.VIDA(t0)
-    sgtz a0, t1
-    j SCHNOZ.COLISAO._RET
+
+    # vive se vida > 0, morre caso contrario
+    bgtz t1, SCHNOZ.COLISAO._VIVO
+    j SCHNOZ.COLISAO._MORTO
 
 SCHNOZ.COLISAO._PROJETIL_VENTO:
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
@@ -185,8 +187,16 @@ SEM_CORRECAO_KNOCKBACK_VENTO_SCHNOZ:
     addi t1, t1, -10
     sw t1, SCHNOZ.VIDA(t0)
 
-    sgtz a0, t1
+    bgtz t1, SCHNOZ.COLISAO._VIVO # se vida > 0, vive
+    # senao...
+
+SCHNOZ.COLISAO._MORTO:
+
+    # a0 (entidade) carregado
+    la a1, DROP_TABLE_SCHNOZ # carrega a tabela do schnoz
+    jal PROC_ROLAR_POWERUP
     
+    li a0, 0
     j SCHNOZ.COLISAO._RET
 
 SCHNOZ.COLISAO._VIVO:
