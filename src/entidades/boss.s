@@ -6,8 +6,10 @@ BOSS.struct:
     .eqv BOSS.CONTADOR_MOVESET 8 # a cada certa quantidade de gameloops, o boss escolhera um moveset aleatoriamente entre
     # os presets
     .eqv BOSS.CONTADOR_MOVIMENTACAO 9 # conta a localizacao atual na lemniscata
+    .eqv BOSS.TIMER_MOVESET 13 # por simplicidade, todos os moveset terao a mesma duracao
+    .eqv BOSS.TIMER_MOVIMENTACAO 15 # o chefe passarah 200 gameloops (mais ou menos 6 segundos) na movimentacao padrao
 
-.eqv BOSS.TAMANHO_STRUCT 13
+.eqv BOSS.TAMANHO_STRUCT 16
 
 .text
 
@@ -38,10 +40,11 @@ BOSS.NOVO:
     sw t1, BOSS.VIDA(t0)
     sw t1, BOSS.VIDA_MAXIMA(t0)
 
-    sb zero, BOSS.CONTADOR_MOVIMENTACAO(t0)
+    sw zero, BOSS.CONTADOR_MOVIMENTACAO(t0)
 
-    li t1, 2
-    sb t1, BOSS.CONTADOR_MOVESET(t0)
+    li t1, 200
+    sh t1, BOSS.TIMER_MOVIMENTACAO(t0)
+    sh zero, BOSS.TIMER_MOVESET(t0)
 
     ret
 
@@ -53,8 +56,7 @@ BOSS.PROC:
 
     mv s0, a0
 
-
-    jal BOSS.MOVIMENTACAO_PADRAO
+    jal BOSS.MOVESET_MANAGER
 
     mv a0, s0
     jal PROC_RENDERIZAR_GUI_BOSS
@@ -100,11 +102,23 @@ BOSS.DRAW:
 
 # nenhum
 
+BOSS.MOVESET_MANAGER:
+
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    lw t1, entidade.STRUCT_ESPECIFICA(a0)
+    lh t2, BOSS.TIMER_MOVIMENTACAO(t1)
+
+    bgtz t2, BOSS.MOVIMENTACAO_PADRAO
+    j BOSS.MOVESET_3
+
 BOSS.MOVIMENTACAO_PADRAO:
 
-    
     la t0, LEMNISCATA
-    lw t1, entidade.STRUCT_ESPECIFICA(a0)
+    addi t2, t2, -1
+    sh t2, BOSS.TIMER_MOVIMENTACAO(t1)
+
     lw t2, BOSS.CONTADOR_MOVIMENTACAO(t1)
 
     addi t2, t2, 1
@@ -143,11 +157,65 @@ BOSS.MOVESET_2:
 
 BOSS.MOVESET_3:
 
-    # cria minions mais fracos de fogo
-    ret
+    lh t3, BOSS.TIMER_MOVESET(t1)
+    bgtz t3, SEM_CORRECAO_TIMER_MOVESET_3
+
+    li t0, 160
+    slli t0, t0, 12
+    sw t0, entidade.X_Q12(a0)
+
+    li t0, 120
+    slli t0, t0, 12
+    sw t0, entidade.Y_Q12(a0)
+
+    sw zero, BOSS.CONTADOR_MOVIMENTACAO(t1)
+
+    li t3, 100
+    sh t3, BOSS.TIMER_MOVESET(t1)
+
+SEM_CORRECAO_TIMER_MOVESET_3:
+
+    addi t3, t3, -1
+    sh t3, BOSS.TIMER_MOVESET(t1)
+
+    li t4, 30
+    remu t4, t3, t4
+    bnez t4, NAO_GERA_MINION
+
+    li a0, ENTIDADE_SCHNOZ
+    li a1, 160
+    li a2, 140
+
+    jal PROC_ADICIONAR_ENTIDADE
+    
+    mv a1, s0
+    lw t1, entidade.STRUCT_ESPECIFICA(a1)
+    lh t3, BOSS.TIMER_MOVESET(t1)
+
+    li t4, 45
+    remu t4, t3, t4
+    bnez t4, NAO_GERA_MINION
+
+    lw t2, entidade.STRUCT_ESPECIFICA(a0)
+    lb t4, SCHNOZ.DIRECAO(t2)
+    sub t4, zero, t4
+    sb t4, SCHNOZ.DIRECAO(t2)
+
+NAO_GERA_MINION:
+    
+    beqz t3, VOLTA_MOVIMENTACAO_PADRAO
+
+    j BOSS.FINALIZA_PADRAO
+
+VOLTA_MOVIMENTACAO_PADRAO:
+
+    li t3, 200
+    sh t3, BOSS.TIMER_MOVIMENTACAO(t1)
 
 BOSS.FINALIZA_PADRAO:
 
+    lw ra, 0(sp)
+    addi sp, sp, 4
     ret
 
 BOSS.COLISAO:
