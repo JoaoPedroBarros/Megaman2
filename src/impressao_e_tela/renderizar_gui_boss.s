@@ -21,8 +21,6 @@ P_RG1_IMPRIMIR_BARRA_DE_VIDA_BOSS:
     mul t1, t1, t2
     div t1, t1, t0  # pega a porcentagem de vida do jogador
 
-    safe_print_int_ln(t1)
-
     li a0, 0x0F           # barra vermelha
     li a1, 296          # x1 = 16
     li a3, 300           # x2 = 20
