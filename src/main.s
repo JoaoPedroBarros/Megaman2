@@ -24,10 +24,13 @@
         .include "../assets/tilemaps/boss-fight-tilemap-colisao.data"
         .include "../assets/tiles_mapa/tileset.s"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_andando1.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
         .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_voando.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -68,6 +71,7 @@ main:
 .include "administracao_de_memoria/free.s"
 .include "administracao_de_memoria/inicializar_heap.s"
 .include "administracao_de_memoria/malloc.s"
+.include "animacao/animacao_jogador.s"
 .include "impressao_e_tela/desenhar.s"
 .include "impressao_e_tela/imprimir_fase.s"
 .include "impressao_e_tela/imprimir_textura.s"

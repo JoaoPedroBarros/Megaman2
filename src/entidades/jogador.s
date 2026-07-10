@@ -18,6 +18,7 @@ JOGADOR.struct:
     .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 12
     .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 13
     .eqv JOGADOR.FLAG_BOSSFIGHT 14
+    .eqv JOGADOR.COOLDOWN_MOVIMENTACAO 15
     
 
 .eqv JOGADOR.TAMANHO_STRUCT 16
@@ -65,6 +66,9 @@ JOGADOR.NOVO:
     sb t1, JOGADOR.MUNICAO_MAXIMA(t0)
     sb t1, JOGADOR.MUNICAO_PROJETIL_VENTO(t0)
 
+    li t1, 16
+    sb t1, JOGADOR.COOLDOWN_MOVIMENTACAO(t0)
+
     sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
     sw zero, entidade.NO_CHAO(a0)
@@ -72,6 +76,7 @@ JOGADOR.NOVO:
     sh zero, JOGADOR.TEMPO_USO_VASSOURA(t0)
     sh zero, JOGADOR.COOLDOWN_USO_VASSOURA(t0)
     sb zero, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
+
 
     li t1, -1
     sb t1, JOGADOR.FLAG_VASSOURA(t0)
@@ -184,7 +189,7 @@ NO_UPDATE_COOLDOWN:
     jal PROC_APLICAR_FRICCAO  # aplica friccao normal
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
-    lw t1, JOGADOR.FLAG_BOSSFIGHT(t0)
+    lb t1, JOGADOR.FLAG_BOSSFIGHT(t0)
 
     bgtz t1, SEM_CORRECAO_CAMERA
 
@@ -228,13 +233,7 @@ JOGADOR.DRAW:
 # por enquanto, como so temos um sprite, nao vou adicionar a direcao e a animacao. No entanto, eh apenas uma
 # aritmetica de ponteiros
 
-    lb t1, JOGADOR.COOLDOWN_PROJETIL(t6)
-    addi t1, t1, -1
-    li t2, 1024
-    mul t1, t1, t2
-
-    la a0, sprite_bruxa_feitico1
-    add a0, a0, t1
+    jal PROC_ANIMACAO_JOGADOR
 
     lw a1, entidade.X_Q12(s0)
     lw a2, entidade.Y_Q12(s0)
