@@ -28,6 +28,7 @@
         # FRAME_ATUAL eh o frame que ESTAH sendo mostrado atualmente (0 ou 1)
         FRAME_ATUAL:      .word 0
 
+        frame_counter: .word 0 # conta quantos frames jah foram executados (i.e. quantas vezes o gameloop jah rodou)
 
         # onde uma versao modificavel do mapa fica guardada
         tilemap: .word 0 0 
