@@ -14,6 +14,8 @@ PROC_FASE:
         addi sp, sp, -4
         sw ra, (sp)
 
+        sw zero, frame_counter, t0      # reseta o frame_counter
+
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
         li a1, 30
@@ -51,6 +53,7 @@ P_F1_LOOP:
 
         jal PROC_ENTIDADES_MANAGER              # administra entidades
         jal PROC_COLISOES_MANAGER               # lida com colisoes
+        jal PROC_EVENTOS_MANAGER                # administra eventos
 
         jal PROC_DELETAR_ENTIDADES_PENDENTES 	# deleta entidades mortas
 
@@ -60,6 +63,11 @@ P_F1_LOOP:
         jal PROC_DIALOGOS_MANAGER               # administra dialogos
 
         jal PROC_DESENHAR                       # muda o frame, mostrando tudo impresso ateh agora na tela
+
+        la t0, frame_counter
+        lw t1, (t0)
+        addi t1, t1, 1
+        sw t1, (t0)                             # adiciona um frame no contador
 
         jal PROC_SLEEP
 
