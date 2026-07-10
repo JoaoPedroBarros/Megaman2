@@ -30,6 +30,8 @@ BOSS.NOVO:
     sw t0, entidade.COLIDIVEL(a0)
     sw t0, entidade.HOSTIL(a0)
 
+    definir_hitbox(a0, 5, 6, 22, 26)    # temporario! vai depender no sprite final
+
     # nao havera tratamento de gravidade para o chefe, visto que ele voarah
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)

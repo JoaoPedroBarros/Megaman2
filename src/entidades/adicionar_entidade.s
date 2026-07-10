@@ -54,6 +54,10 @@ P_AE1_REGISTRAR:
         sw s4, entidade.TIPO(s3)        # salva o tipo!
         sw zero, entidade.FLAGS(s3)     # zera as flags
 
+        # zera a velocidade
+        sw zero, entidade.VELOCIDADE_X_Q12(s3)
+        sw zero, entidade.VELOCIDADE_Y_Q12(s3)
+
         lw t5, lista_entidades.PROC_POR_FRAME(s0)
         sw t5, array_entidades.PROC_POR_FRAME(t3)
         lw t5, lista_entidades.PROC_DESENHAR(s0)
@@ -72,6 +76,8 @@ P_AE1_REGISTRAR:
         mv a2, s2               # recupera Y
         lw t0, lista_entidades.PROC_DE_CRIACAO(s0)
         jalr ra, t0, 0          # pula pro procedimento de criacao da entidade
+
+        # TODO: otimizar proc de criacao para apenas receber a entidade
 
         mv a0, s3               # retorna a entidade
         

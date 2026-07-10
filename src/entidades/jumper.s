@@ -209,8 +209,10 @@ JUMPER.COLISAO._PROJETIL_COMUM:
     lw t1, JUMPER.VIDA(t0)
     addi t1, t1, PROJETIL_COMUM.DANO
     sw t1, JUMPER.VIDA(t0)
-    sgtz a0, t1
-    j JUMPER.COLISAO._RET
+
+    # vive se vida > 0, morre caso contrario
+    bgtz t1, JUMPER.COLISAO._VIVO
+    j JUMPER.COLISAO._MORTO
 
 JUMPER.COLISAO._PROJETIL_VENTO:
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
@@ -230,9 +232,16 @@ SEM_CORRECAO_KNOCKBACK_VENTO_JUMPER:
     lw t1, JUMPER.VIDA(t0)
     addi t1, t1, -10
     sw t1, JUMPER.VIDA(t0)
+    bgtz t1, JUMPER.COLISAO._VIVO
+    # morre se vida < 0
 
-    sgtz a0, t1
-    
+JUMPER.COLISAO._MORTO:
+    # rola para ver se vai spawnar um powerup
+    # a0 (entidade) carregado
+    la a1, DROP_TABLE_JUMPER
+    jal PROC_ROLAR_POWERUP
+
+    li a0, 0
     j JUMPER.COLISAO._RET
 
 JUMPER.COLISAO._VIVO:
