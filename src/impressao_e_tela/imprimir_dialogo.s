@@ -24,15 +24,11 @@ P_ID1_IMPRIMIR_DIALOGO:
         lw a0, dialogo.STRING(s0)
         la a1, dialogo_buffer
         lw a2, dialogo.CONTADOR_CARACTERES(s0)
-        jal PROC_COPIAR_STRING
-
-        lw t0, dialogo.CONTADOR_CARACTERES(s0)
-        la a0, dialogo_buffer
-        add t2, a0, t0
-        sb zero, (t2)   # coloca \0 no final
+        addi a2, a2, 1                          # tamanho do buffer = espaco para caracteres + espaco para \0
+        jal PROC_COPIAR_STRING_LIMITE_SEGURO # copia com um \0 no final
 
         # syscall de imprimir string
-        # - a0 carregado
+        la a0, dialogo_buffer
         li a1, 15
         li a2, 30
         li a3, 0xFF

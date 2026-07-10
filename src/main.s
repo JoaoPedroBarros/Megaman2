@@ -96,6 +96,8 @@ main:
 .include "dialogo/dialogos_manager.s"
 .include "dialogo/limpar_dialogo.s"
 .include "strings/copiar_string.s"
+.include "strings/copiar_string_limite.s"
+.include "strings/copiar_string_limite_seguro.s"
 .include "strings/tamanho_string.s"
 .include "colisao_e_movimento/colisao_schnoz.s"
 .include "colisao_e_movimento/calcular_tile_colisao.s"
