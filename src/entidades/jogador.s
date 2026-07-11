@@ -9,18 +9,17 @@ JOGADOR.struct:
     .eqv JOGADOR.VIDA_MAXIMA 1
     .eqv JOGADOR.MUNICAO_PROJETIL_VENTO 2
     .eqv JOGADOR.MUNICAO_MAXIMA 3
-    .eqv JOGADOR.MARCADOR_ANIMACAO 4
-    .eqv JOGADOR.DIRECAO 5
-    .eqv JOGADOR.COOLDOWN_PROJETIL 6
-    .eqv JOGADOR.TEMPO_USO_VASSOURA 7
-    .eqv JOGADOR.COOLDOWN_USO_VASSOURA 9
-    .eqv JOGADOR.FLAG_VASSOURA 11
-    .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 12
-    .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 13
-    .eqv JOGADOR.FLAG_BOSSFIGHT 14
-    
+    .eqv JOGADOR.DIRECAO 4
+    .eqv JOGADOR.COOLDOWN_PROJETIL 5
+    .eqv JOGADOR.TEMPO_USO_VASSOURA 6
+    .eqv JOGADOR.COOLDOWN_USO_VASSOURA 8
+    .eqv JOGADOR.FLAG_VASSOURA 10
+    .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 11
+    .eqv JOGADOR.ANIMACAO_CONTROLLER 12
+    .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 16
+    .eqv JOGADOR.FLAG_BOSSFIGHT 17
 
-.eqv JOGADOR.TAMANHO_STRUCT 16
+.eqv JOGADOR.TAMANHO_STRUCT 18
 
 .eqv JOGADOR.ACELERACAO_Q12        2048 # 0.5, por frame
 
@@ -44,6 +43,10 @@ Y_maximo_camera_mapa: .word 0
 # a2 - Y
 
 JOGADOR.NOVO:
+    addi sp, sp, -8
+    sw ra, (sp)
+    sw s0, 4(sp)
+
     slli a1, a1, 12     # coloca em q12
     slli a2, a2, 12     # coloca em q12
     sw a1, entidade.X_Q12(a0)
@@ -65,7 +68,6 @@ JOGADOR.NOVO:
     sb t1, JOGADOR.MUNICAO_MAXIMA(t0)
     sb t1, JOGADOR.MUNICAO_PROJETIL_VENTO(t0)
 
-    sb zero, JOGADOR.MARCADOR_ANIMACAO(t0)
     sb zero, JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA(t0)
     sw zero, entidade.NO_CHAO(a0)
 
@@ -82,6 +84,10 @@ JOGADOR.NOVO:
 
     sb zero, JOGADOR.FLAG_BOSSFIGHT(t0)
 
+    mv s0, t0
+    jal PROC_CRIAR_ANIMACAO_CONTROLLER
+    sw a0, JOGADOR.ANIMACAO_CONTROLLER(s0) # salva um controller de animacao para o jogador
+    
     # guarda os limites do mapa
     la t0, tilemap
     lw t1, (t0)
@@ -97,6 +103,9 @@ JOGADOR.NOVO:
     sw t0, X_maximo_camera_mapa, t2
     sw t1, Y_maximo_camera_mapa, t2
 
+    lw ra, (sp)
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 # Argumentos:
@@ -116,6 +125,9 @@ JOGADOR.PROC:
 
     jal PROC_PROCESSAR_ENTRADAS # chama procedimento para processar as entradas e aplicar no objeto do jogador
 
+    mv a0, s0   
+    jal PROC_ATUALIZAR_ANIMACAO_JOGADOR
+
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
     lbu t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0)
     blez t1, JOGADOR.PROC._CONT0
@@ -123,7 +135,6 @@ JOGADOR.PROC:
     # se o jogador ainda estah invencivel, decrementa o tempo restante ateh ele nao estar
     addi t1, t1, -1
     sb t1, JOGADOR.TEMPORIZADOR_INVENCIBILIDADE(t0) 
-
 
 JOGADOR.PROC._CONT0:
     lb t1, JOGADOR.FLAG_VASSOURA(t0)
@@ -184,7 +195,7 @@ NO_UPDATE_COOLDOWN:
     jal PROC_APLICAR_FRICCAO  # aplica friccao normal
 
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
-    lw t1, JOGADOR.FLAG_BOSSFIGHT(t0)
+    lb t1, JOGADOR.FLAG_BOSSFIGHT(t0)
 
     bgtz t1, SEM_CORRECAO_CAMERA
 
@@ -202,6 +213,12 @@ SEM_CORRECAO_CAMERA:
 
     li a0, 1
     bgt t1, zero, JOGADOR_VIVE # se a vida for menor que 0, o jogador estah morto e retorna a0. Pode-se fazer diretamente com uma ecall
+
+JOGADOR.PROC._MORRE:
+
+    lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lw a0, JOGADOR.ANIMACAO_CONTROLLER(t0)
+    jal PROC_FREE       # dah free no controller de animacao
     li a0, 0
 
 JOGADOR_VIVE:
@@ -212,7 +229,6 @@ JOGADOR_VIVE:
     ret
 
 JOGADOR.DRAW:
-
     addi sp, sp, -8
     sw ra, 0(sp)
     sw s0, 4(sp)
@@ -225,16 +241,8 @@ JOGADOR.DRAW:
     beqz t2, JOGADOR.DRAW._RENDERIZAR_GUI   # se o jogador estah invencivel, faz ele piscar:
 #                                             apenas imprime ele quando o n mod 4 == 2 | 3.
 
-# por enquanto, como so temos um sprite, nao vou adicionar a direcao e a animacao. No entanto, eh apenas uma
-# aritmetica de ponteiros
-
-    lb t1, JOGADOR.COOLDOWN_PROJETIL(t6)
-    addi t1, t1, -1
-    li t2, 1024
-    mul t1, t1, t2
-
-    la a0, sprite_bruxa_feitico1
-    add a0, a0, t1
+    lw a0, JOGADOR.ANIMACAO_CONTROLLER(t6)
+    jal PROC_OBTER_TEXTURA_ANIMACAO # obtem o endereco da textura
 
     lw a1, entidade.X_Q12(s0)
     lw a2, entidade.Y_Q12(s0)
@@ -252,8 +260,7 @@ JOGADOR.DRAW:
     li a3, 32
     li a4, 32
 
-    addi a0, a0, 8 
-
+    lw t6, entidade.STRUCT_ESPECIFICA(s0)
     lb t0, JOGADOR.DIRECAO(t6)
     bltz t0, JOGADOR.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
@@ -280,6 +287,9 @@ JOGADOR.DRAW._RET:
 #
 # retorno: a0 - se a entidade desse tipo estah viva ou nao
 JOGADOR.COLISAO:
+    addi sp, sp, -4
+    sw ra, (sp)
+
     lw t0, entidade.HOSTIL(a1)
     beqz t0, JOGADOR.COLISAO._VIVO   # nao faz nada se a outra entidade nao for hostil
 
@@ -316,10 +326,16 @@ JOGADOR.COLISAO._CONT:
 
 JOGADOR.COLISAO._VIVO:
     li a0, 1
-    ret
+    j JOGADOR.COLISAO._RET
 
 JOGADOR.COLISAO._MORTO:
+    lw a0, JOGADOR.ANIMACAO_CONTROLLER(t0)
+    jal PROC_FREE       # dah free no controller de animacao
     li a0, 0
+
+JOGADOR.COLISAO._RET:
+    lw ra, (sp)
+    addi sp, sp, 4
     ret
 
 

@@ -14,17 +14,22 @@
         .include "entidades/definicoes_entidades.s"
         .include "dialogo/definicoes_dialogo.s"
         .include "eventos/definicao_eventos.s"
+        .include "animacao/definicoes_animacoes.s"
 
         .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
         # ASSETS UTILIZADOS
-        .include "../assets/sprites/data/bruxa/sprite_bruxa.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_idle.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_andando.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_pulo.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_queda.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_vassoura.data"
         .include "../assets/tilemaps/final_tilemap_1.s"
         .include "../assets/tilemaps/final_tilemap_1_colisao.s"
         .include "../assets/tilemaps/boss-fight-tilemap.data"
         .include "../assets/tilemaps/boss-fight-tilemap-colisao.data"
         .include "../assets/tiles_mapa/tileset.s"
-        .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
@@ -44,6 +49,7 @@
         # OUTROS
         .include "entidades/lista_entidades.s"
         .include "aritmetica/lemniscata_bernoulli.data"
+        .include "animacao/animacoes.s"
 
 .text
 main:
@@ -111,6 +117,12 @@ main:
 .include "eventos/limpar_eventos.s"
 .include "powerups/powerup_drop_tables.s"
 .include "powerups/rolar_powerup.s"
+.include "animacao/reiniciar_animacao.s"
+.include "animacao/atualizar_animacao_jogador.s"
+.include "animacao/criar_animacao_controller.s"
+.include "animacao/definir_animacao.s"
+.include "animacao/executar_animacao.s"
+.include "animacao/obter_textura_animacao.s"
 .include "null_proc.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"

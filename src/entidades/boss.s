@@ -75,7 +75,7 @@ BOSS.DRAW:
 
     mv t0, a0
 
-    la a0, sprite_bruxa_feitico1 # urgente: trocar os sprites
+    la a0, sprite_bruxa_feitico # urgente: trocar os sprites
     addi a0, a0, 8
 
     lw a1, entidade.X_Q12(t0)
