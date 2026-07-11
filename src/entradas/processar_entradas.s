@@ -153,10 +153,20 @@ P_PE1_ENTER:
         lw a2, entidade.Y_Q12(s0)
         srai a2, a2, 12         # corrige para inteiro
 
-        lw t0, entidade.HITBOX_LARGURA(s0)
         lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
-        add t0, t0, t1
-        add a1, a1, t0  # x += largura e deslocamento
+        lb t3, JOGADOR.DIRECAO(t2)
+        bltz t3, P_PE1_ENTER_PROJETIL_PARA_A_ESQUERDA # se direcao = -1, spawna para a esquerda
+
+P_PE1_ENTER_PROJETIL_PARA_A_DIREITA:      # offset_x = hitbox.offset_x + hitbox.largura (spawna na direita)
+        lw t3, entidade.HITBOX_LARGURA(s0)
+        add t1, t1, t3
+        j P_PE1_ENTER_CONT
+
+P_PE1_ENTER_PROJETIL_PARA_A_ESQUERDA:      # offset_x = hitbox.offset_x - 16 (spawna na esquerda)
+        addi t1, t1, -16
+        
+P_PE1_ENTER_CONT:
+        add a1, a1, t1  
         li a0, ENTIDADE_PROJETIL_COMUM
         jal PROC_ADICIONAR_ENTIDADE
 
@@ -220,10 +230,20 @@ P_PE1_C:
         lw a2, entidade.Y_Q12(s0)
         srai a2, a2, 12         # corrige para inteiro
 
-        lw t0, entidade.HITBOX_LARGURA(s0)
         lw t1, entidade.HITBOX_DESLOCAMENTO_X(s0)
-        add t0, t0, t1
-        add a1, a1, t0  # x += largura e deslocamento
+        lb t3, JOGADOR.DIRECAO(t2)
+        bltz t3, P_PE1_C_PROJETIL_PARA_A_ESQUERDA # se direcao = -1, spawna para a esquerda
+
+P_PE1_C_PROJETIL_PARA_A_DIREITA:      # offset_x = hitbox.offset_x + hitbox.largura (spawna na direita)
+        lw t3, entidade.HITBOX_LARGURA(s0)
+        add t1, t1, t3
+        j P_PE1_C_CONT
+
+P_PE1_C_PROJETIL_PARA_A_ESQUERDA:      # offset_x = hitbox.offset_x - 16 (spawna na esquerda)
+        addi t1, t1, -16
+        
+P_PE1_C_CONT:
+        add a1, a1, t1  
         li a0, ENTIDADE_PROJETIL_VENTO
         jal PROC_ADICIONAR_ENTIDADE
 
