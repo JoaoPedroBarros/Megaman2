@@ -27,6 +27,8 @@
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico1.data"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_andando1.data"
         .include "../assets/sprites/data/bruxa/sprite_bruxa_feitico5.data"
+        .include "../assets/sprites/data/bruxa/sprite_bruxa_pulo5.data"
+        .include "../assets/sprites/data/bruxa/sprite_queda.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
