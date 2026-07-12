@@ -152,7 +152,7 @@ BOSS.MOVESET_1:
 
 BOSS.MOVESET_2:
 
-    # pega o lugar inicial, faz uma parabola e cria varias colunas de fogo.
+    lh t3, BOSS.TIMER_MOVESET(t1) 
     ret
 
 BOSS.MOVESET_3:
@@ -160,11 +160,11 @@ BOSS.MOVESET_3:
     lh t3, BOSS.TIMER_MOVESET(t1)
     bgtz t3, SEM_CORRECAO_TIMER_MOVESET_3
 
-    li t0, 160
+    li t0, 128
     slli t0, t0, 12
     sw t0, entidade.X_Q12(a0)
 
-    li t0, 120
+    li t0, 88
     slli t0, t0, 12
     sw t0, entidade.Y_Q12(a0)
 

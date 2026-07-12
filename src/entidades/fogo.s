@@ -39,11 +39,32 @@ FOGO.PROC:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     lb t1, FOGO.TIMER(t0)
-    sltz a0, t1
+    sgtz a0, t1
     ret
 
 FOGO.DRAW:
-    
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    mv t0, a0
+
+    la a0, sprite_spawn
+    addi a0, a0, 8
+
+    lw a1, entidade.X_Q12(t0)
+    lw a2, entidade.Y_Q12(t0)
+
+    srai a1, a1, 12
+    srai a2, a2, 12
+               
+    # dimensoes da textura
+    li a3, 16
+    li a4, 16
+
+    jal PROC_IMPRIMIR_TEXTURA
+
+    lw ra, 0(sp)
+    addi sp, sp, 4
     ret
 
 FOGO.COLISAO:

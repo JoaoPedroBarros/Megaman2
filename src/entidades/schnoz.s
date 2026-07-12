@@ -112,7 +112,6 @@ CONTINUAR_SCHNOZ_1:
     mv a0, s0
     jal PROC_MOVER_ENTIDADE
 
-
 SCHNOZ_SPAWNANDO:
 
     mv a0, s0   
@@ -179,8 +178,11 @@ SCHNOZ.DRAW._RET:
 # Retorno (obrigatoriamente) 
 # a0: se estah vivo (1) ou nao (0)
 SCHNOZ.COLISAO:
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, (sp)
+    sw s0, 4(sp)
+
+    mv s0, a0
 
     lw t0, entidade.TIPO(a1)
     li t1, ENTIDADE_PROJETIL_COMUM
@@ -229,6 +231,10 @@ SCHNOZ.COLISAO._MORTO:
     # a0 (entidade) carregado
     la a1, DROP_TABLE_SCHNOZ # carrega a tabela do schnoz
     jal PROC_ROLAR_POWERUP
+
+    lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lw a0, SCHNOZ.ANIMACAO_CONTROLLER(t0)
+    jal PROC_FREE
     
     li a0, 0
     j SCHNOZ.COLISAO._RET
@@ -238,7 +244,8 @@ SCHNOZ.COLISAO._VIVO:
     
 SCHNOZ.COLISAO._RET:
     lw ra, (sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 
