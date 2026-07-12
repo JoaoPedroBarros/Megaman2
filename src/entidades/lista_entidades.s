@@ -70,6 +70,13 @@ lista_entidades:
         .word ENTIDADE_POWERUP.DRAW
         .word ENTIDADE_POWERUP.COLISAO
 
+        .word ENTIDADE_FOGO
+        .word FOGO.TAMANHO_STRUCT
+        .word FOGO.NOVO
+        .word FOGO.PROC
+        .word FOGO.DRAW
+        .word FOGO.COLISAO
+
         .word -1 # fim
 
         .eqv lista_entidades.BYTES_POR_ENTRADA 24       # sao 6 words por entrada!

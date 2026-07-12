@@ -81,6 +81,8 @@ SCHNOZ.PROC:
     mv s0, a0
 
     li t0, SCHNOZ.VELOCIDADE
+    slli t0, t0, 2
+    sw t0, entidade.VELOCIDADE_Y_Q12(a0)
     
     lw t1, entidade.STRUCT_ESPECIFICA(s0)
     lb t2, SCHNOZ.SPAWN(t1)
@@ -95,6 +97,7 @@ CONTINUAR_SCHNOZ_0:
     lb t2, SCHNOZ.CONTADOR_KNOCKBACK(t1)
     bnez t2, SEM_CORRECAO_VELOCIDADE_SCHNOZ
 
+    li t0, SCHNOZ.VELOCIDADE
     lb t2, SCHNOZ.DIRECAO(t1)
     mul t0, t0, t2
     sw t0, entidade.VELOCIDADE_X_Q12(s0)

@@ -47,6 +47,7 @@
         .include "entidades/projetil_vento.s"
         .include "entidades/boss.s"
         .include "entidades/powerup.s"
+        .include "entidades/fogo.s"
 
         # OUTROS
         .include "entidades/lista_entidades.s"

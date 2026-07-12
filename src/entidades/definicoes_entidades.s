@@ -12,6 +12,7 @@
 .eqv ENTIDADE_BOSS                                      6
 .eqv ENTIDADE_PROJETIL_VENTO                            7
 .eqv ENTIDADE_POWERUP                                   8
+.eqv ENTIDADE_FOGO                                      9
 
 .data
 

@@ -8,8 +8,11 @@ BOSS.struct:
     .eqv BOSS.CONTADOR_MOVIMENTACAO 9 # conta a localizacao atual na lemniscata
     .eqv BOSS.TIMER_MOVESET 13 # por simplicidade, todos os moveset terao a mesma duracao
     .eqv BOSS.TIMER_MOVIMENTACAO 15 # o chefe passarah 200 gameloops (mais ou menos 6 segundos) na movimentacao padrao
+    .eqv BOSS.CONTADOR_COLUNA_FOGO 17
+    .eqv BOSS.SEGUNDA_FASE 18
+    .eqv BOSS.CLONE 19
 
-.eqv BOSS.TAMANHO_STRUCT 17
+.eqv BOSS.TAMANHO_STRUCT 20
 
 .text
 
@@ -41,6 +44,10 @@ BOSS.NOVO:
     sw t1, BOSS.VIDA_MAXIMA(t0)
 
     sw zero, BOSS.CONTADOR_MOVIMENTACAO(t0)
+    sb zero, BOSS.CONTADOR_COLUNA_FOGO(t0)
+    sb zero, BOSS.CONTADOR_MOVESET(t0)
+    sb zero, BOSS.SEGUNDA_FASE(t0)
+    sb zero, BOSS.CLONE(t0)
 
     li t1, 200
     sh t1, BOSS.TIMER_MOVIMENTACAO(t0)
@@ -50,22 +57,35 @@ BOSS.NOVO:
 
 BOSS.PROC:
 
-    addi sp, sp, -8
+    addi sp, sp, -16
     sw ra, 0(sp)
     sw s0, 4(sp)
+    sw s1, 8(sp)
+    sw s2, 12(sp)
 
     mv s0, a0
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lb t1, BOSS.CLONE(t0)
+    bnez t1, BOSS_EH_CLONE
 
-    jal BOSS.MOVESET_MANAGER
+    mv a0, s0
+    jal BOSS.CHECA_SEGUNDA_FASE
 
     mv a0, s0
     jal PROC_RENDERIZAR_GUI_BOSS
+
+BOSS_EH_CLONE:
+
+    mv a0, s0
+    jal BOSS.MOVESET_MANAGER
 
     li a0, 1
 
     lw ra, 0(sp)
     lw s0, 4(sp)
-    addi sp, sp, 8
+    lw s1, 8(sp)
+    lw s2, 12(sp)
+    addi sp, sp, 16
 
     ret
 
@@ -111,6 +131,24 @@ BOSS.MOVESET_MANAGER:
     lh t2, BOSS.TIMER_MOVIMENTACAO(t1)
 
     bgtz t2, BOSS.MOVIMENTACAO_PADRAO
+
+    lb t2, BOSS.CLONE(t1)
+    bnez t2, BOSS.MOVIMENTACAO_PADRAO
+    
+    lh t2, BOSS.TIMER_MOVESET(t1)
+    bnez t2, SEM_ATUALIZACAO_MOVESET
+
+    csrr a0, cycle
+    li a1, 2
+    li a7, 42
+    ecall
+
+    sb a0, BOSS.CONTADOR_MOVESET(t1)
+
+SEM_ATUALIZACAO_MOVESET:
+
+    lb a0, BOSS.CONTADOR_MOVESET(t1) 
+    bgtz a0, BOSS.MOVESET_2
     j BOSS.MOVESET_3
 
 BOSS.MOVIMENTACAO_PADRAO:
@@ -145,15 +183,76 @@ NAO_REINICIA_LEMNISCATA:
 
     j BOSS.FINALIZA_PADRAO
 
-BOSS.MOVESET_1:
-
-    # vai para um lado da tela e cria uma barreira de fogo
-    ret
 
 BOSS.MOVESET_2:
 
-    lh t3, BOSS.TIMER_MOVESET(t1) 
-    ret
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lh t3, BOSS.TIMER_MOVESET(t1)
+    bgtz t3, SEM_CORRECAO_TIMER_MOVESET_2
+
+    sb zero, BOSS.CONTADOR_COLUNA_FOGO(t1)
+
+    li t0, 128
+    slli t0, t0, 12
+    sw t0, entidade.X_Q12(s0)
+
+    li t0, 88
+    slli t0, t0, 12
+    sw t0, entidade.Y_Q12(s0)
+
+    sw zero, BOSS.CONTADOR_MOVIMENTACAO(t1)
+
+    li t3, 100
+    sh t3, BOSS.TIMER_MOVESET(t1)
+
+SEM_CORRECAO_TIMER_MOVESET_2:
+
+# s1 -> contador para o y da coluna, loop interno de cada coluna
+# s2 -> contador para o x da coluna
+
+    addi t3, t3, -1
+    sh t3, BOSS.TIMER_MOVESET(t1)
+
+    li t4, 20
+    remu t4, t3, t4
+    bnez t4, NAO_GERA_COLUNA_FOGO
+    
+    li s1, 1
+    li s2, 16
+
+    lb t0, BOSS.CONTADOR_COLUNA_FOGO(t1)
+    slli t0, t0, 2
+    mul t0, t0, s2
+    add s2, s2, t0
+
+LOOP_COLUNA_FOGO:
+
+    li a0, ENTIDADE_FOGO
+    mv a1, s2
+    li a2, 48
+
+    li t0, 16
+    mul t0, t0, s1
+    add a2, a2, t0
+    
+    jal PROC_ADICIONAR_ENTIDADE
+
+    addi s1, s1, 1
+    li t0, 7
+    ble s1, t0, LOOP_COLUNA_FOGO
+
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lb t0, BOSS.CONTADOR_COLUNA_FOGO(t1)
+    addi t0, t0, 1
+    sb t0, BOSS.CONTADOR_COLUNA_FOGO(t1)
+
+NAO_GERA_COLUNA_FOGO:
+
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lh t3, BOSS.TIMER_MOVESET(t1)
+    beqz t3, VOLTA_MOVIMENTACAO_PADRAO
+
+    j BOSS.FINALIZA_PADRAO
 
 BOSS.MOVESET_3:
 
@@ -162,11 +261,11 @@ BOSS.MOVESET_3:
 
     li t0, 128
     slli t0, t0, 12
-    sw t0, entidade.X_Q12(a0)
+    sw t0, entidade.X_Q12(s0)
 
     li t0, 88
     slli t0, t0, 12
-    sw t0, entidade.Y_Q12(a0)
+    sw t0, entidade.Y_Q12(s0)
 
     sw zero, BOSS.CONTADOR_MOVIMENTACAO(t1)
 
@@ -183,8 +282,8 @@ SEM_CORRECAO_TIMER_MOVESET_3:
     bnez t4, NAO_GERA_MINION
 
     li a0, ENTIDADE_SCHNOZ
-    li a1, 160
-    li a2, 140
+    li a1, 144
+    li a2, 126
 
     jal PROC_ADICIONAR_ENTIDADE
     
@@ -243,6 +342,38 @@ BOSS.COLISAO._VIVO:
     
 BOSS.COLISAO._RET:
     lw ra, (sp)
+    addi sp, sp, 4
+    ret
+
+BOSS.CHECA_SEGUNDA_FASE:
+
+    addi sp, sp, -4
+    sw ra, 0(sp)
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lw t1, BOSS.VIDA(t0)
+
+    li t2, 500
+    bge t1, t2, SEM_SEGUNDA_FASE
+
+    lb t2, BOSS.SEGUNDA_FASE(t0)
+    bnez t2, SEM_SEGUNDA_FASE
+
+    addi t2, t2, 1
+    sb t2, BOSS.SEGUNDA_FASE(t0)
+
+    li a0, ENTIDADE_BOSS
+    li a1, 128
+    li a2, 88
+    jal PROC_ADICIONAR_ENTIDADE
+
+    lw t1, entidade.STRUCT_ESPECIFICA(a0)
+    li t2, 1
+    sb t2, BOSS.CLONE(t1)
+
+SEM_SEGUNDA_FASE:
+
+    lw ra, 0(sp)
     addi sp, sp, 4
     ret
 

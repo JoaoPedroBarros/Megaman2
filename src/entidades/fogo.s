@@ -5,7 +5,7 @@
 
 FOGO.struct:
 
-    .eqv TIMER 0
+    .eqv FOGO.TIMER 0
 
 .eqv FOGO.TAMANHO_STRUCT 1
 
@@ -31,7 +31,7 @@ FOGO.NOVO:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     li t1, 20
-    sb t0, FOGO.TIMER(t0)
+    sb t1, FOGO.TIMER(t0)
 
     ret
 
@@ -39,7 +39,10 @@ FOGO.PROC:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     lb t1, FOGO.TIMER(t0)
+    addi t1, t1, -1
+    sb t1, FOGO.TIMER(t0)
     sgtz a0, t1
+
     ret
 
 FOGO.DRAW:
@@ -56,10 +59,16 @@ FOGO.DRAW:
 
     srai a1, a1, 12
     srai a2, a2, 12
+
+    la t3, camera
+    lw t1, camera_x(t3)
+    lw t2, camera_y(t3)
+    sub a1, a1, t1          
+    sub a2, a2, t2   
                
     # dimensoes da textura
-    li a3, 16
-    li a4, 16
+    li a3, 32
+    li a4, 32
 
     jal PROC_IMPRIMIR_TEXTURA
 
