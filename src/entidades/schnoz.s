@@ -102,7 +102,7 @@ SCHNOZ.DRAW:
 
     mv t0, a0
 
-    la a0, sprite_bruxa_feitico1
+    la a0, sprite_bruxa_feitico
     addi a0, a0, 8
 
     lw a1, entidade.X_Q12(t0)
