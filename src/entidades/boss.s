@@ -9,7 +9,7 @@ BOSS.struct:
     .eqv BOSS.TIMER_MOVESET 13 # por simplicidade, todos os moveset terao a mesma duracao
     .eqv BOSS.TIMER_MOVIMENTACAO 15 # o chefe passarah 200 gameloops (mais ou menos 6 segundos) na movimentacao padrao
 
-.eqv BOSS.TAMANHO_STRUCT 16
+.eqv BOSS.TAMANHO_STRUCT 17
 
 .text
 
@@ -75,7 +75,7 @@ BOSS.DRAW:
 
     mv t0, a0
 
-    la a0, sprite_bruxa_feitico1 # urgente: trocar os sprites
+    la a0, sprite_boss_rascunho # urgente: trocar os sprites
     addi a0, a0, 8
 
     lw a1, entidade.X_Q12(t0)
@@ -85,8 +85,8 @@ BOSS.DRAW:
     srai a2, a2, 12
                
     # dimensoes da textura
-    li a3, 32
-    li a4, 32
+    li a3, 64
+    li a4, 64
 
     jal PROC_IMPRIMIR_TEXTURA
 

@@ -3,7 +3,7 @@
 
 # para visualizar no Desmos, basta colar a seguinte equacao
 
-# (x^{2}+\left(y-120\right)\ ^{2})^{2}=\left(160a\right)^{2}(x^{2}-\left(y-120\right)^{2})
+# (\left(x-160\right)^{2}+\left(y-120\right)\ ^{2})^{2}=\left(160a\right)^{2}(\left(x-160\right)^{2}-\left(y-120\right)^{2})
 
 # 160 pares pares ordenados
 
