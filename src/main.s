@@ -34,6 +34,8 @@
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
         .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
+        .include "../assets/sprites/data/schnoz/sprite_schnoz.data"
+        .include "../assets/sprites/data/spawn/sprite_spawn.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -119,6 +121,7 @@ main:
 .include "powerups/rolar_powerup.s"
 .include "animacao/reiniciar_animacao.s"
 .include "animacao/atualizar_animacao_jogador.s"
+.include "animacao/atualizar_animacao_schnoz.s"
 .include "animacao/criar_animacao_controller.s"
 .include "animacao/definir_animacao.s"
 .include "animacao/executar_animacao.s"

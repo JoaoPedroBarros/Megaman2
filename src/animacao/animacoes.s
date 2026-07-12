@@ -89,3 +89,20 @@ JOGADOR.ANIMACAO.ATIRAR:
         OP_WAIT 1
         OP_SETANIM JOGADOR.ANIMACAO.IDLE
 
+SCHNOZ.ANIMACAO.ANDAR:  .word
+        OP_SETSPRITE sprite_schnoz
+        OP_SETFRAME 0
+        OP_WAIT 4
+        OP_SETFRAME 1
+        OP_WAIT 4
+        OP_SETFRAME 0
+        OP_WAIT 4
+        OP_SETFRAME 2
+        OP_WAIT 4
+        OP_JUMP -8 # assim como a movimentacao do jogador, a animacao loopa na seguinte ordem: 0 -> 1 -> 0 -> 2 -> 0 -> 1 ...
+
+SCHNOZ.ANIMACAO.SPAWN:  .word
+        OP_SETSPRITE sprite_spawn
+        OP_SETFRAME 0
+        OP_END
+

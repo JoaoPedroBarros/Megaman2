@@ -8,8 +8,10 @@ SCHNOZ.struct:
     .eqv SCHNOZ.VIDA 0 # a vida serah um valor inteiro, visto que nao havera mais habilidade de perda progressiva de vida
     .eqv SCHNOZ.DIRECAO 4 # marcacao para saber para qual a direcao o monstro ta olhando. -1 esquerda, 1 direita
     .eqv SCHNOZ.CONTADOR_KNOCKBACK 5
+    .eqv SCHNOZ.ANIMACAO_CONTROLLER 6
+    .eqv SCHNOZ.SPAWN 10 # contador de 20 gameloops para spawn do inimigo
 
-.eqv SCHNOZ.TAMANHO_STRUCT 5
+.eqv SCHNOZ.TAMANHO_STRUCT 11
 
 .eqv SCHNOZ.VELOCIDADE 4096 # 1 
 
@@ -24,6 +26,10 @@ SCHNOZ.struct:
 # nenhum, apenas inicializa a struct com os valores iniciais
 
 SCHNOZ.NOVO:
+
+    addi sp, sp, -8
+    sw ra, 0(sp)
+    sw s0, 4(sp)
 
     slli a1, a1, 12 # passa para Q12
     slli a2, a2, 12
@@ -48,11 +54,21 @@ SCHNOZ.NOVO:
     li t1, 50
     sw t1, SCHNOZ.VIDA(t0)
 
+    li t1, 20
+    sb t1, SCHNOZ.SPAWN(t0)
+
     li t1, -1
     sb t1, SCHNOZ.DIRECAO(t0) # a direcao padrao sera para a esquerda
 
     sb zero, SCHNOZ.CONTADOR_KNOCKBACK(t0)
 
+    mv s0, t0
+    jal PROC_CRIAR_ANIMACAO_CONTROLLER
+    sw a0, SCHNOZ.ANIMACAO_CONTROLLER(s0)
+
+    lw ra, 0(sp)
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 SCHNOZ.PROC:
@@ -67,6 +83,15 @@ SCHNOZ.PROC:
     li t0, SCHNOZ.VELOCIDADE
     
     lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lb t2, SCHNOZ.SPAWN(t1)
+
+    blez t2, CONTINUAR_SCHNOZ_0
+    addi t2, t2, -1
+    sb t2, SCHNOZ.SPAWN(t1)
+    j SCHNOZ_SPAWNANDO
+
+CONTINUAR_SCHNOZ_0:
+
     lb t2, SCHNOZ.CONTADOR_KNOCKBACK(t1)
     bnez t2, SEM_CORRECAO_VELOCIDADE_SCHNOZ
 
@@ -75,18 +100,23 @@ SCHNOZ.PROC:
     sw t0, entidade.VELOCIDADE_X_Q12(s0)
     mv a0, s0
     jal PROC_COLISAO_SCHNOZ
-    j CONTINUAR_SCHNOZ
+    j CONTINUAR_SCHNOZ_1
 
 SEM_CORRECAO_VELOCIDADE_SCHNOZ:
 
     addi t2, t2, -1
     sb t2, SCHNOZ.CONTADOR_KNOCKBACK(t1)
 
-CONTINUAR_SCHNOZ:
-
+CONTINUAR_SCHNOZ_1:
 
     mv a0, s0
     jal PROC_MOVER_ENTIDADE
+
+
+SCHNOZ_SPAWNANDO:
+
+    mv a0, s0   
+    jal PROC_ATUALIZAR_ANIMACAO_SCHNOZ
 
     li a0, 1
 
@@ -97,16 +127,18 @@ CONTINUAR_SCHNOZ:
 
 SCHNOZ.DRAW:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
 
-    mv t0, a0
+    mv s0, a0
 
-    la a0, sprite_bruxa_feitico
-    addi a0, a0, 8
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lw a0, SCHNOZ.ANIMACAO_CONTROLLER(t1)
+    jal PROC_OBTER_TEXTURA_ANIMACAO
 
-    lw a1, entidade.X_Q12(t0)
-    lw a2, entidade.Y_Q12(t0)
+    lw a1, entidade.X_Q12(s0)
+    lw a2, entidade.Y_Q12(s0)
 
     srai a1, a1, 12
     srai a2, a2, 12
@@ -122,9 +154,9 @@ SCHNOZ.DRAW:
     li a3, 32 
     li a4, 32
 
-    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
     lb t2, SCHNOZ.DIRECAO(t1)
-    bltz t2, SCHNOZ.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
+    bgtz t2, SCHNOZ.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
     jal PROC_IMPRIMIR_TEXTURA
     j SCHNOZ.DRAW._RET
@@ -133,8 +165,10 @@ SCHNOZ.DRAW._INVERTIDO:
     jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
 
 SCHNOZ.DRAW._RET:
+
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 
