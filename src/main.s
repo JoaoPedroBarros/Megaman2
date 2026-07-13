@@ -36,6 +36,9 @@
         .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
         .include "../assets/sprites/data/schnoz/sprite_schnoz.data"
         .include "../assets/sprites/data/spawn/sprite_spawn.data"
+        .include "../assets/dialogos/narrador.s"
+        .include "../assets/sprites/data/dragao/sprite_dragao.data"
+        .include "../assets/sprites/data/dragao/sprite_projetil_dragao.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -69,9 +72,8 @@ main:
         la t0, tileset
         sw t0, textura_mapa, t1
 
-        # chama o procedimento de fase
-        jal PROC_FASE
-
+        jal PROC_MENU
+        
         # finaliza
         li a7, 10
         ecall
@@ -123,6 +125,7 @@ main:
 .include "animacao/reiniciar_animacao.s"
 .include "animacao/atualizar_animacao_jogador.s"
 .include "animacao/atualizar_animacao_schnoz.s"
+.include "animacao/atualizar_animacao_jumper.s"
 .include "animacao/criar_animacao_controller.s"
 .include "animacao/definir_animacao.s"
 .include "animacao/executar_animacao.s"
@@ -130,5 +133,6 @@ main:
 .include "null_proc.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"
+.include "custscenes/inicio_jogo.s"
 
 

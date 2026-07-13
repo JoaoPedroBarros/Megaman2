@@ -62,7 +62,7 @@ PROJETIL_INIMIGO.DRAW:
     sw ra, 0(sp)
 
     mv t0, a0
-    la a0, sprite_feitico6
+    la a0, sprite_projetil_dragao
     addi a0, a0, 8
     lw a1, entidade.X_Q12(t0)
     lw a2, entidade.Y_Q12(t0)

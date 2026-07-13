@@ -8,8 +8,10 @@ JUMPER.struct:
     .eqv JUMPER.VIDA 0 # a vida serah um numero Q12, por isso eh uma word
     .eqv JUMPER.COOLDOWN_MOVIMENTO 4 # contador para pegar o tempo do pulo
     .eqv JUMPER.DIRECAO 5 # fala para onde o brabo estah olhando
+    .eqv JUMPER.SPAWN 6 # flag de spawn para administrar animacao e comportamento
+    .eqv JUMPER.ANIMACAO_CONTROLLER 7 # referencia para o controller de animacao
     
-.eqv JUMPER.TAMANHO_STRUCT 6
+.eqv JUMPER.TAMANHO_STRUCT 11
 
 .text
 
@@ -21,6 +23,10 @@ JUMPER.struct:
 
 JUMPER.NOVO:
 
+    addi sp, sp, -8
+    sw ra, 0(sp)
+    sw s0, 4(sp)
+
     slli a1, a1, 12 # transforma ambas as coordenadas em Q12
     slli a2, a2, 12
     sw a1, entidade.X_Q12(a0) # armazena os valores na struct basica
@@ -31,7 +37,6 @@ JUMPER.NOVO:
     li t0, 1
     sw t0, entidade.COLIDIVEL(a0) # o inimigo serah colidivel
     sw t0, entidade.HOSTIL(a0) # o inimigo serah hostil
-    sw t0, entidade.NO_CHAO(a0) # o inimigo comecarah no chao
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0) # carrega a struct especifica
 
@@ -42,8 +47,19 @@ JUMPER.NOVO:
     li t1, 1
     sb t1, JUMPER.DIRECAO(t0) # comeca olhando para a direita
 
+    mv s0, t0
+    jal PROC_CRIAR_ANIMACAO_CONTROLLER
+    sw a0, JUMPER.ANIMACAO_CONTROLLER(s0)
+
+    li t1, 20
+    sb t1, JUMPER.SPAWN(s0)
+
     # o contador comeca em 0. Ao chegar em 10 e em 20, atira um projetil. No 21, faz um pulo e reinicia o counter
     # para zero quando identificar colisao com o chao.
+
+    lw ra, 0(sp)
+    lw s0, 4(sp)
+    addi sp, sp, 8
 
     ret
 
@@ -54,8 +70,17 @@ JUMPER.PROC:
     sw s0, 4(sp)
 
     mv s0, a0
-    
+
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
+    lb t1, JUMPER.SPAWN(t0)
+
+    blez t1, CONT_JUMPER_0
+    addi t1, t1, -1
+    sb t1, JUMPER.SPAWN(t0)
+    j JUMPER_SPAWNANDO
+
+CONT_JUMPER_0:
+
     lb t1, JUMPER.COOLDOWN_MOVIMENTO(t0) # analisa se o jumper deve atualizar as velocidades ou nao
 
     li t2, 20
@@ -110,24 +135,32 @@ SEM_ATUALIZACAO_VELOCIDADE:
     mv a0, s0
     jal PROC_MOVER_ENTIDADE
 
+JUMPER_SPAWNANDO:
+
+    mv a0, s0
+    jal PROC_ATUALIZAR_ANIMACAO_JUMPER
+
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
+
     li a0, 1
     ret
 
 JUMPER.DRAW:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
 
-    mv t0, a0
+    mv s0, a0
 
-    la a0, sprite_bruxa_feitico # urgente: trocar os sprites
-    addi a0, a0, 8
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
+    lw a0, JUMPER.ANIMACAO_CONTROLLER(t1)
+    jal PROC_OBTER_TEXTURA_ANIMACAO
 
-    lw a1, entidade.X_Q12(t0)
-    lw a2, entidade.Y_Q12(t0)
+    lw a1, entidade.X_Q12(s0)
+    lw a2, entidade.Y_Q12(s0)
 
     srai a1, a1, 12
     srai a2, a2, 12
@@ -143,9 +176,9 @@ JUMPER.DRAW:
     li a3, 32 
     li a4, 32
 
-    lw t1, entidade.STRUCT_ESPECIFICA(t0)
+    lw t1, entidade.STRUCT_ESPECIFICA(s0)
     lb t2, JUMPER.DIRECAO(t1)
-    bltz t2, JUMPER.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
+    bgtz t2, JUMPER.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
     jal PROC_IMPRIMIR_TEXTURA
     j JUMPER.DRAW._RET
@@ -156,7 +189,8 @@ JUMPER.DRAW._INVERTIDO:
 JUMPER.DRAW._RET:
 
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 JUMPER.PULA:

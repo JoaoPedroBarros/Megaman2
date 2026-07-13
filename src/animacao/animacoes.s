@@ -106,3 +106,16 @@ SCHNOZ.ANIMACAO.SPAWN:  .word
         OP_SETFRAME 0
         OP_END
 
+JUMPER.ANIMACAO.PULO:   .word
+        OP_SETSPRITE sprite_dragao
+        OP_SETFRAME 0
+        OP_WAIT 8
+        OP_SETFRAME 1
+        OP_WAIT 8
+        OP_JUMP -4 
+
+JUMPER.ANIMACAO.SPAWN:  .word
+        OP_SETSPRITE sprite_spawn
+        OP_SETFRAME 0
+        OP_END
+
