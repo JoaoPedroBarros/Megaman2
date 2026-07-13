@@ -272,6 +272,10 @@ MENU_CONTROL:
 
         li t0, '1'
         beq t1, t0, P_PE1_1
+
+        li t0, 27
+        beq t1, t0, P_PE1_ESC
+
         j P_PE1_RET
 
 P_PE1_1:

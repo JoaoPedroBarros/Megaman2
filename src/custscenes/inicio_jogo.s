@@ -5,7 +5,7 @@
 
     TITULO_JOGO: .asciz "FLORA, THE WITCH"
     INICIAR_JOGO: .asciz "1 - Iniciar jogo"
-    SAIR_JOGO:  .asciz "0 - Sair do Jogo"
+    SAIR_JOGO:  .asciz "ESC - Sair do Jogo"
 
 .text
 
@@ -59,7 +59,7 @@ P_MENU_LOOP:
         ecall
 
         la a0, SAIR_JOGO
-        li a1, 103
+        li a1, 97
         li a2, 180
         li a3, 0xFF
         lw a4, FRAME_ATUAL
