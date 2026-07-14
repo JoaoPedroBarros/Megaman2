@@ -34,8 +34,10 @@
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
         .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
-        .include "../assets/sprites/data/schnoz/sprite_schnoz.data"
-        .include "../assets/sprites/data/spawn/sprite_spawn.data"
+        .include "../assets/sprites/data/schnoz/sprite_schnoz.ci4"
+        .include "../assets/sprites/data/schnoz/sprite_schnoz.pal"
+        .include "../assets/sprites/data/spawn/sprite_spawn.ci4"
+        .include "../assets/sprites/data/spawn/sprite_spawn.pal"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -83,6 +85,8 @@ main:
 .include "impressao_e_tela/imprimir_fase.s"
 .include "impressao_e_tela/imprimir_textura.s"
 .include "impressao_e_tela/imprimir_textura_invertida.s"
+.include "impressao_e_tela/imprimir_textura_ci4.s"
+.include "impressao_e_tela/imprimir_textura_invertida_ci4.s"
 .include "impressao_e_tela/imprimir_tile.s"
 .include "impressao_e_tela/imprimir_entidades.s"
 .include "impressao_e_tela/imprimir_dialogo.s"

@@ -27,6 +27,8 @@ P_EA1_SWITCH:
         beq t2, t4, P_EA1_WAIT
         li t4, OP_SETSPRITE
         beq t2, t4, P_EA1_SETSPRITE
+        li t4, OP_SETPALETA
+        beq t2, t4, P_EA1_SETPALETA
         li t4, OP_SETFRAME
         beq t2, t4, P_EA1_SETFRAME
         li t4, OP_SETANIM
@@ -49,6 +51,10 @@ P_EA1_WAIT:
 
 P_EA1_SETSPRITE:
         sw t3, struct_animacao_controller.SPRITE(a0)
+        j P_EA1_PROXIMA_INSTRUCAO
+
+P_EA1_SETPALETA:
+        sw t3, struct_animacao_controller.PALETA(a0)
         j P_EA1_PROXIMA_INSTRUCAO
 
 P_EA1_SETFRAME:

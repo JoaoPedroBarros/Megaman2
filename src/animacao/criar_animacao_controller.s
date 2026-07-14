@@ -16,6 +16,7 @@ PROC_CRIAR_ANIMACAO_CONTROLLER:
         sw zero, struct_animacao_controller.PC(a0)
         sw zero, struct_animacao_controller.ANIMACAO(a0)
         sw zero, struct_animacao_controller.SPRITE(a0)
+        sw zero, struct_animacao_controller.PALETA(a0)
         sw zero, struct_animacao_controller.FRAME(a0)
         sw zero, struct_animacao_controller.WAIT_TIMER(a0)
 
