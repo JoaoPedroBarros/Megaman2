@@ -25,6 +25,13 @@ PROC_FASE:
         la t0, jogador # armazena a refererencia pra struct o jogador num endereco global
         sw a0, 0(t0)
 
+        la a0, berserk___forces
+        li a1, 1        # canal de musica: 1
+        li a2, 1        # sobrescrever a musica anterior
+        li a3, 1        # loopa a musica
+        li a4, 80       # volume
+        jal PROC_TOCAR_AUDIO
+
         jal PROC_LIMPAR_DIALOGO
 
         # gameloop
@@ -47,6 +54,8 @@ P_F1_LOOP:
         jal PROC_IMPRIMIR_ENTIDADES             # imprime as entidades
 
         jal PROC_DIALOGOS_MANAGER               # administra dialogos
+
+        jal PROC_AUDIOS_MANAGER                 # toca audios
 
         jal PROC_DESENHAR                       # muda o frame, mostrando tudo impresso ateh agora na tela
 
