@@ -69,7 +69,7 @@ LabelScanCodeShift:
 
 #buffer do ReadString, ReadFloat, SDread, etc. 512 caracteres/bytes
 TempBuffer:
-.space 512
+.byte 0:512
 
 # tabela de conversao hexa para ascii
 TabelaHexASCII:		.string "0123456789ABCDEF  "
@@ -1591,14 +1591,25 @@ Random.DE1: 	li 	t0, LFSR	# carrega endereco do LFSR
 #  output a0 = numero randomico        	   #
 ############################################
 
-Random2:	DE1(s8,Random2.DE1)
+Random2:	
+		addi sp, sp, -4
+		sw ra, 0(sp)
+
+		DE1(s8,Random2.DE1)
 		li 	a7,42			# Chama o ecall do Rars
 		ecall	
+
+		lw ra, 0(sp)
+		addi sp, sp, 4
 		ret				# saida
 	
 Random2.DE1: 	li 	t0, LFSR	# carrega endereco do LFSR
 		lw 	a0, 0(t0)	# le a word em a0
+
 		jal 	__umodsi3
+
+		lw ra, 0(sp)
+		addi sp, sp, 4
 		#remu 	a0,a0,a1	# numero entre 0 e a1
 		ret			# retorna
 

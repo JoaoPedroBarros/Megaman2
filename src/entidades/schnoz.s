@@ -153,6 +153,8 @@ SCHNOZ.DRAW:
     lw a0, SCHNOZ.ANIMACAO_CONTROLLER(t1)
     jal PROC_OBTER_TEXTURA_ANIMACAO
 
+    beqz a0, SCHNOZ.DRAW._RET
+
     mv a5, a1   # paleta
 
     lw a1, entidade.X_Q12(s0)

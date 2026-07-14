@@ -45,6 +45,7 @@ PROC_MONSTER_CONTROLLER:
     csrr a0, cycle # esse primeiro serve para obter a posicao X do novo mosntro
     li a1, 130 
     li a7, 42
+    
     ecall
     
     lw t2, entidade.X_Q12(t1)
@@ -60,7 +61,8 @@ PROC_MONSTER_CONTROLLER:
     csrr a0, cycle
     li a1, 2
     li a7, 42
-    ecall 
+
+    jal Random2 
 
     beqz a0, SPAWN_SCHNOZ
 

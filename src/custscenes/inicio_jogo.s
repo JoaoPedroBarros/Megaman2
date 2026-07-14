@@ -33,7 +33,7 @@ P_MENU_LOOP:
         lw a1, FRAME_ATUAL
         seqz a1, a1
         li a7, 148
-        #ecall
+        ecall
 
         jal PROC_DIALOGOS_MANAGER
         

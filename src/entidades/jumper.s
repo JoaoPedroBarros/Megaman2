@@ -163,6 +163,8 @@ JUMPER.DRAW:
     jal PROC_OBTER_TEXTURA_ANIMACAO
     mv a5, a1   # guarda a paleta
 
+    beqz a0, JUMPER.DRAW._RET
+
     lw a1, entidade.X_Q12(s0)
     lw a2, entidade.Y_Q12(s0)
 

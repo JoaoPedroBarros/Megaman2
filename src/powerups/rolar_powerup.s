@@ -25,6 +25,7 @@ PROC_ROLAR_POWERUP:
         csrr a0, cycle # semente aleatoria (irrelevante no DE1, mas necessario no RARS e FPGRARS)
         li a1, 100
         li a7, 42
+        
         ecall
         # numero aleatorio em a0
 

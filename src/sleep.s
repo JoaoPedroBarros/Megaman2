@@ -2,7 +2,7 @@
 # Descri��o: sleep(int time) : Realiza um sleep blocking de time ms
 # "Congela o programa por time ms"
 PROC_SLEEP:
-	li a0, 33
+	li a0, 1
 	li a7, 32
 	ecall
 	ret

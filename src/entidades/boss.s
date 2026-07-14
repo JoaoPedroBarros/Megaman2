@@ -142,7 +142,8 @@ BOSS.MOVESET_MANAGER:
     csrr a0, cycle
     li a1, 2
     li a7, 42
-    ecall
+
+    jal Random2
 
     sb a0, BOSS.CONTADOR_MOVESET(t1)
 

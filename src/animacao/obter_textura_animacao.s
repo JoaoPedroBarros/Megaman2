@@ -12,6 +12,7 @@
 PROC_OBTER_TEXTURA_ANIMACAO:
         lw a1, struct_animacao_controller.PALETA(a0)
         lw t0, struct_animacao_controller.SPRITE(a0)
+        beqz t0, P_OT_RET_NULL
         lw t1, 0(t0)
         lw t2, 4(t0)
         lw t3, struct_animacao_controller.FRAME(a0)
@@ -19,6 +20,14 @@ PROC_OBTER_TEXTURA_ANIMACAO:
         mul t3, t3, t2
         add a0, t0, t3
         addi a0, a0, 8  # pula dimensoes
+        j P_OT_RET
         
+P_OT_RET_NULL:
+
+        mv a0, t0
+        j P_OT_RET
+
+P_OT_RET:
+
         ret             
 
