@@ -10,9 +10,10 @@ BOSS.struct:
     .eqv BOSS.TIMER_MOVIMENTACAO 15 # o chefe passarah 200 gameloops (mais ou menos 6 segundos) na movimentacao padrao
     .eqv BOSS.CONTADOR_COLUNA_FOGO 17
     .eqv BOSS.SEGUNDA_FASE 18
-    .eqv BOSS.CLONE 19
+    .eqv BOSS.CLONE 19 
+    .eqv BOSS.REFERENCIA_CLONE 20
 
-.eqv BOSS.TAMANHO_STRUCT 20
+.eqv BOSS.TAMANHO_STRUCT 24
 
 .text
 
@@ -95,7 +96,7 @@ BOSS.DRAW:
 
     mv t0, a0
 
-    la a0, sprite_boss_rascunho
+    la a0, sprite_boss
     addi a0, a0, 8
 
     lw a1, entidade.X_Q12(t0)
@@ -335,6 +336,13 @@ BOSS.COLISAO._PROJETIL_COMUM:
     addi t1, t1, PROJETIL_COMUM.DANO
     sw t1, BOSS.VIDA(t0)
     sgtz a0, t1
+
+    bnez a0, BOSS.COLISAO._RET
+
+    lw t1, BOSS.REFERENCIA_CLONE(t0)
+    lw t1, entidade.STRUCT_ESPECIFICA(t1)
+    sw zero, BOSS.VIDA(t1)
+
     j BOSS.COLISAO._RET
 
 BOSS.COLISAO._VIVO:
@@ -347,10 +355,12 @@ BOSS.COLISAO._RET:
 
 BOSS.CHECA_SEGUNDA_FASE:
 
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, 0(sp)
+    sw s0, 4(sp)
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    mv s0, t0
     lw t1, BOSS.VIDA(t0)
 
     li t2, 500
@@ -367,6 +377,8 @@ BOSS.CHECA_SEGUNDA_FASE:
     li a2, 88
     jal PROC_ADICIONAR_ENTIDADE
 
+    sw a0, BOSS.REFERENCIA_CLONE(s0)
+
     lw t1, entidade.STRUCT_ESPECIFICA(a0)
     li t2, 1
     sb t2, BOSS.CLONE(t1)
@@ -374,7 +386,8 @@ BOSS.CHECA_SEGUNDA_FASE:
 SEM_SEGUNDA_FASE:
 
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 
 

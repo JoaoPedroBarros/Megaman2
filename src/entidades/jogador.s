@@ -466,7 +466,7 @@ JOGADOR.TRANSICAO_BOSS:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     li t1, 1
-    sw t1, JOGADOR.FLAG_BOSSFIGHT(t0) # seta a flag de bossfight para 1
+    sb t1, JOGADOR.FLAG_BOSSFIGHT(t0) # seta a flag de bossfight para 1
 
     la t0, camera
     sw zero, camera_x(t0) # reseta a camera para 0. A arena tem o tamanho da tela, entao deixar a camera livre estraga

@@ -140,11 +140,13 @@ JUMPER_SPAWNANDO:
     mv a0, s0
     jal PROC_ATUALIZAR_ANIMACAO_JUMPER
 
+    mv a0, s0
+    jal PROC_RECICLA_ENTIDADE
+
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
 
-    li a0, 1
     ret
 
 JUMPER.DRAW:
@@ -225,8 +227,9 @@ JUMPER_PULA_RETORNO:
     ret
 
 JUMPER.COLISAO:
-    addi sp, sp, -4
+    addi sp, sp, -8
     sw ra, (sp)
+    sw s0, 4(sp)
 
     lw t0, entidade.TIPO(a1)
     li t1, ENTIDADE_PROJETIL_COMUM
@@ -272,17 +275,31 @@ SEM_CORRECAO_KNOCKBACK_VENTO_JUMPER:
 JUMPER.COLISAO._MORTO:
     # rola para ver se vai spawnar um powerup
     # a0 (entidade) carregado
+    mv s0, a0
+
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lw a0, JUMPER.ANIMACAO_CONTROLLER(t0)
+    jal PROC_FREE
+
+    mv a0, s0
     la a1, DROP_TABLE_JUMPER
     jal PROC_ROLAR_POWERUP
+
+    la t0, MONSTER_CONTROLLER
+    lb t1, (t0)
+    addi t1, t1, -1
+    sb t1, (t0)
 
     li a0, 0
     j JUMPER.COLISAO._RET
 
 JUMPER.COLISAO._VIVO:
+
     li a0, 1
     
 JUMPER.COLISAO._RET:
     lw ra, (sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    addi sp, sp, 8
     ret
 

@@ -49,3 +49,8 @@
         .eqv camera_y 4
         camera:
                 .word 0 0
+
+        # referencia global para a struct basicado jogador. Util para procedimentos que utilizam informacoes do jogador,
+        # mas nao podem receber como argumento facilmente.
+        jogador:
+                .word 0

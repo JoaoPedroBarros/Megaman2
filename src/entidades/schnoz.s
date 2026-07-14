@@ -57,9 +57,22 @@ SCHNOZ.NOVO:
     li t1, 20
     sb t1, SCHNOZ.SPAWN(t0)
 
-    li t1, -1
-    sb t1, SCHNOZ.DIRECAO(t0) # a direcao padrao sera para a esquerda
+    la t1, jogador
+    lw t1, 0(t1)
+    lw t2, entidade.X_Q12(t1)
+    lw t3, entidade.X_Q12(a0)
 
+    ble t2, t3, SCHNOZ_SPAWNA_ESQUERDA
+    li t1, 1
+    j SCHNOZ_SPAWNA_DIREITA
+
+SCHNOZ_SPAWNA_ESQUERDA:
+
+    li t1, -1
+
+SCHNOZ_SPAWNA_DIREITA:
+
+    sb t1, SCHNOZ.DIRECAO(t0)
     sb zero, SCHNOZ.CONTADOR_KNOCKBACK(t0)
 
     mv s0, t0
@@ -120,7 +133,8 @@ SCHNOZ_SPAWNANDO:
     mv a0, s0   
     jal PROC_ATUALIZAR_ANIMACAO_SCHNOZ
 
-    li a0, 1
+    mv a0, s0
+    jal PROC_RECICLA_ENTIDADE
 
     lw ra, 0(sp)
     lw s0, 4(sp)
@@ -238,6 +252,11 @@ SCHNOZ.COLISAO._MORTO:
     lw t0, entidade.STRUCT_ESPECIFICA(s0)
     lw a0, SCHNOZ.ANIMACAO_CONTROLLER(t0)
     jal PROC_FREE
+
+    la t0, MONSTER_CONTROLLER
+    lb t1, (t0)
+    addi t1, t1, -1
+    sb t1, (t0)
     
     li a0, 0
     j SCHNOZ.COLISAO._RET

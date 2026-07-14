@@ -33,12 +33,13 @@
         .include "../assets/sprites/data/bruxa/sprite_feitico5.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico6.data"
         .include "../assets/sprites/data/bruxa/sprite_feitico_vento.data"
-        .include "../assets/sprites/data/boss/sprite_boss_rascunho.data"
+        .include "../assets/sprites/data/boss/sprite_boss.data"
         .include "../assets/sprites/data/schnoz/sprite_schnoz.data"
         .include "../assets/sprites/data/spawn/sprite_spawn.data"
         .include "../assets/dialogos/narrador.s"
         .include "../assets/sprites/data/dragao/sprite_dragao.data"
         .include "../assets/sprites/data/dragao/sprite_projetil_dragao.data"
+        .include "../assets/sprites/data/boss/sprite_feitico_boss.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -97,6 +98,8 @@ main:
 .include "entidades/entidades_manager.s"
 .include "entidades/remover_entidade.s"
 .include "entidades/deletar_entidades_pendentes.s"
+.include "entidades/monster_controller.s"
+.include "entidades/recicla_entidade.s"
 .include "fase_e_mapa/carregar_mapa.s"
 .include "fase_e_mapa/fase.s"
 .include "entradas/processar_entradas.s"
