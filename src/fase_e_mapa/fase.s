@@ -20,27 +20,12 @@ PROC_FASE:
         li a0, ENTIDADE_JOGADOR
         li a1, 30
         li a2, 144
-        jal PROC_ADICIONAR_ENTIDADE
+        jal PROC_ADICIONAR_ENTIDADE ##
 
-        li a0, ENTIDADE_SCHNOZ
-        li a1, 150
-        li a2, 144
-        jal PROC_ADICIONAR_ENTIDADE
+        la t0, jogador # armazena a refererencia pra struct o jogador num endereco global
+        sw a0, 0(t0)
 
-        li a0, ENTIDADE_JUMPER
-        li a1, 250
-        li a2, 144
-        jal PROC_ADICIONAR_ENTIDADE
-
-        la a0, dialogo1teste
-        la a1, dialogo1nome
-        li a2, 2
-        jal PROC_ADICIONAR_DIALOGO
-
-        la a0, dialogo2teste
-        la a1, dialogo2nome
-        li a2, 2
-        jal PROC_ADICIONAR_DIALOGO
+        jal PROC_LIMPAR_DIALOGO
 
         # gameloop
 P_F1_LOOP:
@@ -55,6 +40,7 @@ P_F1_LOOP:
         jal PROC_COLISOES_MANAGER               # lida com colisoes
         jal PROC_EVENTOS_MANAGER                # administra eventos
 
+        jal PROC_MONSTER_CONTROLLER
         jal PROC_DELETAR_ENTIDADES_PENDENTES 	# deleta entidades mortas
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 

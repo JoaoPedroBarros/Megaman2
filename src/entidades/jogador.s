@@ -5,17 +5,17 @@
 # Struct especifica do jogador
 
 JOGADOR.struct:
-    .eqv JOGADOR.VIDA 0
-    .eqv JOGADOR.VIDA_MAXIMA 1
-    .eqv JOGADOR.MUNICAO_PROJETIL_VENTO 2
-    .eqv JOGADOR.MUNICAO_MAXIMA 3
-    .eqv JOGADOR.DIRECAO 4
-    .eqv JOGADOR.COOLDOWN_PROJETIL 5
-    .eqv JOGADOR.TEMPO_USO_VASSOURA 6
-    .eqv JOGADOR.COOLDOWN_USO_VASSOURA 8
-    .eqv JOGADOR.FLAG_VASSOURA 10
-    .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 11
-    .eqv JOGADOR.ANIMACAO_CONTROLLER 12
+    .eqv JOGADOR.ANIMACAO_CONTROLLER 0
+    .eqv JOGADOR.TEMPO_USO_VASSOURA 4
+    .eqv JOGADOR.COOLDOWN_USO_VASSOURA 6
+    .eqv JOGADOR.VIDA 8
+    .eqv JOGADOR.VIDA_MAXIMA 9
+    .eqv JOGADOR.MUNICAO_PROJETIL_VENTO 10
+    .eqv JOGADOR.MUNICAO_MAXIMA 11
+    .eqv JOGADOR.DIRECAO 12
+    .eqv JOGADOR.COOLDOWN_PROJETIL 13
+    .eqv JOGADOR.FLAG_VASSOURA 14
+    .eqv JOGADOR.TEMPORIZADOR_INVENCIBILIDADE 15
     .eqv JOGADOR.TEMPORIZADOR_IGNORAR_PLATAFORMA 16
     .eqv JOGADOR.FLAG_BOSSFIGHT 17
 
@@ -466,7 +466,7 @@ JOGADOR.TRANSICAO_BOSS:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
     li t1, 1
-    sw t1, JOGADOR.FLAG_BOSSFIGHT(t0) # seta a flag de bossfight para 1
+    sb t1, JOGADOR.FLAG_BOSSFIGHT(t0) # seta a flag de bossfight para 1
 
     la t0, camera
     sw zero, camera_x(t0) # reseta a camera para 0. A arena tem o tamanho da tela, entao deixar a camera livre estraga
