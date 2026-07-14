@@ -1,5 +1,5 @@
 # procedimento que analisa se a entidade saiu da tela do jogador. Para isso, compara com a coordenada do jogador
-# e ve se a diferenca em modulo eh maior que a resolucao/2.
+# e ve se a diferenca em modulo eh maior que a resolucao/2 + offset (polimento visual).
 
 # ARGUMENTOS - 
 
@@ -7,7 +7,7 @@
 
 # RETORNO -
 
-# a0 - 1 se o inimigo deve ser reciclado, 0 se nao
+# a0 - 0 se inimigo deve ser reciclado (mostra que a entidade morreu), 1 caso contrario
 
 PROC_RECICLA_ENTIDADE:
 
@@ -26,8 +26,8 @@ PROC_RECICLA_ENTIDADE:
     srai t3, t3, 12
     srai t4, t4, 12
 
-    li t5, 160
-    li t6, 120
+    li t5, 180
+    li t6, 140
 
     sub t1, t1, t3
     bgtz t1, P_RE_CORRIGE_X

@@ -1,17 +1,17 @@
 .data
 
 BOSS.struct:
+   
     .eqv BOSS.VIDA 0
     .eqv BOSS.VIDA_MAXIMA 4
-    .eqv BOSS.CONTADOR_MOVESET 8 # a cada certa quantidade de gameloops, o boss escolhera um moveset aleatoriamente entre
-    # os presets
-    .eqv BOSS.CONTADOR_MOVIMENTACAO 9 # conta a localizacao atual na lemniscata
-    .eqv BOSS.TIMER_MOVESET 13 # por simplicidade, todos os moveset terao a mesma duracao
-    .eqv BOSS.TIMER_MOVIMENTACAO 15 # o chefe passarah 200 gameloops (mais ou menos 6 segundos) na movimentacao padrao
-    .eqv BOSS.CONTADOR_COLUNA_FOGO 17
-    .eqv BOSS.SEGUNDA_FASE 18
-    .eqv BOSS.CLONE 19 
-    .eqv BOSS.REFERENCIA_CLONE 20
+    .eqv BOSS.CONTADOR_MOVIMENTACAO 8
+    .eqv BOSS.REFERENCIA_CLONE 12
+    .eqv BOSS.TIMER_MOVESET 16
+    .eqv BOSS.TIMER_MOVIMENTACAO 18
+    .eqv BOSS.CONTADOR_COLUNA_FOGO 20
+    .eqv BOSS.SEGUNDA_FASE 21
+    .eqv BOSS.CLONE 22
+    .eqv BOSS.CONTADOR_MOVESET 23
 
 .eqv BOSS.TAMANHO_STRUCT 24
 

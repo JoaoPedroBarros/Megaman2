@@ -11,6 +11,12 @@ SCHNOZ.struct:
     .eqv SCHNOZ.ANIMACAO_CONTROLLER 6
     .eqv SCHNOZ.SPAWN 10 # contador de 20 gameloops para spawn do inimigo
 
+    .eqv SCHNOZ.ANIMACAO_CONTROLLER 0
+    .eqv SCHNOZ.VIDA 4
+    .eqv SCHNOZ.CONTADOR_KNOCKBACK 8
+    .eqv SCHNOZ.DIRECAO 9
+    .eqv SCHNOZ.SPAWN 10
+
 .eqv SCHNOZ.TAMANHO_STRUCT 11
 
 .eqv SCHNOZ.VELOCIDADE 4096 # 1 

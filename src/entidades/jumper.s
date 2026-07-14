@@ -5,11 +5,12 @@
 # struct especifica do jumper
 
 JUMPER.struct:
-    .eqv JUMPER.VIDA 0 # a vida serah um numero Q12, por isso eh uma word
-    .eqv JUMPER.COOLDOWN_MOVIMENTO 4 # contador para pegar o tempo do pulo
-    .eqv JUMPER.DIRECAO 5 # fala para onde o brabo estah olhando
-    .eqv JUMPER.SPAWN 6 # flag de spawn para administrar animacao e comportamento
-    .eqv JUMPER.ANIMACAO_CONTROLLER 7 # referencia para o controller de animacao
+
+    .eqv JUMPER.VIDA 0
+    .eqv JUMPER.ANIMACAO_CONTROLLER 4
+    .eqv JUMPER.DIRECAO 8
+    .eqv JUMPER.SPAWN 9
+    .eqv JUMPER.COOLDOWN_MOVIMENTO 10
     
 .eqv JUMPER.TAMANHO_STRUCT 11
 
