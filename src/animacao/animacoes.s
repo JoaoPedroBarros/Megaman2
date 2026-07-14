@@ -91,6 +91,7 @@ JOGADOR.ANIMACAO.ATIRAR:
 
 SCHNOZ.ANIMACAO.ANDAR:  .word
         OP_SETSPRITE sprite_schnoz
+        OP_SETPAL sprite_schnoz_paleta
         OP_SETFRAME 0
         OP_WAIT 4
         OP_SETFRAME 1
@@ -103,11 +104,13 @@ SCHNOZ.ANIMACAO.ANDAR:  .word
 
 SCHNOZ.ANIMACAO.SPAWN:  .word
         OP_SETSPRITE sprite_spawn
+        OP_SETPAL sprite_spawn_paleta
         OP_SETFRAME 0
         OP_END
 
 JUMPER.ANIMACAO.PULO:   .word
         OP_SETSPRITE sprite_dragao
+        OP_SETPAL sprite_dragao_paleta
         OP_SETFRAME 0
         OP_WAIT 8
         OP_SETFRAME 1
@@ -116,6 +119,7 @@ JUMPER.ANIMACAO.PULO:   .word
 
 JUMPER.ANIMACAO.SPAWN:  .word
         OP_SETSPRITE sprite_spawn
+        OP_SETPAL sprite_spawn_paleta
         OP_SETFRAME 0
         OP_END
 

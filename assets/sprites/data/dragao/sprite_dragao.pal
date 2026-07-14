@@ -1,0 +1,2 @@
+sprite_dragao_paleta: .word 11 1 
+.byte 199,0,38,30,10,21,76,28,139,246,75,

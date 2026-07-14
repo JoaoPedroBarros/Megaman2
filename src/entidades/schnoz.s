@@ -159,6 +159,8 @@ SCHNOZ.DRAW:
     lw a0, SCHNOZ.ANIMACAO_CONTROLLER(t1)
     jal PROC_OBTER_TEXTURA_ANIMACAO
 
+    mv a5, a1   # paleta
+
     lw a1, entidade.X_Q12(s0)
     lw a2, entidade.Y_Q12(s0)
 
@@ -180,11 +182,11 @@ SCHNOZ.DRAW:
     lb t2, SCHNOZ.DIRECAO(t1)
     bgtz t2, SCHNOZ.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
-    jal PROC_IMPRIMIR_TEXTURA
+    jal PROC_IMPRIMIR_TEXTURA_CI4
     j SCHNOZ.DRAW._RET
 
 SCHNOZ.DRAW._INVERTIDO:
-    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA_CI4
 
 SCHNOZ.DRAW._RET:
 

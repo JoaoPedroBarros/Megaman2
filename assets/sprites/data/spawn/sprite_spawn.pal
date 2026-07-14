@@ -1,0 +1,2 @@
+sprite_spawn_paleta: .word 5 1 
+.byte 199,145,154,163,245,
