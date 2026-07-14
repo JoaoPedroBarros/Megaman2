@@ -72,7 +72,9 @@ FOGO.DRAW:
     li a3, 32
     li a4, 32
 
-    jal PROC_IMPRIMIR_TEXTURA
+    la a5, sprite_spawn_paleta
+
+    jal PROC_IMPRIMIR_TEXTURA_CI4
 
     lw ra, 0(sp)
     addi sp, sp, 4
