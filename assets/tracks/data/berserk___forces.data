@@ -1,0 +1,6439 @@
+berserk___forces:
+    .byte 32, 50
+    .half 125
+    .word 5
+
+    .byte 39, 50
+    .half 125
+    .word 146
+
+    .byte 44, 50
+    .half 125
+    .word 267
+
+    .byte 39, 50
+    .half 125
+    .word 389
+
+    .byte 32, 50
+    .half 125
+    .word 516
+
+    .byte 39, 50
+    .half 125
+    .word 642
+
+    .byte 44, 50
+    .half 125
+    .word 762
+
+    .byte 39, 50
+    .half 125
+    .word 883
+
+    .byte 32, 50
+    .half 125
+    .word 1010
+
+    .byte 39, 50
+    .half 125
+    .word 1139
+
+    .byte 44, 50
+    .half 125
+    .word 1259
+
+    .byte 39, 50
+    .half 125
+    .word 1380
+
+    .byte 32, 50
+    .half 125
+    .word 1507
+
+    .byte 39, 50
+    .half 125
+    .word 1632
+
+    .byte 44, 50
+    .half 125
+    .word 1753
+
+    .byte 39, 50
+    .half 125
+    .word 1874
+
+    .byte 35, 50
+    .half 125
+    .word 2003
+
+    .byte 42, 50
+    .half 125
+    .word 2145
+
+    .byte 47, 50
+    .half 125
+    .word 2266
+
+    .byte 42, 50
+    .half 125
+    .word 2388
+
+    .byte 35, 50
+    .half 125
+    .word 2514
+
+    .byte 42, 50
+    .half 125
+    .word 2641
+
+    .byte 47, 50
+    .half 125
+    .word 2760
+
+    .byte 42, 50
+    .half 125
+    .word 2882
+
+    .byte 30, 50
+    .half 250
+    .word 3009
+
+    .byte 30, 50
+    .half 250
+    .word 3505
+
+    .byte 78, 50
+    .half 375
+    .word 3505
+
+    .byte 66, 50
+    .half 375
+    .word 3505
+
+    .byte 42, 50
+    .half 250
+    .word 3751
+
+    .byte 32, 50
+    .half 125
+    .word 4001
+
+    .byte 78, 50
+    .half 499
+    .word 4001
+
+    .byte 66, 50
+    .half 499
+    .word 4001
+
+    .byte 39, 50
+    .half 125
+    .word 4143
+
+    .byte 44, 50
+    .half 125
+    .word 4264
+
+    .byte 39, 50
+    .half 125
+    .word 4387
+
+    .byte 32, 50
+    .half 125
+    .word 4513
+
+    .byte 78, 50
+    .half 375
+    .word 4513
+
+    .byte 66, 50
+    .half 375
+    .word 4513
+
+    .byte 39, 50
+    .half 125
+    .word 4639
+
+    .byte 44, 50
+    .half 125
+    .word 4759
+
+    .byte 39, 50
+    .half 125
+    .word 4880
+
+    .byte 78, 50
+    .half 125
+    .word 4941
+
+    .byte 32, 50
+    .half 125
+    .word 5008
+
+    .byte 73, 50
+    .half 500
+    .word 5008
+
+    .byte 39, 50
+    .half 125
+    .word 5137
+
+    .byte 44, 50
+    .half 125
+    .word 5257
+
+    .byte 39, 50
+    .half 125
+    .word 5378
+
+    .byte 32, 50
+    .half 125
+    .word 5504
+
+    .byte 39, 50
+    .half 125
+    .word 5629
+
+    .byte 44, 50
+    .half 125
+    .word 5750
+
+    .byte 39, 50
+    .half 125
+    .word 5871
+
+    .byte 75, 50
+    .half 4
+    .word 6000
+
+    .byte 63, 50
+    .half 4
+    .word 6000
+
+    .byte 35, 50
+    .half 125
+    .word 6000
+
+    .byte 42, 50
+    .half 125
+    .word 6142
+
+    .byte 47, 50
+    .half 125
+    .word 6263
+
+    .byte 42, 50
+    .half 125
+    .word 6385
+
+    .byte 35, 50
+    .half 125
+    .word 6512
+
+    .byte 73, 50
+    .half 375
+    .word 6512
+
+    .byte 61, 50
+    .half 375
+    .word 6512
+
+    .byte 42, 50
+    .half 125
+    .word 6638
+
+    .byte 47, 50
+    .half 125
+    .word 6758
+
+    .byte 42, 50
+    .half 125
+    .word 6879
+
+    .byte 71, 50
+    .half 125
+    .word 6940
+
+    .byte 30, 50
+    .half 250
+    .word 7007
+
+    .byte 73, 50
+    .half 500
+    .word 7007
+
+    .byte 61, 50
+    .half 500
+    .word 7007
+
+    .byte 30, 50
+    .half 250
+    .word 7503
+
+    .byte 42, 50
+    .half 250
+    .word 7749
+
+    .byte 75, 50
+    .half 4
+    .word 7999
+
+    .byte 63, 50
+    .half 4
+    .word 7999
+
+    .byte 32, 50
+    .half 125
+    .word 7999
+
+    .byte 39, 50
+    .half 125
+    .word 8141
+
+    .byte 44, 50
+    .half 125
+    .word 8262
+
+    .byte 39, 50
+    .half 125
+    .word 8384
+
+    .byte 32, 50
+    .half 125
+    .word 8510
+
+    .byte 73, 50
+    .half 375
+    .word 8510
+
+    .byte 61, 50
+    .half 375
+    .word 8510
+
+    .byte 39, 50
+    .half 125
+    .word 8637
+
+    .byte 44, 50
+    .half 125
+    .word 8757
+
+    .byte 39, 50
+    .half 125
+    .word 8878
+
+    .byte 71, 50
+    .half 125
+    .word 8939
+
+    .byte 32, 50
+    .half 125
+    .word 9005
+
+    .byte 73, 50
+    .half 500
+    .word 9005
+
+    .byte 61, 50
+    .half 500
+    .word 9005
+
+    .byte 39, 50
+    .half 125
+    .word 9134
+
+    .byte 44, 50
+    .half 125
+    .word 9254
+
+    .byte 39, 50
+    .half 125
+    .word 9375
+
+    .byte 32, 50
+    .half 125
+    .word 9501
+
+    .byte 75, 50
+    .half 500
+    .word 9501
+
+    .byte 63, 50
+    .half 500
+    .word 9501
+
+    .byte 39, 50
+    .half 125
+    .word 9626
+
+    .byte 44, 50
+    .half 125
+    .word 9747
+
+    .byte 39, 50
+    .half 125
+    .word 9868
+
+    .byte 35, 50
+    .half 125
+    .word 9997
+
+    .byte 59, 50
+    .half 375
+    .word 9997
+
+    .byte 71, 50
+    .half 500
+    .word 9997
+
+    .byte 42, 50
+    .half 125
+    .word 10139
+
+    .byte 47, 50
+    .half 252
+    .word 10260
+
+    .byte 42, 50
+    .half 125
+    .word 10384
+
+    .byte 35, 50
+    .half 125
+    .word 10510
+
+    .byte 42, 50
+    .half 125
+    .word 10637
+
+    .byte 47, 50
+    .half 125
+    .word 10757
+
+    .byte 42, 50
+    .half 125
+    .word 10878
+
+    .byte 73, 50
+    .half 5
+    .word 11005
+
+    .byte 61, 50
+    .half 5
+    .word 11005
+
+    .byte 30, 50
+    .half 250
+    .word 11005
+
+    .byte 30, 50
+    .half 250
+    .word 11501
+
+    .byte 75, 50
+    .half 375
+    .word 11501
+
+    .byte 63, 50
+    .half 375
+    .word 11501
+
+    .byte 42, 50
+    .half 250
+    .word 11747
+
+    .byte 32, 50
+    .half 125
+    .word 11997
+
+    .byte 78, 50
+    .half 499
+    .word 11997
+
+    .byte 66, 50
+    .half 499
+    .word 11997
+
+    .byte 39, 50
+    .half 125
+    .word 12139
+
+    .byte 44, 50
+    .half 125
+    .word 12260
+
+    .byte 39, 50
+    .half 125
+    .word 12383
+
+    .byte 32, 50
+    .half 125
+    .word 12509
+
+    .byte 78, 50
+    .half 375
+    .word 12509
+
+    .byte 66, 50
+    .half 375
+    .word 12509
+
+    .byte 39, 50
+    .half 125
+    .word 12635
+
+    .byte 44, 50
+    .half 125
+    .word 12755
+
+    .byte 39, 50
+    .half 125
+    .word 12876
+
+    .byte 78, 50
+    .half 125
+    .word 12938
+
+    .byte 32, 50
+    .half 125
+    .word 13004
+
+    .byte 73, 50
+    .half 500
+    .word 13004
+
+    .byte 39, 50
+    .half 125
+    .word 13133
+
+    .byte 44, 50
+    .half 125
+    .word 13253
+
+    .byte 39, 50
+    .half 125
+    .word 13374
+
+    .byte 32, 50
+    .half 125
+    .word 13500
+
+    .byte 39, 50
+    .half 125
+    .word 13625
+
+    .byte 44, 50
+    .half 125
+    .word 13746
+
+    .byte 39, 50
+    .half 125
+    .word 13867
+
+    .byte 75, 50
+    .half 4
+    .word 13996
+
+    .byte 63, 50
+    .half 4
+    .word 13996
+
+    .byte 35, 50
+    .half 125
+    .word 13996
+
+    .byte 42, 50
+    .half 125
+    .word 14138
+
+    .byte 47, 50
+    .half 125
+    .word 14259
+
+    .byte 42, 50
+    .half 125
+    .word 14382
+
+    .byte 35, 50
+    .half 125
+    .word 14508
+
+    .byte 73, 50
+    .half 375
+    .word 14508
+
+    .byte 61, 50
+    .half 375
+    .word 14508
+
+    .byte 42, 50
+    .half 125
+    .word 14634
+
+    .byte 47, 50
+    .half 125
+    .word 14754
+
+    .byte 42, 50
+    .half 125
+    .word 14875
+
+    .byte 71, 50
+    .half 125
+    .word 14936
+
+    .byte 30, 50
+    .half 250
+    .word 15003
+
+    .byte 73, 50
+    .half 500
+    .word 15003
+
+    .byte 61, 50
+    .half 500
+    .word 15003
+
+    .byte 30, 50
+    .half 250
+    .word 15499
+
+    .byte 42, 50
+    .half 250
+    .word 15745
+
+    .byte 75, 50
+    .half 4
+    .word 15995
+
+    .byte 63, 50
+    .half 4
+    .word 15995
+
+    .byte 32, 50
+    .half 125
+    .word 15995
+
+    .byte 39, 50
+    .half 125
+    .word 16137
+
+    .byte 44, 50
+    .half 125
+    .word 16258
+
+    .byte 39, 50
+    .half 125
+    .word 16380
+
+    .byte 32, 50
+    .half 125
+    .word 16507
+
+    .byte 73, 50
+    .half 375
+    .word 16507
+
+    .byte 61, 50
+    .half 375
+    .word 16507
+
+    .byte 39, 50
+    .half 125
+    .word 16633
+
+    .byte 44, 50
+    .half 125
+    .word 16753
+
+    .byte 39, 50
+    .half 125
+    .word 16874
+
+    .byte 71, 50
+    .half 125
+    .word 16935
+
+    .byte 32, 50
+    .half 125
+    .word 17001
+
+    .byte 73, 50
+    .half 500
+    .word 17001
+
+    .byte 61, 50
+    .half 500
+    .word 17001
+
+    .byte 39, 50
+    .half 125
+    .word 17130
+
+    .byte 44, 50
+    .half 125
+    .word 17250
+
+    .byte 39, 50
+    .half 125
+    .word 17371
+
+    .byte 32, 50
+    .half 125
+    .word 17497
+
+    .byte 75, 50
+    .half 500
+    .word 17497
+
+    .byte 63, 50
+    .half 500
+    .word 17497
+
+    .byte 39, 50
+    .half 125
+    .word 17622
+
+    .byte 44, 50
+    .half 125
+    .word 17743
+
+    .byte 39, 50
+    .half 125
+    .word 17865
+
+    .byte 35, 50
+    .half 125
+    .word 17993
+
+    .byte 59, 50
+    .half 375
+    .word 17993
+
+    .byte 71, 50
+    .half 500
+    .word 17993
+
+    .byte 42, 50
+    .half 125
+    .word 18135
+
+    .byte 47, 50
+    .half 251
+    .word 18257
+
+    .byte 42, 50
+    .half 125
+    .word 18380
+
+    .byte 35, 50
+    .half 125
+    .word 18507
+
+    .byte 42, 50
+    .half 125
+    .word 18633
+
+    .byte 47, 50
+    .half 125
+    .word 18753
+
+    .byte 42, 50
+    .half 125
+    .word 18874
+
+    .byte 73, 50
+    .half 6
+    .word 19001
+
+    .byte 61, 50
+    .half 6
+    .word 19001
+
+    .byte 30, 50
+    .half 250
+    .word 19001
+
+    .byte 30, 50
+    .half 250
+    .word 19497
+
+    .byte 63, 50
+    .half 250
+    .word 19743
+
+    .byte 42, 50
+    .half 250
+    .word 19743
+
+    .byte 75, 50
+    .half 4
+    .word 19993
+
+    .byte 63, 50
+    .half 4
+    .word 19993
+
+    .byte 32, 50
+    .half 250
+    .word 19993
+
+    .byte 39, 50
+    .half 125
+    .word 20258
+
+    .byte 44, 50
+    .half 125
+    .word 20380
+
+    .byte 32, 50
+    .half 250
+    .word 20507
+
+    .byte 39, 50
+    .half 125
+    .word 20753
+
+    .byte 66, 50
+    .half 250
+    .word 20753
+
+    .byte 78, 50
+    .half 250
+    .word 20753
+
+    .byte 44, 50
+    .half 125
+    .word 20874
+
+    .byte 32, 50
+    .half 250
+    .word 21001
+
+    .byte 61, 50
+    .half 750
+    .word 21001
+
+    .byte 73, 50
+    .half 750
+    .word 21001
+
+    .byte 39, 50
+    .half 125
+    .word 21250
+
+    .byte 44, 50
+    .half 125
+    .word 21371
+
+    .byte 32, 50
+    .half 250
+    .word 21497
+
+    .byte 39, 50
+    .half 125
+    .word 21743
+
+    .byte 59, 50
+    .half 250
+    .word 21743
+
+    .byte 71, 50
+    .half 250
+    .word 21743
+
+    .byte 44, 50
+    .half 125
+    .word 21865
+
+    .byte 32, 50
+    .half 250
+    .word 21993
+
+    .byte 59, 50
+    .half 500
+    .word 21993
+
+    .byte 71, 50
+    .half 500
+    .word 21993
+
+    .byte 39, 50
+    .half 125
+    .word 22258
+
+    .byte 44, 50
+    .half 125
+    .word 22380
+
+    .byte 32, 50
+    .half 250
+    .word 22507
+
+    .byte 61, 50
+    .half 375
+    .word 22507
+
+    .byte 73, 50
+    .half 375
+    .word 22507
+
+    .byte 39, 50
+    .half 125
+    .word 22753
+
+    .byte 59, 50
+    .half 125
+    .word 22874
+
+    .byte 44, 50
+    .half 125
+    .word 22874
+
+    .byte 71, 50
+    .half 125
+    .word 22874
+
+    .byte 61, 50
+    .half 250
+    .word 23001
+
+    .byte 32, 50
+    .half 250
+    .word 23001
+
+    .byte 73, 50
+    .half 250
+    .word 23001
+
+    .byte 39, 50
+    .half 125
+    .word 23250
+
+    .byte 63, 50
+    .half 250
+    .word 23250
+
+    .byte 75, 50
+    .half 250
+    .word 23250
+
+    .byte 44, 50
+    .half 125
+    .word 23371
+
+    .byte 32, 50
+    .half 250
+    .word 23497
+
+    .byte 39, 50
+    .half 125
+    .word 23743
+
+    .byte 44, 50
+    .half 125
+    .word 23865
+
+    .byte 32, 50
+    .half 250
+    .word 23993
+
+    .byte 59, 50
+    .half 500
+    .word 23993
+
+    .byte 71, 50
+    .half 500
+    .word 23993
+
+    .byte 39, 50
+    .half 125
+    .word 24258
+
+    .byte 44, 50
+    .half 125
+    .word 24380
+
+    .byte 32, 50
+    .half 250
+    .word 24507
+
+    .byte 59, 50
+    .half 500
+    .word 24507
+
+    .byte 71, 50
+    .half 500
+    .word 24507
+
+    .byte 39, 50
+    .half 125
+    .word 24753
+
+    .byte 44, 50
+    .half 125
+    .word 24874
+
+    .byte 32, 50
+    .half 250
+    .word 25001
+
+    .byte 61, 50
+    .half 375
+    .word 25001
+
+    .byte 73, 50
+    .half 375
+    .word 25001
+
+    .byte 39, 50
+    .half 125
+    .word 25250
+
+    .byte 59, 50
+    .half 125
+    .word 25371
+
+    .byte 44, 50
+    .half 125
+    .word 25371
+
+    .byte 71, 50
+    .half 125
+    .word 25371
+
+    .byte 32, 50
+    .half 250
+    .word 25497
+
+    .byte 56, 50
+    .half 500
+    .word 25497
+
+    .byte 68, 50
+    .half 500
+    .word 25497
+
+    .byte 39, 50
+    .half 125
+    .word 25743
+
+    .byte 44, 50
+    .half 125
+    .word 25865
+
+    .byte 32, 50
+    .half 250
+    .word 25993
+
+    .byte 59, 50
+    .half 500
+    .word 25993
+
+    .byte 71, 50
+    .half 500
+    .word 25993
+
+    .byte 39, 50
+    .half 125
+    .word 26258
+
+    .byte 44, 50
+    .half 125
+    .word 26380
+
+    .byte 32, 50
+    .half 250
+    .word 26507
+
+    .byte 61, 50
+    .half 375
+    .word 26507
+
+    .byte 73, 50
+    .half 375
+    .word 26507
+
+    .byte 39, 50
+    .half 125
+    .word 26753
+
+    .byte 59, 50
+    .half 125
+    .word 26874
+
+    .byte 44, 50
+    .half 125
+    .word 26874
+
+    .byte 71, 50
+    .half 125
+    .word 26874
+
+    .byte 61, 50
+    .half 250
+    .word 27001
+
+    .byte 32, 50
+    .half 250
+    .word 27001
+
+    .byte 73, 50
+    .half 250
+    .word 27001
+
+    .byte 39, 50
+    .half 125
+    .word 27250
+
+    .byte 63, 50
+    .half 250
+    .word 27250
+
+    .byte 75, 50
+    .half 250
+    .word 27250
+
+    .byte 44, 50
+    .half 125
+    .word 27371
+
+    .byte 30, 50
+    .half 250
+    .word 27497
+
+    .byte 63, 50
+    .half 250
+    .word 27743
+
+    .byte 75, 50
+    .half 250
+    .word 27743
+
+    .byte 42, 50
+    .half 250
+    .word 27743
+
+    .byte 32, 50
+    .half 250
+    .word 27993
+
+    .byte 63, 50
+    .half 750
+    .word 27993
+
+    .byte 75, 50
+    .half 750
+    .word 27993
+
+    .byte 39, 50
+    .half 125
+    .word 28258
+
+    .byte 44, 50
+    .half 125
+    .word 28380
+
+    .byte 32, 50
+    .half 250
+    .word 28507
+
+    .byte 39, 50
+    .half 125
+    .word 28753
+
+    .byte 66, 50
+    .half 250
+    .word 28753
+
+    .byte 78, 50
+    .half 250
+    .word 28753
+
+    .byte 44, 50
+    .half 125
+    .word 28874
+
+    .byte 32, 50
+    .half 250
+    .word 29001
+
+    .byte 61, 50
+    .half 750
+    .word 29001
+
+    .byte 73, 50
+    .half 750
+    .word 29001
+
+    .byte 39, 50
+    .half 125
+    .word 29250
+
+    .byte 44, 50
+    .half 125
+    .word 29371
+
+    .byte 32, 50
+    .half 250
+    .word 29497
+
+    .byte 39, 50
+    .half 125
+    .word 29743
+
+    .byte 59, 50
+    .half 250
+    .word 29743
+
+    .byte 71, 50
+    .half 250
+    .word 29743
+
+    .byte 44, 50
+    .half 125
+    .word 29865
+
+    .byte 32, 50
+    .half 250
+    .word 29993
+
+    .byte 59, 50
+    .half 500
+    .word 29993
+
+    .byte 71, 50
+    .half 500
+    .word 29993
+
+    .byte 39, 50
+    .half 125
+    .word 30258
+
+    .byte 44, 50
+    .half 125
+    .word 30380
+
+    .byte 32, 50
+    .half 250
+    .word 30507
+
+    .byte 61, 50
+    .half 375
+    .word 30507
+
+    .byte 73, 50
+    .half 375
+    .word 30507
+
+    .byte 39, 50
+    .half 125
+    .word 30753
+
+    .byte 59, 50
+    .half 125
+    .word 30874
+
+    .byte 44, 50
+    .half 125
+    .word 30874
+
+    .byte 71, 50
+    .half 125
+    .word 30874
+
+    .byte 61, 50
+    .half 250
+    .word 31001
+
+    .byte 32, 50
+    .half 250
+    .word 31001
+
+    .byte 73, 50
+    .half 250
+    .word 31001
+
+    .byte 39, 50
+    .half 125
+    .word 31250
+
+    .byte 63, 50
+    .half 250
+    .word 31250
+
+    .byte 75, 50
+    .half 250
+    .word 31250
+
+    .byte 44, 50
+    .half 125
+    .word 31371
+
+    .byte 32, 50
+    .half 250
+    .word 31497
+
+    .byte 39, 50
+    .half 125
+    .word 31743
+
+    .byte 44, 50
+    .half 125
+    .word 31865
+
+    .byte 32, 50
+    .half 250
+    .word 31993
+
+    .byte 59, 50
+    .half 500
+    .word 31993
+
+    .byte 71, 50
+    .half 500
+    .word 31993
+
+    .byte 39, 50
+    .half 125
+    .word 32258
+
+    .byte 44, 50
+    .half 125
+    .word 32380
+
+    .byte 32, 50
+    .half 250
+    .word 32507
+
+    .byte 59, 50
+    .half 500
+    .word 32507
+
+    .byte 71, 50
+    .half 500
+    .word 32507
+
+    .byte 39, 50
+    .half 125
+    .word 32753
+
+    .byte 44, 50
+    .half 125
+    .word 32874
+
+    .byte 32, 50
+    .half 250
+    .word 33001
+
+    .byte 61, 50
+    .half 375
+    .word 33001
+
+    .byte 73, 50
+    .half 375
+    .word 33001
+
+    .byte 39, 50
+    .half 125
+    .word 33250
+
+    .byte 59, 50
+    .half 125
+    .word 33371
+
+    .byte 44, 50
+    .half 125
+    .word 33371
+
+    .byte 71, 50
+    .half 125
+    .word 33371
+
+    .byte 32, 50
+    .half 250
+    .word 33497
+
+    .byte 68, 50
+    .half 500
+    .word 33497
+
+    .byte 39, 50
+    .half 125
+    .word 33743
+
+    .byte 56, 50
+    .half 7
+    .word 33865
+
+    .byte 44, 50
+    .half 125
+    .word 33865
+
+    .byte 32, 50
+    .half 250
+    .word 33993
+
+    .byte 59, 50
+    .half 500
+    .word 33993
+
+    .byte 71, 50
+    .half 500
+    .word 33993
+
+    .byte 39, 50
+    .half 125
+    .word 34258
+
+    .byte 44, 50
+    .half 125
+    .word 34380
+
+    .byte 32, 50
+    .half 250
+    .word 34507
+
+    .byte 61, 50
+    .half 375
+    .word 34507
+
+    .byte 73, 50
+    .half 375
+    .word 34507
+
+    .byte 39, 50
+    .half 125
+    .word 34753
+
+    .byte 59, 50
+    .half 125
+    .word 34874
+
+    .byte 44, 50
+    .half 125
+    .word 34874
+
+    .byte 71, 50
+    .half 125
+    .word 34874
+
+    .byte 56, 50
+    .half 250
+    .word 35001
+
+    .byte 32, 50
+    .half 250
+    .word 35001
+
+    .byte 68, 50
+    .half 250
+    .word 35001
+
+    .byte 39, 50
+    .half 125
+    .word 35250
+
+    .byte 44, 50
+    .half 125
+    .word 35371
+
+    .byte 32, 50
+    .half 250
+    .word 35497
+
+    .byte 39, 50
+    .half 125
+    .word 35743
+
+    .byte 44, 50
+    .half 125
+    .word 35865
+
+    .byte 35, 50
+    .half 125
+    .word 35993
+
+    .byte 63, 50
+    .half 499
+    .word 35993
+
+    .byte 75, 50
+    .half 499
+    .word 35993
+
+    .byte 66, 50
+    .half 499
+    .word 35993
+
+    .byte 42, 50
+    .half 125
+    .word 36135
+
+    .byte 47, 50
+    .half 125
+    .word 36257
+
+    .byte 42, 50
+    .half 125
+    .word 36379
+
+    .byte 35, 50
+    .half 125
+    .word 36505
+
+    .byte 66, 50
+    .half 1000
+    .word 36505
+
+    .byte 78, 50
+    .half 1000
+    .word 36505
+
+    .byte 42, 50
+    .half 125
+    .word 36632
+
+    .byte 47, 50
+    .half 125
+    .word 36751
+
+    .byte 42, 50
+    .half 125
+    .word 36872
+
+    .byte 35, 50
+    .half 125
+    .word 37000
+
+    .byte 42, 50
+    .half 125
+    .word 37129
+
+    .byte 47, 50
+    .half 125
+    .word 37249
+
+    .byte 42, 50
+    .half 125
+    .word 37370
+
+    .byte 75, 50
+    .half 9
+    .word 37496
+
+    .byte 35, 50
+    .half 125
+    .word 37496
+
+    .byte 68, 50
+    .half 500
+    .word 37496
+
+    .byte 80, 50
+    .half 500
+    .word 37496
+
+    .byte 42, 50
+    .half 125
+    .word 37621
+
+    .byte 47, 50
+    .half 125
+    .word 37742
+
+    .byte 42, 50
+    .half 125
+    .word 37863
+
+    .byte 30, 50
+    .half 125
+    .word 37992
+
+    .byte 61, 50
+    .half 999
+    .word 37992
+
+    .byte 73, 50
+    .half 999
+    .word 37992
+
+    .byte 70, 50
+    .half 999
+    .word 37992
+
+    .byte 37, 50
+    .half 125
+    .word 38134
+
+    .byte 42, 50
+    .half 125
+    .word 38255
+
+    .byte 37, 50
+    .half 125
+    .word 38378
+
+    .byte 30, 50
+    .half 125
+    .word 38504
+
+    .byte 37, 50
+    .half 125
+    .word 38630
+
+    .byte 42, 50
+    .half 125
+    .word 38750
+
+    .byte 37, 50
+    .half 125
+    .word 38871
+
+    .byte 30, 50
+    .half 125
+    .word 38999
+
+    .byte 61, 50
+    .half 500
+    .word 38999
+
+    .byte 73, 50
+    .half 500
+    .word 38999
+
+    .byte 37, 50
+    .half 125
+    .word 39128
+
+    .byte 42, 50
+    .half 125
+    .word 39247
+
+    .byte 37, 50
+    .half 125
+    .word 39368
+
+    .byte 70, 50
+    .half 4
+    .word 39495
+
+    .byte 30, 50
+    .half 125
+    .word 39495
+
+    .byte 75, 50
+    .half 500
+    .word 39495
+
+    .byte 37, 50
+    .half 125
+    .word 39620
+
+    .byte 42, 50
+    .half 125
+    .word 39741
+
+    .byte 37, 50
+    .half 125
+    .word 39862
+
+    .byte 63, 50
+    .half 4
+    .word 39991
+
+    .byte 32, 50
+    .half 125
+    .word 39991
+
+    .byte 56, 50
+    .half 999
+    .word 39991
+
+    .byte 68, 50
+    .half 999
+    .word 39991
+
+    .byte 39, 50
+    .half 125
+    .word 40133
+
+    .byte 44, 50
+    .half 125
+    .word 40254
+
+    .byte 39, 50
+    .half 125
+    .word 40376
+
+    .byte 32, 50
+    .half 125
+    .word 40503
+
+    .byte 39, 50
+    .half 125
+    .word 40629
+
+    .byte 44, 50
+    .half 125
+    .word 40749
+
+    .byte 39, 50
+    .half 125
+    .word 40870
+
+    .byte 32, 50
+    .half 125
+    .word 40997
+
+    .byte 39, 50
+    .half 125
+    .word 41126
+
+    .byte 44, 50
+    .half 125
+    .word 41246
+
+    .byte 39, 50
+    .half 125
+    .word 41367
+
+    .byte 61, 50
+    .half 4
+    .word 41493
+
+    .byte 73, 50
+    .half 4
+    .word 41493
+
+    .byte 68, 50
+    .half 4
+    .word 41493
+
+    .byte 32, 50
+    .half 125
+    .word 41493
+
+    .byte 39, 50
+    .half 125
+    .word 41618
+
+    .byte 44, 50
+    .half 125
+    .word 41740
+
+    .byte 39, 50
+    .half 125
+    .word 41861
+
+    .byte 61, 50
+    .half 3
+    .word 41990
+
+    .byte 73, 50
+    .half 3
+    .word 41990
+
+    .byte 68, 50
+    .half 3
+    .word 41990
+
+    .byte 35, 50
+    .half 125
+    .word 41990
+
+    .byte 42, 50
+    .half 125
+    .word 42132
+
+    .byte 47, 50
+    .half 125
+    .word 42253
+
+    .byte 42, 50
+    .half 125
+    .word 42375
+
+    .byte 35, 50
+    .half 125
+    .word 42501
+
+    .byte 42, 50
+    .half 125
+    .word 42628
+
+    .byte 47, 50
+    .half 125
+    .word 42747
+
+    .byte 59, 50
+    .half 250
+    .word 42747
+
+    .byte 71, 50
+    .half 250
+    .word 42747
+
+    .byte 42, 50
+    .half 125
+    .word 42868
+
+    .byte 35, 50
+    .half 125
+    .word 42996
+
+    .byte 61, 50
+    .half 500
+    .word 42996
+
+    .byte 73, 50
+    .half 500
+    .word 42996
+
+    .byte 68, 50
+    .half 500
+    .word 42996
+
+    .byte 42, 50
+    .half 125
+    .word 43125
+
+    .byte 47, 50
+    .half 125
+    .word 43245
+
+    .byte 42, 50
+    .half 125
+    .word 43366
+
+    .byte 35, 50
+    .half 125
+    .word 43492
+
+    .byte 42, 50
+    .half 125
+    .word 43617
+
+    .byte 47, 50
+    .half 125
+    .word 43738
+
+    .byte 42, 50
+    .half 125
+    .word 43859
+
+    .byte 63, 50
+    .half 4
+    .word 43988
+
+    .byte 75, 50
+    .half 4
+    .word 43988
+
+    .byte 35, 50
+    .half 125
+    .word 43988
+
+    .byte 66, 50
+    .half 499
+    .word 43988
+
+    .byte 42, 50
+    .half 125
+    .word 44130
+
+    .byte 47, 50
+    .half 125
+    .word 44251
+
+    .byte 42, 50
+    .half 125
+    .word 44374
+
+    .byte 35, 50
+    .half 125
+    .word 44500
+
+    .byte 66, 50
+    .half 1000
+    .word 44500
+
+    .byte 78, 50
+    .half 1000
+    .word 44500
+
+    .byte 42, 50
+    .half 125
+    .word 44626
+
+    .byte 47, 50
+    .half 125
+    .word 44746
+
+    .byte 42, 50
+    .half 125
+    .word 44867
+
+    .byte 35, 50
+    .half 125
+    .word 44995
+
+    .byte 42, 50
+    .half 125
+    .word 45124
+
+    .byte 47, 50
+    .half 125
+    .word 45243
+
+    .byte 42, 50
+    .half 125
+    .word 45365
+
+    .byte 75, 50
+    .half 9
+    .word 45491
+
+    .byte 35, 50
+    .half 125
+    .word 45491
+
+    .byte 68, 50
+    .half 500
+    .word 45491
+
+    .byte 80, 50
+    .half 500
+    .word 45491
+
+    .byte 42, 50
+    .half 125
+    .word 45616
+
+    .byte 47, 50
+    .half 125
+    .word 45737
+
+    .byte 42, 50
+    .half 125
+    .word 45858
+
+    .byte 30, 50
+    .half 125
+    .word 45987
+
+    .byte 61, 50
+    .half 999
+    .word 45987
+
+    .byte 73, 50
+    .half 999
+    .word 45987
+
+    .byte 70, 50
+    .half 999
+    .word 45987
+
+    .byte 37, 50
+    .half 125
+    .word 46129
+
+    .byte 42, 50
+    .half 125
+    .word 46250
+
+    .byte 37, 50
+    .half 125
+    .word 46372
+
+    .byte 30, 50
+    .half 125
+    .word 46499
+
+    .byte 37, 50
+    .half 125
+    .word 46625
+
+    .byte 42, 50
+    .half 125
+    .word 46745
+
+    .byte 37, 50
+    .half 125
+    .word 46866
+
+    .byte 30, 50
+    .half 125
+    .word 46993
+
+    .byte 61, 50
+    .half 500
+    .word 46993
+
+    .byte 73, 50
+    .half 500
+    .word 46993
+
+    .byte 37, 50
+    .half 125
+    .word 47122
+
+    .byte 42, 50
+    .half 125
+    .word 47242
+
+    .byte 37, 50
+    .half 125
+    .word 47363
+
+    .byte 70, 50
+    .half 3
+    .word 47490
+
+    .byte 30, 50
+    .half 125
+    .word 47490
+
+    .byte 63, 50
+    .half 500
+    .word 47490
+
+    .byte 75, 50
+    .half 500
+    .word 47490
+
+    .byte 37, 50
+    .half 125
+    .word 47615
+
+    .byte 42, 50
+    .half 125
+    .word 47736
+
+    .byte 37, 50
+    .half 125
+    .word 47857
+
+    .byte 25, 50
+    .half 125
+    .word 47986
+
+    .byte 56, 50
+    .half 998
+    .word 47986
+
+    .byte 68, 50
+    .half 998
+    .word 47986
+
+    .byte 61, 50
+    .half 998
+    .word 47986
+
+    .byte 32, 50
+    .half 125
+    .word 48128
+
+    .byte 37, 50
+    .half 125
+    .word 48249
+
+    .byte 32, 50
+    .half 125
+    .word 48371
+
+    .byte 25, 50
+    .half 125
+    .word 48497
+
+    .byte 32, 50
+    .half 125
+    .word 48624
+
+    .byte 37, 50
+    .half 125
+    .word 48743
+
+    .byte 32, 50
+    .half 125
+    .word 48865
+
+    .byte 25, 50
+    .half 125
+    .word 48992
+
+    .byte 32, 50
+    .half 125
+    .word 49121
+
+    .byte 37, 50
+    .half 125
+    .word 49241
+
+    .byte 32, 50
+    .half 125
+    .word 49362
+
+    .byte 61, 50
+    .half 4
+    .word 49488
+
+    .byte 73, 50
+    .half 4
+    .word 49488
+
+    .byte 68, 50
+    .half 4
+    .word 49488
+
+    .byte 25, 50
+    .half 125
+    .word 49488
+
+    .byte 32, 50
+    .half 125
+    .word 49613
+
+    .byte 37, 50
+    .half 125
+    .word 49734
+
+    .byte 32, 50
+    .half 125
+    .word 49855
+
+    .byte 35, 50
+    .half 125
+    .word 49984
+
+    .byte 63, 50
+    .half 499
+    .word 49984
+
+    .byte 75, 50
+    .half 499
+    .word 49984
+
+    .byte 71, 50
+    .half 499
+    .word 49984
+
+    .byte 42, 50
+    .half 125
+    .word 50126
+
+    .byte 47, 50
+    .half 125
+    .word 50247
+
+    .byte 42, 50
+    .half 125
+    .word 50370
+
+    .byte 35, 50
+    .half 125
+    .word 50496
+
+    .byte 63, 50
+    .half 375
+    .word 50496
+
+    .byte 75, 50
+    .half 375
+    .word 50496
+
+    .byte 71, 50
+    .half 375
+    .word 50496
+
+    .byte 42, 50
+    .half 125
+    .word 50622
+
+    .byte 47, 50
+    .half 125
+    .word 50742
+
+    .byte 61, 50
+    .half 125
+    .word 50863
+
+    .byte 42, 50
+    .half 125
+    .word 50863
+
+    .byte 73, 50
+    .half 125
+    .word 50863
+
+    .byte 35, 50
+    .half 125
+    .word 50991
+
+    .byte 42, 50
+    .half 125
+    .word 51120
+
+    .byte 47, 50
+    .half 125
+    .word 51240
+
+    .byte 42, 50
+    .half 125
+    .word 51361
+
+    .byte 63, 50
+    .half 4
+    .word 51487
+
+    .byte 75, 50
+    .half 4
+    .word 51487
+
+    .byte 71, 50
+    .half 4
+    .word 51487
+
+    .byte 35, 50
+    .half 125
+    .word 51487
+
+    .byte 42, 50
+    .half 125
+    .word 51612
+
+    .byte 63, 50
+    .half 4
+    .word 51733
+
+    .byte 47, 50
+    .half 125
+    .word 51733
+
+    .byte 42, 50
+    .half 125
+    .word 51854
+
+    .byte 75, 50
+    .half 4
+    .word 51983
+
+    .byte 71, 50
+    .half 4
+    .word 51983
+
+    .byte 32, 50
+    .half 250
+    .word 51983
+
+    .byte 63, 50
+    .half 750
+    .word 51983
+
+    .byte 39, 50
+    .half 125
+    .word 52247
+
+    .byte 44, 50
+    .half 125
+    .word 52370
+
+    .byte 32, 50
+    .half 250
+    .word 52496
+
+    .byte 39, 50
+    .half 125
+    .word 52742
+
+    .byte 66, 50
+    .half 250
+    .word 52742
+
+    .byte 78, 50
+    .half 250
+    .word 52742
+
+    .byte 44, 50
+    .half 125
+    .word 52863
+
+    .byte 32, 50
+    .half 250
+    .word 52991
+
+    .byte 61, 50
+    .half 750
+    .word 52991
+
+    .byte 73, 50
+    .half 750
+    .word 52991
+
+    .byte 68, 50
+    .half 750
+    .word 52991
+
+    .byte 39, 50
+    .half 125
+    .word 53240
+
+    .byte 44, 50
+    .half 125
+    .word 53361
+
+    .byte 32, 50
+    .half 250
+    .word 53487
+
+    .byte 39, 50
+    .half 125
+    .word 53733
+
+    .byte 59, 50
+    .half 250
+    .word 53733
+
+    .byte 71, 50
+    .half 250
+    .word 53733
+
+    .byte 44, 50
+    .half 125
+    .word 53854
+
+    .byte 32, 50
+    .half 250
+    .word 53983
+
+    .byte 59, 50
+    .half 500
+    .word 53983
+
+    .byte 71, 50
+    .half 500
+    .word 53983
+
+    .byte 68, 50
+    .half 500
+    .word 53983
+
+    .byte 39, 50
+    .half 125
+    .word 54247
+
+    .byte 44, 50
+    .half 125
+    .word 54370
+
+    .byte 32, 50
+    .half 250
+    .word 54496
+
+    .byte 61, 50
+    .half 375
+    .word 54496
+
+    .byte 73, 50
+    .half 375
+    .word 54496
+
+    .byte 68, 50
+    .half 375
+    .word 54496
+
+    .byte 39, 50
+    .half 125
+    .word 54742
+
+    .byte 59, 50
+    .half 125
+    .word 54863
+
+    .byte 44, 50
+    .half 125
+    .word 54863
+
+    .byte 71, 50
+    .half 125
+    .word 54863
+
+    .byte 61, 50
+    .half 250
+    .word 54991
+
+    .byte 73, 50
+    .half 250
+    .word 54991
+
+    .byte 32, 50
+    .half 250
+    .word 54991
+
+    .byte 68, 50
+    .half 250
+    .word 54991
+
+    .byte 39, 50
+    .half 125
+    .word 55240
+
+    .byte 63, 50
+    .half 250
+    .word 55240
+
+    .byte 75, 50
+    .half 250
+    .word 55240
+
+    .byte 71, 50
+    .half 250
+    .word 55240
+
+    .byte 44, 50
+    .half 125
+    .word 55361
+
+    .byte 32, 50
+    .half 250
+    .word 55487
+
+    .byte 39, 50
+    .half 125
+    .word 55733
+
+    .byte 44, 50
+    .half 125
+    .word 55854
+
+    .byte 32, 50
+    .half 250
+    .word 55983
+
+    .byte 59, 50
+    .half 500
+    .word 55983
+
+    .byte 71, 50
+    .half 500
+    .word 55983
+
+    .byte 68, 50
+    .half 500
+    .word 55983
+
+    .byte 39, 50
+    .half 125
+    .word 56247
+
+    .byte 44, 50
+    .half 125
+    .word 56370
+
+    .byte 32, 50
+    .half 250
+    .word 56496
+
+    .byte 59, 50
+    .half 500
+    .word 56496
+
+    .byte 71, 50
+    .half 500
+    .word 56496
+
+    .byte 39, 50
+    .half 125
+    .word 56742
+
+    .byte 44, 50
+    .half 125
+    .word 56863
+
+    .byte 68, 50
+    .half 5
+    .word 56991
+
+    .byte 32, 50
+    .half 250
+    .word 56991
+
+    .byte 61, 50
+    .half 375
+    .word 56991
+
+    .byte 73, 50
+    .half 375
+    .word 56991
+
+    .byte 39, 50
+    .half 125
+    .word 57240
+
+    .byte 59, 50
+    .half 125
+    .word 57361
+
+    .byte 44, 50
+    .half 125
+    .word 57361
+
+    .byte 71, 50
+    .half 125
+    .word 57361
+
+    .byte 32, 50
+    .half 250
+    .word 57487
+
+    .byte 63, 50
+    .half 375
+    .word 57487
+
+    .byte 39, 50
+    .half 125
+    .word 57733
+
+    .byte 56, 50
+    .half 8
+    .word 57854
+
+    .byte 68, 50
+    .half 8
+    .word 57854
+
+    .byte 44, 50
+    .half 125
+    .word 57854
+
+    .byte 32, 50
+    .half 250
+    .word 57983
+
+    .byte 59, 50
+    .half 500
+    .word 57983
+
+    .byte 71, 50
+    .half 500
+    .word 57983
+
+    .byte 68, 50
+    .half 500
+    .word 57983
+
+    .byte 39, 50
+    .half 125
+    .word 58247
+
+    .byte 44, 50
+    .half 125
+    .word 58370
+
+    .byte 32, 50
+    .half 250
+    .word 58496
+
+    .byte 61, 50
+    .half 375
+    .word 58496
+
+    .byte 73, 50
+    .half 375
+    .word 58496
+
+    .byte 68, 50
+    .half 375
+    .word 58496
+
+    .byte 39, 50
+    .half 125
+    .word 58742
+
+    .byte 59, 50
+    .half 125
+    .word 58863
+
+    .byte 44, 50
+    .half 125
+    .word 58863
+
+    .byte 71, 50
+    .half 125
+    .word 58863
+
+    .byte 56, 50
+    .half 250
+    .word 58991
+
+    .byte 68, 50
+    .half 250
+    .word 58991
+
+    .byte 32, 50
+    .half 250
+    .word 58991
+
+    .byte 63, 50
+    .half 250
+    .word 58991
+
+    .byte 78, 50
+    .half 375
+    .word 59487
+
+    .byte 32, 50
+    .half 125
+    .word 59983
+
+    .byte 78, 50
+    .half 499
+    .word 59983
+
+    .byte 66, 50
+    .half 499
+    .word 59983
+
+    .byte 39, 50
+    .half 125
+    .word 60125
+
+    .byte 44, 50
+    .half 125
+    .word 60246
+
+    .byte 39, 50
+    .half 125
+    .word 60368
+
+    .byte 32, 50
+    .half 125
+    .word 60495
+
+    .byte 78, 50
+    .half 375
+    .word 60495
+
+    .byte 66, 50
+    .half 375
+    .word 60495
+
+    .byte 39, 50
+    .half 125
+    .word 60621
+
+    .byte 44, 50
+    .half 125
+    .word 60741
+
+    .byte 39, 50
+    .half 125
+    .word 60862
+
+    .byte 78, 50
+    .half 125
+    .word 60923
+
+    .byte 32, 50
+    .half 125
+    .word 60990
+
+    .byte 73, 50
+    .half 500
+    .word 60990
+
+    .byte 39, 50
+    .half 125
+    .word 61118
+
+    .byte 44, 50
+    .half 125
+    .word 61238
+
+    .byte 39, 50
+    .half 125
+    .word 61359
+
+    .byte 32, 50
+    .half 125
+    .word 61486
+
+    .byte 39, 50
+    .half 125
+    .word 61611
+
+    .byte 44, 50
+    .half 125
+    .word 61732
+
+    .byte 39, 50
+    .half 125
+    .word 61853
+
+    .byte 75, 50
+    .half 4
+    .word 61982
+
+    .byte 63, 50
+    .half 4
+    .word 61982
+
+    .byte 35, 50
+    .half 125
+    .word 61982
+
+    .byte 42, 50
+    .half 125
+    .word 62124
+
+    .byte 47, 50
+    .half 125
+    .word 62245
+
+    .byte 42, 50
+    .half 125
+    .word 62367
+
+    .byte 35, 50
+    .half 125
+    .word 62493
+
+    .byte 73, 50
+    .half 375
+    .word 62493
+
+    .byte 61, 50
+    .half 375
+    .word 62493
+
+    .byte 42, 50
+    .half 125
+    .word 62620
+
+    .byte 47, 50
+    .half 125
+    .word 62740
+
+    .byte 42, 50
+    .half 125
+    .word 62861
+
+    .byte 71, 50
+    .half 125
+    .word 62922
+
+    .byte 30, 50
+    .half 250
+    .word 62988
+
+    .byte 73, 50
+    .half 500
+    .word 62988
+
+    .byte 61, 50
+    .half 500
+    .word 62988
+
+    .byte 30, 50
+    .half 250
+    .word 63484
+
+    .byte 42, 50
+    .half 250
+    .word 63730
+
+    .byte 75, 50
+    .half 4
+    .word 63980
+
+    .byte 63, 50
+    .half 4
+    .word 63980
+
+    .byte 32, 50
+    .half 125
+    .word 63980
+
+    .byte 39, 50
+    .half 125
+    .word 64122
+
+    .byte 44, 50
+    .half 125
+    .word 64243
+
+    .byte 39, 50
+    .half 125
+    .word 64366
+
+    .byte 32, 50
+    .half 125
+    .word 64492
+
+    .byte 73, 50
+    .half 375
+    .word 64492
+
+    .byte 61, 50
+    .half 375
+    .word 64492
+
+    .byte 39, 50
+    .half 125
+    .word 64618
+
+    .byte 44, 50
+    .half 125
+    .word 64738
+
+    .byte 39, 50
+    .half 125
+    .word 64859
+
+    .byte 71, 50
+    .half 125
+    .word 64921
+
+    .byte 32, 50
+    .half 125
+    .word 64987
+
+    .byte 73, 50
+    .half 500
+    .word 64987
+
+    .byte 61, 50
+    .half 500
+    .word 64987
+
+    .byte 39, 50
+    .half 125
+    .word 65116
+
+    .byte 44, 50
+    .half 125
+    .word 65236
+
+    .byte 39, 50
+    .half 125
+    .word 65357
+
+    .byte 32, 50
+    .half 125
+    .word 65483
+
+    .byte 75, 50
+    .half 500
+    .word 65483
+
+    .byte 63, 50
+    .half 500
+    .word 65483
+
+    .byte 39, 50
+    .half 125
+    .word 65608
+
+    .byte 44, 50
+    .half 125
+    .word 65729
+
+    .byte 39, 50
+    .half 125
+    .word 65850
+
+    .byte 35, 50
+    .half 125
+    .word 65979
+
+    .byte 59, 50
+    .half 375
+    .word 65979
+
+    .byte 71, 50
+    .half 500
+    .word 65979
+
+    .byte 42, 50
+    .half 125
+    .word 66121
+
+    .byte 47, 50
+    .half 251
+    .word 66242
+
+    .byte 42, 50
+    .half 125
+    .word 66366
+
+    .byte 35, 50
+    .half 125
+    .word 66492
+
+    .byte 42, 50
+    .half 125
+    .word 66618
+
+    .byte 47, 50
+    .half 125
+    .word 66738
+
+    .byte 42, 50
+    .half 125
+    .word 66859
+
+    .byte 73, 50
+    .half 5
+    .word 66987
+
+    .byte 61, 50
+    .half 5
+    .word 66987
+
+    .byte 30, 50
+    .half 250
+    .word 66987
+
+    .byte 30, 50
+    .half 250
+    .word 67483
+
+    .byte 75, 50
+    .half 375
+    .word 67483
+
+    .byte 63, 50
+    .half 375
+    .word 67483
+
+    .byte 42, 50
+    .half 250
+    .word 67729
+
+    .byte 32, 50
+    .half 125
+    .word 67979
+
+    .byte 78, 50
+    .half 499
+    .word 67979
+
+    .byte 66, 50
+    .half 499
+    .word 67979
+
+    .byte 39, 50
+    .half 125
+    .word 68121
+
+    .byte 44, 50
+    .half 125
+    .word 68242
+
+    .byte 39, 50
+    .half 125
+    .word 68365
+
+    .byte 32, 50
+    .half 125
+    .word 68491
+
+    .byte 78, 50
+    .half 375
+    .word 68491
+
+    .byte 66, 50
+    .half 375
+    .word 68491
+
+    .byte 39, 50
+    .half 125
+    .word 68617
+
+    .byte 44, 50
+    .half 125
+    .word 68737
+
+    .byte 39, 50
+    .half 125
+    .word 68858
+
+    .byte 78, 50
+    .half 125
+    .word 68919
+
+    .byte 32, 50
+    .half 125
+    .word 68986
+
+    .byte 73, 50
+    .half 500
+    .word 68986
+
+    .byte 39, 50
+    .half 125
+    .word 69115
+
+    .byte 44, 50
+    .half 125
+    .word 69234
+
+    .byte 39, 50
+    .half 125
+    .word 69355
+
+    .byte 32, 50
+    .half 125
+    .word 69482
+
+    .byte 39, 50
+    .half 125
+    .word 69607
+
+    .byte 44, 50
+    .half 125
+    .word 69728
+
+    .byte 39, 50
+    .half 125
+    .word 69849
+
+    .byte 75, 50
+    .half 4
+    .word 69978
+
+    .byte 63, 50
+    .half 4
+    .word 69978
+
+    .byte 35, 50
+    .half 125
+    .word 69978
+
+    .byte 42, 50
+    .half 125
+    .word 70120
+
+    .byte 47, 50
+    .half 125
+    .word 70241
+
+    .byte 42, 50
+    .half 125
+    .word 70363
+
+    .byte 35, 50
+    .half 125
+    .word 70490
+
+    .byte 73, 50
+    .half 375
+    .word 70490
+
+    .byte 61, 50
+    .half 375
+    .word 70490
+
+    .byte 42, 50
+    .half 125
+    .word 70616
+
+    .byte 47, 50
+    .half 125
+    .word 70736
+
+    .byte 42, 50
+    .half 125
+    .word 70857
+
+    .byte 71, 50
+    .half 125
+    .word 70918
+
+    .byte 30, 50
+    .half 250
+    .word 70984
+
+    .byte 73, 50
+    .half 500
+    .word 70984
+
+    .byte 61, 50
+    .half 500
+    .word 70984
+
+    .byte 30, 50
+    .half 250
+    .word 71480
+
+    .byte 42, 50
+    .half 250
+    .word 71727
+
+    .byte 75, 50
+    .half 3
+    .word 71977
+
+    .byte 63, 50
+    .half 3
+    .word 71977
+
+    .byte 32, 50
+    .half 125
+    .word 71977
+
+    .byte 39, 50
+    .half 125
+    .word 72118
+
+    .byte 44, 50
+    .half 125
+    .word 72240
+
+    .byte 39, 50
+    .half 125
+    .word 72362
+
+    .byte 32, 50
+    .half 125
+    .word 72488
+
+    .byte 73, 50
+    .half 375
+    .word 72488
+
+    .byte 61, 50
+    .half 375
+    .word 72488
+
+    .byte 39, 50
+    .half 125
+    .word 72615
+
+    .byte 44, 50
+    .half 125
+    .word 72734
+
+    .byte 39, 50
+    .half 125
+    .word 72855
+
+    .byte 71, 50
+    .half 125
+    .word 72917
+
+    .byte 32, 50
+    .half 125
+    .word 72983
+
+    .byte 73, 50
+    .half 500
+    .word 72983
+
+    .byte 61, 50
+    .half 500
+    .word 72983
+
+    .byte 39, 50
+    .half 125
+    .word 73112
+
+    .byte 44, 50
+    .half 125
+    .word 73232
+
+    .byte 39, 50
+    .half 125
+    .word 73353
+
+    .byte 32, 50
+    .half 125
+    .word 73479
+
+    .byte 75, 50
+    .half 500
+    .word 73479
+
+    .byte 63, 50
+    .half 500
+    .word 73479
+
+    .byte 39, 50
+    .half 125
+    .word 73604
+
+    .byte 44, 50
+    .half 125
+    .word 73725
+
+    .byte 39, 50
+    .half 125
+    .word 73846
+
+    .byte 35, 50
+    .half 125
+    .word 73975
+
+    .byte 59, 50
+    .half 375
+    .word 73975
+
+    .byte 71, 50
+    .half 500
+    .word 73975
+
+    .byte 42, 50
+    .half 125
+    .word 74117
+
+    .byte 47, 50
+    .half 252
+    .word 74238
+
+    .byte 42, 50
+    .half 125
+    .word 74362
+
+    .byte 35, 50
+    .half 125
+    .word 74488
+
+    .byte 42, 50
+    .half 125
+    .word 74615
+
+    .byte 47, 50
+    .half 125
+    .word 74734
+
+    .byte 42, 50
+    .half 125
+    .word 74855
+
+    .byte 73, 50
+    .half 5
+    .word 74983
+
+    .byte 61, 50
+    .half 5
+    .word 74983
+
+    .byte 30, 50
+    .half 250
+    .word 74983
+
+    .byte 30, 50
+    .half 250
+    .word 75479
+
+    .byte 63, 50
+    .half 250
+    .word 75725
+
+    .byte 42, 50
+    .half 250
+    .word 75725
+
+    .byte 75, 50
+    .half 4
+    .word 75975
+
+    .byte 63, 50
+    .half 4
+    .word 75975
+
+    .byte 32, 50
+    .half 250
+    .word 75975
+
+    .byte 39, 50
+    .half 125
+    .word 76240
+
+    .byte 44, 50
+    .half 125
+    .word 76362
+
+    .byte 32, 50
+    .half 250
+    .word 76488
+
+    .byte 39, 50
+    .half 125
+    .word 76734
+
+    .byte 66, 50
+    .half 250
+    .word 76734
+
+    .byte 78, 50
+    .half 250
+    .word 76734
+
+    .byte 44, 50
+    .half 125
+    .word 76855
+
+    .byte 32, 50
+    .half 250
+    .word 76983
+
+    .byte 61, 50
+    .half 750
+    .word 76983
+
+    .byte 73, 50
+    .half 750
+    .word 76983
+
+    .byte 39, 50
+    .half 125
+    .word 77232
+
+    .byte 44, 50
+    .half 125
+    .word 77353
+
+    .byte 32, 50
+    .half 250
+    .word 77479
+
+    .byte 39, 50
+    .half 125
+    .word 77725
+
+    .byte 59, 50
+    .half 250
+    .word 77725
+
+    .byte 71, 50
+    .half 250
+    .word 77725
+
+    .byte 44, 50
+    .half 125
+    .word 77846
+
+    .byte 32, 50
+    .half 250
+    .word 77975
+
+    .byte 59, 50
+    .half 500
+    .word 77975
+
+    .byte 71, 50
+    .half 500
+    .word 77975
+
+    .byte 39, 50
+    .half 125
+    .word 78240
+
+    .byte 44, 50
+    .half 125
+    .word 78362
+
+    .byte 32, 50
+    .half 250
+    .word 78488
+
+    .byte 61, 50
+    .half 375
+    .word 78488
+
+    .byte 73, 50
+    .half 375
+    .word 78488
+
+    .byte 39, 50
+    .half 125
+    .word 78734
+
+    .byte 59, 50
+    .half 125
+    .word 78855
+
+    .byte 44, 50
+    .half 125
+    .word 78855
+
+    .byte 71, 50
+    .half 125
+    .word 78855
+
+    .byte 61, 50
+    .half 250
+    .word 78983
+
+    .byte 32, 50
+    .half 250
+    .word 78983
+
+    .byte 73, 50
+    .half 250
+    .word 78983
+
+    .byte 39, 50
+    .half 125
+    .word 79232
+
+    .byte 63, 50
+    .half 250
+    .word 79232
+
+    .byte 75, 50
+    .half 250
+    .word 79232
+
+    .byte 44, 50
+    .half 125
+    .word 79353
+
+    .byte 32, 50
+    .half 250
+    .word 79479
+
+    .byte 39, 50
+    .half 125
+    .word 79725
+
+    .byte 44, 50
+    .half 125
+    .word 79846
+
+    .byte 32, 50
+    .half 250
+    .word 79975
+
+    .byte 59, 50
+    .half 500
+    .word 79975
+
+    .byte 71, 50
+    .half 500
+    .word 79975
+
+    .byte 39, 50
+    .half 125
+    .word 80240
+
+    .byte 44, 50
+    .half 125
+    .word 80362
+
+    .byte 32, 50
+    .half 250
+    .word 80488
+
+    .byte 59, 50
+    .half 500
+    .word 80488
+
+    .byte 71, 50
+    .half 500
+    .word 80488
+
+    .byte 39, 50
+    .half 125
+    .word 80734
+
+    .byte 44, 50
+    .half 125
+    .word 80855
+
+    .byte 32, 50
+    .half 250
+    .word 80983
+
+    .byte 61, 50
+    .half 375
+    .word 80983
+
+    .byte 73, 50
+    .half 375
+    .word 80983
+
+    .byte 39, 50
+    .half 125
+    .word 81232
+
+    .byte 59, 50
+    .half 125
+    .word 81353
+
+    .byte 44, 50
+    .half 125
+    .word 81353
+
+    .byte 71, 50
+    .half 125
+    .word 81353
+
+    .byte 32, 50
+    .half 250
+    .word 81479
+
+    .byte 56, 50
+    .half 500
+    .word 81479
+
+    .byte 68, 50
+    .half 500
+    .word 81479
+
+    .byte 39, 50
+    .half 125
+    .word 81725
+
+    .byte 44, 50
+    .half 125
+    .word 81846
+
+    .byte 32, 50
+    .half 250
+    .word 81975
+
+    .byte 59, 50
+    .half 500
+    .word 81975
+
+    .byte 71, 50
+    .half 500
+    .word 81975
+
+    .byte 39, 50
+    .half 125
+    .word 82240
+
+    .byte 44, 50
+    .half 125
+    .word 82362
+
+    .byte 32, 50
+    .half 250
+    .word 82488
+
+    .byte 61, 50
+    .half 375
+    .word 82488
+
+    .byte 73, 50
+    .half 375
+    .word 82488
+
+    .byte 39, 50
+    .half 125
+    .word 82734
+
+    .byte 59, 50
+    .half 125
+    .word 82855
+
+    .byte 44, 50
+    .half 125
+    .word 82855
+
+    .byte 71, 50
+    .half 125
+    .word 82855
+
+    .byte 61, 50
+    .half 250
+    .word 82983
+
+    .byte 32, 50
+    .half 250
+    .word 82983
+
+    .byte 73, 50
+    .half 250
+    .word 82983
+
+    .byte 39, 50
+    .half 125
+    .word 83232
+
+    .byte 63, 50
+    .half 250
+    .word 83232
+
+    .byte 75, 50
+    .half 250
+    .word 83232
+
+    .byte 44, 50
+    .half 125
+    .word 83353
+
+    .byte 30, 50
+    .half 250
+    .word 83479
+
+    .byte 63, 50
+    .half 250
+    .word 83725
+
+    .byte 75, 50
+    .half 250
+    .word 83725
+
+    .byte 42, 50
+    .half 250
+    .word 83725
+
+    .byte 32, 50
+    .half 250
+    .word 83975
+
+    .byte 63, 50
+    .half 750
+    .word 83975
+
+    .byte 75, 50
+    .half 750
+    .word 83975
+
+    .byte 39, 50
+    .half 125
+    .word 84240
+
+    .byte 44, 50
+    .half 125
+    .word 84362
+
+    .byte 32, 50
+    .half 250
+    .word 84488
+
+    .byte 39, 50
+    .half 125
+    .word 84734
+
+    .byte 66, 50
+    .half 250
+    .word 84734
+
+    .byte 78, 50
+    .half 250
+    .word 84734
+
+    .byte 44, 50
+    .half 125
+    .word 84855
+
+    .byte 32, 50
+    .half 250
+    .word 84983
+
+    .byte 61, 50
+    .half 750
+    .word 84983
+
+    .byte 73, 50
+    .half 750
+    .word 84983
+
+    .byte 39, 50
+    .half 125
+    .word 85232
+
+    .byte 44, 50
+    .half 125
+    .word 85353
+
+    .byte 32, 50
+    .half 250
+    .word 85479
+
+    .byte 39, 50
+    .half 125
+    .word 85725
+
+    .byte 59, 50
+    .half 250
+    .word 85725
+
+    .byte 71, 50
+    .half 250
+    .word 85725
+
+    .byte 44, 50
+    .half 125
+    .word 85846
+
+    .byte 32, 50
+    .half 250
+    .word 85975
+
+    .byte 59, 50
+    .half 500
+    .word 85975
+
+    .byte 71, 50
+    .half 500
+    .word 85975
+
+    .byte 39, 50
+    .half 125
+    .word 86240
+
+    .byte 44, 50
+    .half 125
+    .word 86362
+
+    .byte 32, 50
+    .half 250
+    .word 86488
+
+    .byte 61, 50
+    .half 375
+    .word 86488
+
+    .byte 73, 50
+    .half 375
+    .word 86488
+
+    .byte 39, 50
+    .half 125
+    .word 86734
+
+    .byte 59, 50
+    .half 125
+    .word 86855
+
+    .byte 44, 50
+    .half 125
+    .word 86855
+
+    .byte 71, 50
+    .half 125
+    .word 86855
+
+    .byte 61, 50
+    .half 250
+    .word 86983
+
+    .byte 32, 50
+    .half 250
+    .word 86983
+
+    .byte 73, 50
+    .half 250
+    .word 86983
+
+    .byte 39, 50
+    .half 125
+    .word 87232
+
+    .byte 63, 50
+    .half 250
+    .word 87232
+
+    .byte 75, 50
+    .half 250
+    .word 87232
+
+    .byte 44, 50
+    .half 125
+    .word 87353
+
+    .byte 32, 50
+    .half 250
+    .word 87479
+
+    .byte 39, 50
+    .half 125
+    .word 87725
+
+    .byte 44, 50
+    .half 125
+    .word 87846
+
+    .byte 32, 50
+    .half 250
+    .word 87975
+
+    .byte 59, 50
+    .half 500
+    .word 87975
+
+    .byte 71, 50
+    .half 500
+    .word 87975
+
+    .byte 39, 50
+    .half 125
+    .word 88240
+
+    .byte 44, 50
+    .half 125
+    .word 88362
+
+    .byte 32, 50
+    .half 250
+    .word 88488
+
+    .byte 59, 50
+    .half 500
+    .word 88488
+
+    .byte 71, 50
+    .half 500
+    .word 88488
+
+    .byte 39, 50
+    .half 125
+    .word 88734
+
+    .byte 44, 50
+    .half 125
+    .word 88855
+
+    .byte 32, 50
+    .half 250
+    .word 88983
+
+    .byte 61, 50
+    .half 375
+    .word 88983
+
+    .byte 73, 50
+    .half 375
+    .word 88983
+
+    .byte 39, 50
+    .half 125
+    .word 89232
+
+    .byte 59, 50
+    .half 125
+    .word 89353
+
+    .byte 44, 50
+    .half 125
+    .word 89353
+
+    .byte 71, 50
+    .half 125
+    .word 89353
+
+    .byte 32, 50
+    .half 250
+    .word 89479
+
+    .byte 68, 50
+    .half 500
+    .word 89479
+
+    .byte 39, 50
+    .half 125
+    .word 89725
+
+    .byte 56, 50
+    .half 8
+    .word 89846
+
+    .byte 44, 50
+    .half 125
+    .word 89846
+
+    .byte 32, 50
+    .half 250
+    .word 89975
+
+    .byte 59, 50
+    .half 500
+    .word 89975
+
+    .byte 71, 50
+    .half 500
+    .word 89975
+
+    .byte 39, 50
+    .half 125
+    .word 90240
+
+    .byte 44, 50
+    .half 125
+    .word 90362
+
+    .byte 32, 50
+    .half 250
+    .word 90488
+
+    .byte 61, 50
+    .half 375
+    .word 90488
+
+    .byte 73, 50
+    .half 375
+    .word 90488
+
+    .byte 39, 50
+    .half 125
+    .word 90734
+
+    .byte 59, 50
+    .half 125
+    .word 90855
+
+    .byte 44, 50
+    .half 125
+    .word 90855
+
+    .byte 71, 50
+    .half 125
+    .word 90855
+
+    .byte 56, 50
+    .half 250
+    .word 90983
+
+    .byte 32, 50
+    .half 250
+    .word 90983
+
+    .byte 68, 50
+    .half 250
+    .word 90983
+
+    .byte 39, 50
+    .half 125
+    .word 91232
+
+    .byte 44, 50
+    .half 125
+    .word 91353
+
+    .byte 32, 50
+    .half 250
+    .word 91479
+
+    .byte 39, 50
+    .half 125
+    .word 91725
+
+    .byte 44, 50
+    .half 125
+    .word 91846
+
+    .byte 35, 50
+    .half 125
+    .word 91975
+
+    .byte 63, 50
+    .half 499
+    .word 91975
+
+    .byte 75, 50
+    .half 499
+    .word 91975
+
+    .byte 66, 50
+    .half 499
+    .word 91975
+
+    .byte 42, 50
+    .half 125
+    .word 92117
+
+    .byte 47, 50
+    .half 125
+    .word 92238
+
+    .byte 42, 50
+    .half 125
+    .word 92361
+
+    .byte 35, 50
+    .half 125
+    .word 92487
+
+    .byte 66, 50
+    .half 1000
+    .word 92487
+
+    .byte 78, 50
+    .half 1000
+    .word 92487
+
+    .byte 42, 50
+    .half 125
+    .word 92613
+
+    .byte 47, 50
+    .half 125
+    .word 92733
+
+    .byte 42, 50
+    .half 125
+    .word 92854
+
+    .byte 35, 50
+    .half 125
+    .word 92982
+
+    .byte 42, 50
+    .half 125
+    .word 93111
+
+    .byte 47, 50
+    .half 125
+    .word 93230
+
+    .byte 42, 50
+    .half 125
+    .word 93352
+
+    .byte 75, 50
+    .half 9
+    .word 93478
+
+    .byte 35, 50
+    .half 125
+    .word 93478
+
+    .byte 68, 50
+    .half 500
+    .word 93478
+
+    .byte 80, 50
+    .half 500
+    .word 93478
+
+    .byte 42, 50
+    .half 125
+    .word 93603
+
+    .byte 47, 50
+    .half 125
+    .word 93724
+
+    .byte 42, 50
+    .half 125
+    .word 93845
+
+    .byte 30, 50
+    .half 125
+    .word 93974
+
+    .byte 61, 50
+    .half 999
+    .word 93974
+
+    .byte 73, 50
+    .half 999
+    .word 93974
+
+    .byte 70, 50
+    .half 999
+    .word 93974
+
+    .byte 37, 50
+    .half 125
+    .word 94116
+
+    .byte 42, 50
+    .half 125
+    .word 94237
+
+    .byte 37, 50
+    .half 125
+    .word 94359
+
+    .byte 30, 50
+    .half 125
+    .word 94486
+
+    .byte 37, 50
+    .half 125
+    .word 94612
+
+    .byte 42, 50
+    .half 125
+    .word 94732
+
+    .byte 37, 50
+    .half 125
+    .word 94853
+
+    .byte 30, 50
+    .half 125
+    .word 94980
+
+    .byte 61, 50
+    .half 500
+    .word 94980
+
+    .byte 73, 50
+    .half 500
+    .word 94980
+
+    .byte 37, 50
+    .half 125
+    .word 95109
+
+    .byte 42, 50
+    .half 125
+    .word 95229
+
+    .byte 37, 50
+    .half 125
+    .word 95350
+
+    .byte 70, 50
+    .half 3
+    .word 95477
+
+    .byte 30, 50
+    .half 125
+    .word 95477
+
+    .byte 75, 50
+    .half 500
+    .word 95477
+
+    .byte 37, 50
+    .half 125
+    .word 95602
+
+    .byte 42, 50
+    .half 125
+    .word 95723
+
+    .byte 37, 50
+    .half 125
+    .word 95844
+
+    .byte 63, 50
+    .half 4
+    .word 95973
+
+    .byte 32, 50
+    .half 125
+    .word 95973
+
+    .byte 56, 50
+    .half 998
+    .word 95973
+
+    .byte 68, 50
+    .half 998
+    .word 95973
+
+    .byte 39, 50
+    .half 125
+    .word 96115
+
+    .byte 44, 50
+    .half 125
+    .word 96236
+
+    .byte 39, 50
+    .half 125
+    .word 96358
+
+    .byte 32, 50
+    .half 125
+    .word 96484
+
+    .byte 39, 50
+    .half 125
+    .word 96611
+
+    .byte 44, 50
+    .half 125
+    .word 96730
+
+    .byte 39, 50
+    .half 125
+    .word 96852
+
+    .byte 32, 50
+    .half 125
+    .word 96979
+
+    .byte 39, 50
+    .half 125
+    .word 97108
+
+    .byte 44, 50
+    .half 125
+    .word 97228
+
+    .byte 39, 50
+    .half 125
+    .word 97349
+
+    .byte 61, 50
+    .half 4
+    .word 97475
+
+    .byte 73, 50
+    .half 4
+    .word 97475
+
+    .byte 68, 50
+    .half 4
+    .word 97475
+
+    .byte 32, 50
+    .half 125
+    .word 97475
+
+    .byte 39, 50
+    .half 125
+    .word 97600
+
+    .byte 44, 50
+    .half 125
+    .word 97721
+
+    .byte 39, 50
+    .half 125
+    .word 97842
+
+    .byte 61, 50
+    .half 4
+    .word 97971
+
+    .byte 73, 50
+    .half 4
+    .word 97971
+
+    .byte 68, 50
+    .half 4
+    .word 97971
+
+    .byte 35, 50
+    .half 125
+    .word 97971
+
+    .byte 42, 50
+    .half 125
+    .word 98113
+
+    .byte 47, 50
+    .half 125
+    .word 98234
+
+    .byte 42, 50
+    .half 125
+    .word 98357
+
+    .byte 35, 50
+    .half 125
+    .word 98483
+
+    .byte 42, 50
+    .half 125
+    .word 98609
+
+    .byte 47, 50
+    .half 125
+    .word 98729
+
+    .byte 59, 50
+    .half 250
+    .word 98729
+
+    .byte 71, 50
+    .half 250
+    .word 98729
+
+    .byte 42, 50
+    .half 125
+    .word 98850
+
+    .byte 35, 50
+    .half 125
+    .word 98978
+
+    .byte 61, 50
+    .half 500
+    .word 98978
+
+    .byte 73, 50
+    .half 500
+    .word 98978
+
+    .byte 68, 50
+    .half 500
+    .word 98978
+
+    .byte 42, 50
+    .half 125
+    .word 99107
+
+    .byte 47, 50
+    .half 125
+    .word 99227
+
+    .byte 42, 50
+    .half 125
+    .word 99348
+
+    .byte 35, 50
+    .half 125
+    .word 99474
+
+    .byte 42, 50
+    .half 125
+    .word 99599
+
+    .byte 47, 50
+    .half 125
+    .word 99720
+
+    .byte 42, 50
+    .half 125
+    .word 99841
+
+    .byte 63, 50
+    .half 4
+    .word 99970
+
+    .byte 75, 50
+    .half 4
+    .word 99970
+
+    .byte 35, 50
+    .half 125
+    .word 99970
+
+    .byte 66, 50
+    .half 499
+    .word 99970
+
+    .byte 42, 50
+    .half 125
+    .word 100112
+
+    .byte 47, 50
+    .half 125
+    .word 100233
+
+    .byte 42, 50
+    .half 125
+    .word 100355
+
+    .byte 35, 50
+    .half 125
+    .word 100482
+
+    .byte 66, 50
+    .half 1000
+    .word 100482
+
+    .byte 78, 50
+    .half 1000
+    .word 100482
+
+    .byte 42, 50
+    .half 125
+    .word 100608
+
+    .byte 47, 50
+    .half 125
+    .word 100728
+
+    .byte 42, 50
+    .half 125
+    .word 100849
+
+    .byte 35, 50
+    .half 125
+    .word 100977
+
+    .byte 42, 50
+    .half 125
+    .word 101105
+
+    .byte 47, 50
+    .half 125
+    .word 101225
+
+    .byte 42, 50
+    .half 125
+    .word 101346
+
+    .byte 75, 50
+    .half 9
+    .word 101473
+
+    .byte 35, 50
+    .half 125
+    .word 101473
+
+    .byte 68, 50
+    .half 500
+    .word 101473
+
+    .byte 80, 50
+    .half 500
+    .word 101473
+
+    .byte 42, 50
+    .half 125
+    .word 101598
+
+    .byte 47, 50
+    .half 125
+    .word 101719
+
+    .byte 42, 50
+    .half 125
+    .word 101840
+
+    .byte 30, 50
+    .half 125
+    .word 101969
+
+    .byte 61, 50
+    .half 998
+    .word 101969
+
+    .byte 73, 50
+    .half 998
+    .word 101969
+
+    .byte 70, 50
+    .half 998
+    .word 101969
+
+    .byte 37, 50
+    .half 125
+    .word 102111
+
+    .byte 42, 50
+    .half 125
+    .word 102232
+
+    .byte 37, 50
+    .half 125
+    .word 102354
+
+    .byte 30, 50
+    .half 125
+    .word 102480
+
+    .byte 37, 50
+    .half 125
+    .word 102607
+
+    .byte 42, 50
+    .half 125
+    .word 102727
+
+    .byte 37, 50
+    .half 125
+    .word 102848
+
+    .byte 30, 50
+    .half 125
+    .word 102975
+
+    .byte 61, 50
+    .half 500
+    .word 102975
+
+    .byte 73, 50
+    .half 500
+    .word 102975
+
+    .byte 37, 50
+    .half 125
+    .word 103104
+
+    .byte 42, 50
+    .half 125
+    .word 103224
+
+    .byte 37, 50
+    .half 125
+    .word 103345
+
+    .byte 70, 50
+    .half 4
+    .word 103471
+
+    .byte 30, 50
+    .half 125
+    .word 103471
+
+    .byte 63, 50
+    .half 500
+    .word 103471
+
+    .byte 75, 50
+    .half 500
+    .word 103471
+
+    .byte 37, 50
+    .half 125
+    .word 103596
+
+    .byte 42, 50
+    .half 125
+    .word 103717
+
+    .byte 37, 50
+    .half 125
+    .word 103839
+
+    .byte 25, 50
+    .half 125
+    .word 103967
+
+    .byte 56, 50
+    .half 999
+    .word 103967
+
+    .byte 68, 50
+    .half 999
+    .word 103967
+
+    .byte 61, 50
+    .half 999
+    .word 103967
+
+    .byte 32, 50
+    .half 125
+    .word 104109
+
+    .byte 37, 50
+    .half 125
+    .word 104230
+
+    .byte 32, 50
+    .half 125
+    .word 104353
+
+    .byte 25, 50
+    .half 125
+    .word 104479
+
+    .byte 32, 50
+    .half 125
+    .word 104605
+
+    .byte 37, 50
+    .half 125
+    .word 104725
+
+    .byte 32, 50
+    .half 125
+    .word 104846
+
+    .byte 25, 50
+    .half 125
+    .word 104974
+
+    .byte 32, 50
+    .half 125
+    .word 105103
+
+    .byte 37, 50
+    .half 125
+    .word 105223
+
+    .byte 32, 50
+    .half 125
+    .word 105344
+
+    .byte 61, 50
+    .half 4
+    .word 105470
+
+    .byte 73, 50
+    .half 4
+    .word 105470
+
+    .byte 68, 50
+    .half 4
+    .word 105470
+
+    .byte 25, 50
+    .half 125
+    .word 105470
+
+    .byte 32, 50
+    .half 125
+    .word 105595
+
+    .byte 37, 50
+    .half 125
+    .word 105716
+
+    .byte 32, 50
+    .half 125
+    .word 105837
+
+    .byte 35, 50
+    .half 125
+    .word 105966
+
+    .byte 63, 50
+    .half 499
+    .word 105966
+
+    .byte 75, 50
+    .half 499
+    .word 105966
+
+    .byte 71, 50
+    .half 499
+    .word 105966
+
+    .byte 42, 50
+    .half 125
+    .word 106108
+
+    .byte 47, 50
+    .half 125
+    .word 106229
+
+    .byte 42, 50
+    .half 125
+    .word 106352
+
+    .byte 35, 50
+    .half 125
+    .word 106478
+
+    .byte 63, 50
+    .half 375
+    .word 106478
+
+    .byte 75, 50
+    .half 375
+    .word 106478
+
+    .byte 71, 50
+    .half 375
+    .word 106478
+
+    .byte 42, 50
+    .half 125
+    .word 106604
+
+    .byte 47, 50
+    .half 125
+    .word 106724
+
+    .byte 61, 50
+    .half 125
+    .word 106845
+
+    .byte 42, 50
+    .half 125
+    .word 106845
+
+    .byte 73, 50
+    .half 125
+    .word 106845
+
+    .byte 35, 50
+    .half 125
+    .word 106973
+
+    .byte 42, 50
+    .half 125
+    .word 107102
+
+    .byte 47, 50
+    .half 125
+    .word 107221
+
+    .byte 42, 50
+    .half 125
+    .word 107342
+
+    .byte 63, 50
+    .half 4
+    .word 107469
+
+    .byte 75, 50
+    .half 4
+    .word 107469
+
+    .byte 71, 50
+    .half 4
+    .word 107469
+
+    .byte 35, 50
+    .half 125
+    .word 107469
+
+    .byte 42, 50
+    .half 125
+    .word 107594
+
+    .byte 63, 50
+    .half 4
+    .word 107715
+
+    .byte 47, 50
+    .half 125
+    .word 107715
+
+    .byte 42, 50
+    .half 125
+    .word 107836
+
+    .byte 75, 50
+    .half 4
+    .word 107965
+
+    .byte 71, 50
+    .half 4
+    .word 107965
+
+    .byte 32, 50
+    .half 250
+    .word 107965
+
+    .byte 63, 50
+    .half 750
+    .word 107965
+
+    .byte 39, 50
+    .half 125
+    .word 108229
+
+    .byte 44, 50
+    .half 125
+    .word 108352
+
+    .byte 32, 50
+    .half 250
+    .word 108478
+
+    .byte 39, 50
+    .half 125
+    .word 108724
+
+    .byte 66, 50
+    .half 250
+    .word 108724
+
+    .byte 78, 50
+    .half 250
+    .word 108724
+
+    .byte 44, 50
+    .half 125
+    .word 108845
+
+    .byte 32, 50
+    .half 250
+    .word 108973
+
+    .byte 61, 50
+    .half 750
+    .word 108973
+
+    .byte 73, 50
+    .half 750
+    .word 108973
+
+    .byte 68, 50
+    .half 750
+    .word 108973
+
+    .byte 39, 50
+    .half 125
+    .word 109221
+
+    .byte 44, 50
+    .half 125
+    .word 109342
+
+    .byte 32, 50
+    .half 250
+    .word 109469
+
+    .byte 39, 50
+    .half 125
+    .word 109715
+
+    .byte 59, 50
+    .half 250
+    .word 109715
+
+    .byte 71, 50
+    .half 250
+    .word 109715
+
+    .byte 44, 50
+    .half 125
+    .word 109836
+
+    .byte 32, 50
+    .half 250
+    .word 109965
+
+    .byte 59, 50
+    .half 500
+    .word 109965
+
+    .byte 71, 50
+    .half 500
+    .word 109965
+
+    .byte 68, 50
+    .half 500
+    .word 109965
+
+    .byte 39, 50
+    .half 125
+    .word 110229
+
+    .byte 44, 50
+    .half 125
+    .word 110352
+
+    .byte 32, 50
+    .half 250
+    .word 110478
+
+    .byte 61, 50
+    .half 375
+    .word 110478
+
+    .byte 73, 50
+    .half 375
+    .word 110478
+
+    .byte 68, 50
+    .half 375
+    .word 110478
+
+    .byte 39, 50
+    .half 125
+    .word 110724
+
+    .byte 59, 50
+    .half 125
+    .word 110845
+
+    .byte 44, 50
+    .half 125
+    .word 110845
+
+    .byte 71, 50
+    .half 125
+    .word 110845
+
+    .byte 61, 50
+    .half 250
+    .word 110973
+
+    .byte 73, 50
+    .half 250
+    .word 110973
+
+    .byte 32, 50
+    .half 250
+    .word 110973
+
+    .byte 68, 50
+    .half 250
+    .word 110973
+
+    .byte 39, 50
+    .half 125
+    .word 111221
+
+    .byte 63, 50
+    .half 250
+    .word 111221
+
+    .byte 75, 50
+    .half 250
+    .word 111221
+
+    .byte 71, 50
+    .half 250
+    .word 111221
+
+    .byte 44, 50
+    .half 125
+    .word 111342
+
+    .byte 32, 50
+    .half 250
+    .word 111469
+
+    .byte 39, 50
+    .half 125
+    .word 111715
+
+    .byte 44, 50
+    .half 125
+    .word 111836
+
+    .byte 32, 50
+    .half 250
+    .word 111965
+
+    .byte 59, 50
+    .half 500
+    .word 111965
+
+    .byte 71, 50
+    .half 500
+    .word 111965
+
+    .byte 68, 50
+    .half 500
+    .word 111965
+
+    .byte 39, 50
+    .half 125
+    .word 112229
+
+    .byte 44, 50
+    .half 125
+    .word 112352
+
+    .byte 32, 50
+    .half 250
+    .word 112478
+
+    .byte 59, 50
+    .half 500
+    .word 112478
+
+    .byte 71, 50
+    .half 500
+    .word 112478
+
+    .byte 39, 50
+    .half 125
+    .word 112724
+
+    .byte 44, 50
+    .half 125
+    .word 112845
+
+    .byte 68, 50
+    .half 5
+    .word 112973
+
+    .byte 32, 50
+    .half 250
+    .word 112973
+
+    .byte 61, 50
+    .half 375
+    .word 112973
+
+    .byte 73, 50
+    .half 375
+    .word 112973
+
+    .byte 39, 50
+    .half 125
+    .word 113221
+
+    .byte 59, 50
+    .half 125
+    .word 113342
+
+    .byte 44, 50
+    .half 125
+    .word 113342
+
+    .byte 71, 50
+    .half 125
+    .word 113342
+
+    .byte 32, 50
+    .half 250
+    .word 113469
+
+    .byte 63, 50
+    .half 375
+    .word 113469
+
+    .byte 39, 50
+    .half 125
+    .word 113715
+
+    .byte 56, 50
+    .half 8
+    .word 113836
+
+    .byte 68, 50
+    .half 8
+    .word 113836
+
+    .byte 44, 50
+    .half 125
+    .word 113836
+
+    .byte 32, 50
+    .half 250
+    .word 113965
+
+    .byte 59, 50
+    .half 500
+    .word 113965
+
+    .byte 71, 50
+    .half 500
+    .word 113965
+
+    .byte 68, 50
+    .half 500
+    .word 113965
+
+    .byte 39, 50
+    .half 125
+    .word 114229
+
+    .byte 44, 50
+    .half 125
+    .word 114352
+
+    .byte 32, 50
+    .half 250
+    .word 114478
+
+    .byte 61, 50
+    .half 375
+    .word 114478
+
+    .byte 73, 50
+    .half 375
+    .word 114478
+
+    .byte 68, 50
+    .half 375
+    .word 114478
+
+    .byte 39, 50
+    .half 125
+    .word 114724
+
+    .byte 59, 50
+    .half 125
+    .word 114845
+
+    .byte 44, 50
+    .half 125
+    .word 114845
+
+    .byte 71, 50
+    .half 125
+    .word 114845
+
+    .byte 56, 50
+    .half 250
+    .word 114973
+
+    .byte 32, 50
+    .half 250
+    .word 114973
+
+    .byte 68, 50
+    .half 250
+    .word 114973
+
+    .byte 63, 50
+    .half 250
+    .word 114973
+
+    .byte 32, 50
+    .half 125
+    .word 115965
+
+    .byte 63, 50
+    .half 499
+    .word 115965
+
+    .byte 75, 50
+    .half 499
+    .word 115965
+
+    .byte 71, 50
+    .half 499
+    .word 115965
+
+    .byte 68, 50
+    .half 499
+    .word 115965
+
+    .byte 39, 50
+    .half 125
+    .word 116107
+
+    .byte 44, 50
+    .half 125
+    .word 116228
+
+    .byte 39, 50
+    .half 125
+    .word 116350
+
+    .byte 32, 50
+    .half 125
+    .word 116477
+
+    .byte 71, 50
+    .half 1000
+    .word 116477
+
+    .byte 83, 50
+    .half 1000
+    .word 116477
+
+    .byte 80, 50
+    .half 1000
+    .word 116477
+
+    .byte 39, 50
+    .half 125
+    .word 116603
+
+    .byte 44, 50
+    .half 125
+    .word 116723
+
+    .byte 39, 50
+    .half 125
+    .word 116844
+
+    .byte 32, 50
+    .half 125
+    .word 116971
+
+    .byte 39, 50
+    .half 125
+    .word 117100
+
+    .byte 44, 50
+    .half 125
+    .word 117220
+
+    .byte 39, 50
+    .half 125
+    .word 117341
+
+    .byte 75, 50
+    .half 10
+    .word 117467
+
+    .byte 32, 50
+    .half 125
+    .word 117467
+
+    .byte 82, 50
+    .half 500
+    .word 117467
+
+    .byte 78, 50
+    .half 500
+    .word 117467
+
+    .byte 39, 50
+    .half 125
+    .word 117592
+
+    .byte 44, 50
+    .half 125
+    .word 117714
+
+    .byte 39, 50
+    .half 125
+    .word 117835
+
+    .byte 70, 50
+    .half 3
+    .word 117964
+
+    .byte 30, 50
+    .half 125
+    .word 117964
+
+    .byte 61, 50
+    .half 998
+    .word 117964
+
+    .byte 73, 50
+    .half 998
+    .word 117964
+
+    .byte 66, 50
+    .half 998
+    .word 117964
+
+    .byte 37, 50
+    .half 125
+    .word 118105
+
+    .byte 42, 50
+    .half 125
+    .word 118227
+
+    .byte 37, 50
+    .half 125
+    .word 118349
+
+    .byte 30, 50
+    .half 125
+    .word 118475
+
+    .byte 37, 50
+    .half 125
+    .word 118602
+
+    .byte 42, 50
+    .half 125
+    .word 118721
+
+    .byte 37, 50
+    .half 125
+    .word 118842
+
+    .byte 35, 50
+    .half 125
+    .word 118970
+
+    .byte 66, 50
+    .half 1000
+    .word 118970
+
+    .byte 42, 50
+    .half 125
+    .word 119099
+
+    .byte 47, 50
+    .half 125
+    .word 119219
+
+    .byte 42, 50
+    .half 125
+    .word 119340
+
+    .byte 35, 50
+    .half 125
+    .word 119466
+
+    .byte 42, 50
+    .half 125
+    .word 119591
+
+    .byte 47, 50
+    .half 125
+    .word 119712
+
+    .byte 42, 50
+    .half 125
+    .word 119833
+
+    .byte 63, 50
+    .half 8
+    .word 119962
+
+    .byte 75, 50
+    .half 8
+    .word 119962
+
+    .byte 71, 50
+    .half 8
+    .word 119962
+
+    .byte 32, 50
+    .half 125
+    .word 119962
+
+    .byte 68, 50
+    .half 499
+    .word 119962
+
+    .byte 39, 50
+    .half 125
+    .word 120104
+
+    .byte 44, 50
+    .half 125
+    .word 120225
+
+    .byte 39, 50
+    .half 125
+    .word 120348
+
+    .byte 32, 50
+    .half 125
+    .word 120474
+
+    .byte 71, 50
+    .half 1000
+    .word 120474
+
+    .byte 83, 50
+    .half 1000
+    .word 120474
+
+    .byte 80, 50
+    .half 1000
+    .word 120474
+
+    .byte 39, 50
+    .half 125
+    .word 120600
+
+    .byte 44, 50
+    .half 125
+    .word 120720
+
+    .byte 39, 50
+    .half 125
+    .word 120841
+
+    .byte 32, 50
+    .half 125
+    .word 120969
+
+    .byte 39, 50
+    .half 125
+    .word 121098
+
+    .byte 44, 50
+    .half 125
+    .word 121217
+
+    .byte 39, 50
+    .half 125
+    .word 121339
+
+    .byte 75, 50
+    .half 9
+    .word 121465
+
+    .byte 32, 50
+    .half 125
+    .word 121465
+
+    .byte 82, 50
+    .half 500
+    .word 121465
+
+    .byte 78, 50
+    .half 500
+    .word 121465
+
+    .byte 39, 50
+    .half 125
+    .word 121590
+
+    .byte 44, 50
+    .half 125
+    .word 121711
+
+    .byte 39, 50
+    .half 125
+    .word 121832
+
+    .byte 70, 50
+    .half 4
+    .word 121961
+
+    .byte 30, 50
+    .half 125
+    .word 121961
+
+    .byte 61, 50
+    .half 999
+    .word 121961
+
+    .byte 73, 50
+    .half 999
+    .word 121961
+
+    .byte 66, 50
+    .half 999
+    .word 121961
+
+    .byte 37, 50
+    .half 125
+    .word 122103
+
+    .byte 42, 50
+    .half 125
+    .word 122224
+
+    .byte 37, 50
+    .half 125
+    .word 122346
+
+    .byte 30, 50
+    .half 125
+    .word 122473
+
+    .byte 37, 50
+    .half 125
+    .word 122599
+
+    .byte 42, 50
+    .half 125
+    .word 122719
+
+    .byte 37, 50
+    .half 125
+    .word 122840
+
+    .byte 32, 50
+    .half 125
+    .word 122967
+
+    .byte 59, 50
+    .half 1000
+    .word 122967
+
+    .byte 39, 50
+    .half 125
+    .word 123096
+
+    .byte 44, 50
+    .half 125
+    .word 123216
+
+    .byte 39, 50
+    .half 125
+    .word 123337
+
+    .byte 32, 50
+    .half 250
+    .word 123464
+
+    .byte 71, 50
+    .half 7
+    .word 123960
+
+    .byte 68, 50
+    .half 7
+    .word 123960
+
+    .byte 63, 50
+    .half 7
+    .word 123960
+
+    .byte 32, 50
+    .half 125
+    .word 123960
+
+    .byte 75, 50
+    .half 498
+    .word 123960
+
+    .byte 39, 50
+    .half 125
+    .word 124102
+
+    .byte 44, 50
+    .half 125
+    .word 124223
+
+    .byte 39, 50
+    .half 125
+    .word 124345
+
+    .byte 32, 50
+    .half 125
+    .word 124471
+
+    .byte 71, 50
+    .half 1000
+    .word 124471
+
+    .byte 83, 50
+    .half 1000
+    .word 124471
+
+    .byte 80, 50
+    .half 1000
+    .word 124471
+
+    .byte 39, 50
+    .half 125
+    .word 124598
+
+    .byte 44, 50
+    .half 125
+    .word 124717
+
+    .byte 39, 50
+    .half 125
+    .word 124839
+
+    .byte 32, 50
+    .half 125
+    .word 124966
+
+    .byte 39, 50
+    .half 125
+    .word 125095
+
+    .byte 44, 50
+    .half 125
+    .word 125215
+
+    .byte 39, 50
+    .half 125
+    .word 125336
+
+    .byte 75, 50
+    .half 9
+    .word 125462
+
+    .byte 32, 50
+    .half 125
+    .word 125462
+
+    .byte 82, 50
+    .half 500
+    .word 125462
+
+    .byte 78, 50
+    .half 500
+    .word 125462
+
+    .byte 39, 50
+    .half 125
+    .word 125587
+
+    .byte 44, 50
+    .half 125
+    .word 125708
+
+    .byte 39, 50
+    .half 125
+    .word 125829
+
+    .byte 70, 50
+    .half 4
+    .word 125958
+
+    .byte 30, 50
+    .half 125
+    .word 125958
+
+    .byte 61, 50
+    .half 999
+    .word 125958
+
+    .byte 73, 50
+    .half 999
+    .word 125958
+
+    .byte 66, 50
+    .half 999
+    .word 125958
+
+    .byte 37, 50
+    .half 125
+    .word 126100
+
+    .byte 42, 50
+    .half 125
+    .word 126221
+
+    .byte 37, 50
+    .half 125
+    .word 126344
+
+    .byte 30, 50
+    .half 125
+    .word 126470
+
+    .byte 37, 50
+    .half 125
+    .word 126596
+
+    .byte 42, 50
+    .half 125
+    .word 126716
+
+    .byte 37, 50
+    .half 125
+    .word 126837
+
+    .byte 35, 50
+    .half 125
+    .word 126965
+
+    .byte 66, 50
+    .half 1000
+    .word 126965
+
+    .byte 42, 50
+    .half 125
+    .word 127094
+
+    .byte 47, 50
+    .half 125
+    .word 127214
+
+    .byte 42, 50
+    .half 125
+    .word 127335
+
+    .byte 35, 50
+    .half 125
+    .word 127461
+
+    .byte 42, 50
+    .half 125
+    .word 127586
+
+    .byte 47, 50
+    .half 125
+    .word 127707
+
+    .byte 42, 50
+    .half 125
+    .word 127828
+
+    .byte 63, 50
+    .half 8
+    .word 127957
+
+    .byte 75, 50
+    .half 8
+    .word 127957
+
+    .byte 71, 50
+    .half 8
+    .word 127957
+
+    .byte 32, 50
+    .half 125
+    .word 127957
+
+    .byte 68, 50
+    .half 499
+    .word 127957
+
+    .byte 39, 50
+    .half 125
+    .word 128099
+
+    .byte 44, 50
+    .half 125
+    .word 128220
+
+    .byte 39, 50
+    .half 125
+    .word 128342
+
+    .byte 32, 50
+    .half 125
+    .word 128469
+
+    .byte 71, 50
+    .half 1000
+    .word 128469
+
+    .byte 83, 50
+    .half 1000
+    .word 128469
+
+    .byte 80, 50
+    .half 1000
+    .word 128469
+
+    .byte 39, 50
+    .half 125
+    .word 128595
+
+    .byte 44, 50
+    .half 125
+    .word 128715
+
+    .byte 39, 50
+    .half 125
+    .word 128836
+
+    .byte 32, 50
+    .half 125
+    .word 128964
+
+    .byte 39, 50
+    .half 125
+    .word 129092
+
+    .byte 44, 50
+    .half 125
+    .word 129212
+
+    .byte 39, 50
+    .half 125
+    .word 129333
+
+    .byte 75, 50
+    .half 9
+    .word 129460
+
+    .byte 32, 50
+    .half 125
+    .word 129460
+
+    .byte 82, 50
+    .half 500
+    .word 129460
+
+    .byte 78, 50
+    .half 500
+    .word 129460
+
+    .byte 39, 50
+    .half 125
+    .word 129585
+
+    .byte 44, 50
+    .half 125
+    .word 129706
+
+    .byte 39, 50
+    .half 125
+    .word 129827
+
+    .byte 70, 50
+    .half 4
+    .word 129956
+
+    .byte 30, 50
+    .half 125
+    .word 129956
+
+    .byte 61, 50
+    .half 998
+    .word 129956
+
+    .byte 73, 50
+    .half 998
+    .word 129956
+
+    .byte 66, 50
+    .half 998
+    .word 129956
+
+    .byte 37, 50
+    .half 125
+    .word 130098
+
+    .byte 42, 50
+    .half 125
+    .word 130219
+
+    .byte 37, 50
+    .half 125
+    .word 130341
+
+    .byte 30, 50
+    .half 125
+    .word 130467
+
+    .byte 37, 50
+    .half 125
+    .word 130594
+
+    .byte 42, 50
+    .half 125
+    .word 130714
+
+    .byte 37, 50
+    .half 125
+    .word 130835
+
+    .byte 32, 50
+    .half 125
+    .word 130962
+
+    .byte 59, 50
+    .half 1000
+    .word 130962
+
+    .byte 71, 50
+    .half 1000
+    .word 130962
+
+    .byte 68, 50
+    .half 1000
+    .word 130962
+
+    .byte 63, 50
+    .half 1000
+    .word 130962
+
+    .byte 39, 50
+    .half 125
+    .word 131091
+
+    .byte 44, 50
+    .half 125
+    .word 131211
+
+    .byte 39, 50
+    .half 125
+    .word 131332
+
+    .byte 32, 50
+    .half 250
+    .word 131458
+
+    .byte 32, 50
+    .half 125
+    .word 131954
+
+    .byte 78, 50
+    .half 499
+    .word 131954
+
+    .byte 66, 50
+    .half 499
+    .word 131954
+
+    .byte 39, 50
+    .half 125
+    .word 132096
+
+    .byte 44, 50
+    .half 125
+    .word 132217
+
+    .byte 39, 50
+    .half 125
+    .word 132340
+
+    .byte 32, 50
+    .half 125
+    .word 132466
+
+    .byte 78, 50
+    .half 375
+    .word 132466
+
+    .byte 66, 50
+    .half 375
+    .word 132466
+
+    .byte 39, 50
+    .half 125
+    .word 132592
+
+    .byte 44, 50
+    .half 125
+    .word 132712
+
+    .byte 39, 50
+    .half 125
+    .word 132833
+
+    .byte 78, 50
+    .half 125
+    .word 132895
+
+    .byte 32, 50
+    .half 125
+    .word 132961
+
+    .byte 73, 50
+    .half 500
+    .word 132961
+
+    .byte 39, 50
+    .half 125
+    .word 133090
+
+    .byte 44, 50
+    .half 125
+    .word 133210
+
+    .byte 39, 50
+    .half 125
+    .word 133331
+
+    .byte 32, 50
+    .half 125
+    .word 133457
+
+    .byte 39, 50
+    .half 125
+    .word 133582
+
+    .byte 44, 50
+    .half 125
+    .word 133703
+
+    .byte 39, 50
+    .half 125
+    .word 133824
+
+    .byte 75, 50
+    .half 4
+    .word 133953
+
+    .byte 63, 50
+    .half 4
+    .word 133953
+
+    .byte 35, 50
+    .half 125
+    .word 133953
+
+    .byte 42, 50
+    .half 125
+    .word 134095
+
+    .byte 47, 50
+    .half 125
+    .word 134216
+
+    .byte 42, 50
+    .half 125
+    .word 134339
+
+    .byte 35, 50
+    .half 125
+    .word 134465
+
+    .byte 73, 50
+    .half 375
+    .word 134465
+
+    .byte 61, 50
+    .half 375
+    .word 134465
+
+    .byte 42, 50
+    .half 125
+    .word 134591
+
+    .byte 47, 50
+    .half 125
+    .word 134711
+
+    .byte 42, 50
+    .half 125
+    .word 134832
+
+    .byte 71, 50
+    .half 125
+    .word 134893
+
+    .byte 30, 50
+    .half 250
+    .word 134960
+
+    .byte 73, 50
+    .half 500
+    .word 134960
+
+    .byte 61, 50
+    .half 500
+    .word 134960
+
+    .byte 30, 50
+    .half 250
+    .word 135456
+
+    .byte 42, 50
+    .half 250
+    .word 135702
+
+    .byte 75, 50
+    .half 4
+    .word 135952
+
+    .byte 63, 50
+    .half 4
+    .word 135952
+
+    .byte 32, 50
+    .half 125
+    .word 135952
+
+    .byte 39, 50
+    .half 125
+    .word 136094
+
+    .byte 44, 50
+    .half 125
+    .word 136215
+
+    .byte 39, 50
+    .half 125
+    .word 136337
+
+    .byte 32, 50
+    .half 125
+    .word 136464
+
+    .byte 73, 50
+    .half 375
+    .word 136464
+
+    .byte 61, 50
+    .half 375
+    .word 136464
+
+    .byte 39, 50
+    .half 125
+    .word 136590
+
+    .byte 44, 50
+    .half 125
+    .word 136710
+
+    .byte 39, 50
+    .half 125
+    .word 136831
+
+    .byte 71, 50
+    .half 125
+    .word 136892
+
+    .byte 32, 50
+    .half 125
+    .word 136958
+
+    .byte 73, 50
+    .half 500
+    .word 136958
+
+    .byte 61, 50
+    .half 500
+    .word 136958
+
+    .byte 39, 50
+    .half 125
+    .word 137087
+
+    .byte 44, 50
+    .half 125
+    .word 137207
+
+    .byte 39, 50
+    .half 125
+    .word 137328
+
+    .byte 32, 50
+    .half 125
+    .word 137454
+
+    .byte 75, 50
+    .half 500
+    .word 137454
+
+    .byte 63, 50
+    .half 500
+    .word 137454
+
+    .byte 39, 50
+    .half 125
+    .word 137579
+
+    .byte 44, 50
+    .half 125
+    .word 137701
+
+    .byte 39, 50
+    .half 125
+    .word 137822
+
+    .byte 35, 50
+    .half 125
+    .word 137951
+
+    .byte 59, 50
+    .half 375
+    .word 137951
+
+    .byte 71, 50
+    .half 500
+    .word 137951
+
+    .byte 42, 50
+    .half 125
+    .word 138092
+
+    .byte 47, 50
+    .half 251
+    .word 138214
+
+    .byte 42, 50
+    .half 125
+    .word 138337
+
+    .byte 35, 50
+    .half 125
+    .word 138464
+
+    .byte 42, 50
+    .half 125
+    .word 138590
+
+    .byte 47, 50
+    .half 125
+    .word 138710
+
+    .byte 42, 50
+    .half 125
+    .word 138831
+
+    .byte 73, 50
+    .half 6
+    .word 138958
+
+    .byte 61, 50
+    .half 6
+    .word 138958
+
+    .byte 30, 50
+    .half 250
+    .word 138958
+
+    .byte 30, 50
+    .half 250
+    .word 139454
+
+    .byte 75, 50
+    .half 375
+    .word 139454
+
+    .byte 63, 50
+    .half 375
+    .word 139454
+
+    .byte 42, 50
+    .half 250
+    .word 139701
+
+    .byte 32, 50
+    .half 125
+    .word 139951
+
+    .byte 78, 50
+    .half 498
+    .word 139951
+
+    .byte 66, 50
+    .half 498
+    .word 139951
+
+    .byte 39, 50
+    .half 125
+    .word 140092
+
+    .byte 44, 50
+    .half 125
+    .word 140214
+
+    .byte 39, 50
+    .half 125
+    .word 140336
+
+    .byte 32, 50
+    .half 125
+    .word 140462
+
+    .byte 78, 50
+    .half 375
+    .word 140462
+
+    .byte 66, 50
+    .half 375
+    .word 140462
+
+    .byte 39, 50
+    .half 125
+    .word 140589
+
+    .byte 44, 50
+    .half 125
+    .word 140708
+
+    .byte 39, 50
+    .half 125
+    .word 140829
+
+    .byte 78, 50
+    .half 125
+    .word 140891
+
+    .byte 32, 50
+    .half 125
+    .word 140957
+
+    .byte 73, 50
+    .half 500
+    .word 140957
+
+    .byte 39, 50
+    .half 125
+    .word 141086
+
+    .byte 44, 50
+    .half 125
+    .word 141206
+
+    .byte 39, 50
+    .half 125
+    .word 141327
+
+    .byte 32, 50
+    .half 125
+    .word 141453
+
+    .byte 39, 50
+    .half 125
+    .word 141578
+
+    .byte 44, 50
+    .half 125
+    .word 141699
+
+    .byte 39, 50
+    .half 125
+    .word 141820
+
+    .byte 75, 50
+    .half 4
+    .word 141949
+
+    .byte 63, 50
+    .half 4
+    .word 141949
+
+    .byte 35, 50
+    .half 125
+    .word 141949
+
+    .byte 42, 50
+    .half 125
+    .word 142091
+
+    .byte 47, 50
+    .half 125
+    .word 142212
+
+    .byte 42, 50
+    .half 125
+    .word 142335
+
+    .byte 35, 50
+    .half 125
+    .word 142461
+
+    .byte 73, 50
+    .half 375
+    .word 142461
+
+    .byte 61, 50
+    .half 375
+    .word 142461
+
+    .byte 42, 50
+    .half 125
+    .word 142587
+
+    .byte 47, 50
+    .half 125
+    .word 142707
+
+    .byte 42, 50
+    .half 125
+    .word 142828
+
+    .byte 71, 50
+    .half 125
+    .word 142889
+
+    .byte 30, 50
+    .half 250
+    .word 142956
+
+    .byte 73, 50
+    .half 500
+    .word 142956
+
+    .byte 61, 50
+    .half 500
+    .word 142956
+
+    .byte 30, 50
+    .half 250
+    .word 143452
+
+    .byte 42, 50
+    .half 250
+    .word 143698
+
+    .byte 75, 50
+    .half 4
+    .word 143948
+
+    .byte 63, 50
+    .half 4
+    .word 143948
+
+    .byte 32, 50
+    .half 125
+    .word 143948
+
+    .byte 39, 50
+    .half 125
+    .word 144090
+
+    .byte 44, 50
+    .half 125
+    .word 144211
+
+    .byte 39, 50
+    .half 125
+    .word 144333
+
+    .byte 32, 50
+    .half 125
+    .word 144460
+
+    .byte 73, 50
+    .half 375
+    .word 144460
+
+    .byte 61, 50
+    .half 375
+    .word 144460
+
+    .byte 39, 50
+    .half 125
+    .word 144586
+
+    .byte 44, 50
+    .half 125
+    .word 144706
+
+    .byte 39, 50
+    .half 125
+    .word 144827
+
+    .byte 71, 50
+    .half 125
+    .word 144888
+
+    .byte 32, 50
+    .half 125
+    .word 144954
+
+    .byte 73, 50
+    .half 500
+    .word 144954
+
+    .byte 61, 50
+    .half 500
+    .word 144954
+
+    .byte 39, 50
+    .half 125
+    .word 145083
+
+    .byte 44, 50
+    .half 125
+    .word 145203
+
+    .byte 39, 50
+    .half 125
+    .word 145324
+
+    .byte 32, 50
+    .half 125
+    .word 145451
+
+    .byte 75, 50
+    .half 500
+    .word 145451
+
+    .byte 63, 50
+    .half 500
+    .word 145451
+
+    .byte 39, 50
+    .half 125
+    .word 145576
+
+    .byte 44, 50
+    .half 125
+    .word 145697
+
+    .byte 39, 50
+    .half 125
+    .word 145818
+
+    .byte 35, 50
+    .half 125
+    .word 145947
+
+    .byte 59, 50
+    .half 375
+    .word 145947
+
+    .byte 71, 50
+    .half 500
+    .word 145947
+
+    .byte 42, 50
+    .half 125
+    .word 146089
+
+    .byte 47, 50
+    .half 251
+    .word 146210
+
+    .byte 42, 50
+    .half 125
+    .word 146333
+
+    .byte 35, 50
+    .half 125
+    .word 146460
+
+    .byte 73, 50
+    .half 500
+    .word 146460
+
+    .byte 61, 50
+    .half 500
+    .word 146460
+
+    .byte 42, 50
+    .half 125
+    .word 146586
+
+    .byte 47, 50
+    .half 125
+    .word 146706
+
+    .byte 42, 50
+    .half 125
+    .word 146827
+
+    .byte 32, 50
+    .half 250
+    .word 146954
+
+    .byte 68, 50
+    .half 250
+    .word 146954
+
+    .byte 56, 50
+    .half 250
+    .word 146954
+
+berserk___forces_FIM:
+    .word 0 0

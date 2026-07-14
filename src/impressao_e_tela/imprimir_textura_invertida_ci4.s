@@ -88,7 +88,6 @@ P_IT5_PROXIMA_LINHA:
 
 			add t3, t3, t1			# P += 320-C (t6)
 
-                        add a0, a0, a4
                         add a0, a0, a4                  # avanca para a linha de baixo da textura (E += 2*largura)
 
 			addi a2, a2, 1 			# Y++
@@ -98,14 +97,40 @@ P_IT5_PROXIMA_LINHA:
 			beq a2, t5, P_IT5_FIM
 			
 P_IT5_LOOP:		lbu t0, (a0)			# coloca a informacao do pixel em I (I = informacao em P)
+P_IT5_NIBBLE_2:
+                        blt t3, a5, P_IT5_NIBBLE_1 	# SE (P < MINIMO), PULA O PIXEL
+                        bge t3, a6, P_IT5_NIBBLE_1    	# SENAO SE (P >= MAXIMO), TERMINA IMPRESSAO
+			bltz a1,    P_IT5_NIBBLE_1	# SENAO SE (X < 0), PULA O PIXEL
+                        bge a1, a7, P_IT5_NIBBLE_1    	# SENAO SE (X >= X_LIMITE), PULA O PIXEL
+
+			andi t1, t0, 0x0F
+			add t1, s0, t1
+			lbu t1, (t1)
+
+			beq t1, t6, P_IT5_NIBBLE_1	# SENAO SE ( I == COR_TRANSPARENTE ), PULA O PIXEL
+
+
 			
+                                                        # SENAO:
+			sb t1,	(t3)			# 	imprime o pixel
+
+P_IT5_NIBBLE_1:		
+			addi t3, t3, 1			# P++ 
+			addi a1, a1, 1			# X++ 
                         blt t3, a5, P_IT5_PULA_PIXEL 	# SE (P < MINIMO), PULA O PIXEL
                         bge t3, a6, P_IT5_PULA_PIXEL    # SENAO SE (P >= MAXIMO), TERMINA IMPRESSAO
 			bltz a1,    P_IT5_PULA_PIXEL	# SENAO SE (X < 0), PULA O PIXEL
                         bge a1, a7, P_IT5_PULA_PIXEL    # SENAO SE (X >= X_LIMITE), PULA O PIXEL
-			beq t0, t6, P_IT5_PULA_PIXEL	# SENAO SE ( I == COR_TRANSPARENTE ), PULA O PIXEL
+
+			srli t1, t0, 4
+			add t1, s0, t1
+			lbu t1, (t1)
+
+			beq t1, t6, P_IT5_PULA_PIXEL	# SENAO SE ( I == COR_TRANSPARENTE ), PULA O PIXEL
                                                         # SENAO:
-			sb t0,	(t3)			# 	imprime o pixel
+			sb t1,	(t3)			# 	imprime o pixel
+
+
 P_IT5_PULA_PIXEL:	addi a0, a0, -1			# E--
 			addi t3, t3, 1			# P++ 
 			addi a1, a1, 1			# X++ 

@@ -28,6 +28,13 @@ PROC_MENU:
         li a2, 2
         jal PROC_ADICIONAR_DIALOGO
 
+        la a0, berserk_guts
+        li a1, 1        # canal de musica: 1
+        li a2, 1        # sobrescrever a musica anterior
+        li a3, 1        # loopa a musica
+        li a4, 80       # volume
+        jal PROC_TOCAR_AUDIO
+
 P_MENU_LOOP:
         li a0, 0x00
         lw a1, FRAME_ATUAL
@@ -39,6 +46,8 @@ P_MENU_LOOP:
         
         mv a0, zero
         jal PROC_PROCESSAR_ENTRADAS
+
+        jal PROC_AUDIOS_MANAGER
 
         jal PROC_DESENHAR
 
