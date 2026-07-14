@@ -5,12 +5,6 @@
 
 SCHNOZ.struct:
 
-    .eqv SCHNOZ.VIDA 0 # a vida serah um valor inteiro, visto que nao havera mais habilidade de perda progressiva de vida
-    .eqv SCHNOZ.DIRECAO 4 # marcacao para saber para qual a direcao o monstro ta olhando. -1 esquerda, 1 direita
-    .eqv SCHNOZ.CONTADOR_KNOCKBACK 5
-    .eqv SCHNOZ.ANIMACAO_CONTROLLER 6
-    .eqv SCHNOZ.SPAWN 10 # contador de 20 gameloops para spawn do inimigo
-
     .eqv SCHNOZ.ANIMACAO_CONTROLLER 0
     .eqv SCHNOZ.VIDA 4
     .eqv SCHNOZ.CONTADOR_KNOCKBACK 8
