@@ -15,6 +15,7 @@
         .include "dialogo/definicoes_dialogo.s"
         .include "eventos/definicao_eventos.s"
         .include "animacao/definicoes_animacoes.s"
+        .include "audio/definicoes_audio.s"
 
         .eqv GRAVIDADE_PADRAO 2048 # (0.5 pixeis / frame)
 
@@ -43,6 +44,10 @@
         .include "../assets/sprites/data/dragao/sprite_dragao.pal"
         .include "../assets/sprites/data/dragao/sprite_projetil_dragao.data"
         .include "../assets/sprites/data/boss/sprite_feitico_boss.data"
+
+        # MUSICAS
+        .include "../assets/tracks/data/berserk_guts.data"
+        .include "../assets/tracks/data/berserk___forces.data"
 
         # ENTIDADES NO JOGO
         .include "entidades/exemplo.s"
@@ -142,5 +147,7 @@ main:
 .include "SYSTEMv24.s"
 .include "sleep.s"
 .include "custscenes/inicio_jogo.s"
+.include "audio/tocar_audio.s"
+.include "audio/audios_manager.s"
 
 
