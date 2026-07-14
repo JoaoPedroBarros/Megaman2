@@ -161,6 +161,7 @@ JUMPER.DRAW:
     lw t1, entidade.STRUCT_ESPECIFICA(s0)
     lw a0, JUMPER.ANIMACAO_CONTROLLER(t1)
     jal PROC_OBTER_TEXTURA_ANIMACAO
+    mv a5, a1   # guarda a paleta
 
     lw a1, entidade.X_Q12(s0)
     lw a2, entidade.Y_Q12(s0)
@@ -183,11 +184,11 @@ JUMPER.DRAW:
     lb t2, JUMPER.DIRECAO(t1)
     bgtz t2, JUMPER.DRAW._INVERTIDO    # imprime para o outro lado se direcao = -1
 
-    jal PROC_IMPRIMIR_TEXTURA
+    jal PROC_IMPRIMIR_TEXTURA_CI4
     j JUMPER.DRAW._RET
 
 JUMPER.DRAW._INVERTIDO:
-    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA
+    jal PROC_IMPRIMIR_TEXTURA_INVERTIDA_CI4
 
 JUMPER.DRAW._RET:
 

@@ -39,7 +39,8 @@
         .include "../assets/sprites/data/spawn/sprite_spawn.ci4"
         .include "../assets/sprites/data/spawn/sprite_spawn.pal"
         .include "../assets/dialogos/narrador.s"
-        .include "../assets/sprites/data/dragao/sprite_dragao.data"
+        .include "../assets/sprites/data/dragao/sprite_dragao.ci4"
+        .include "../assets/sprites/data/dragao/sprite_dragao.pal"
         .include "../assets/sprites/data/dragao/sprite_projetil_dragao.data"
         .include "../assets/sprites/data/boss/sprite_feitico_boss.data"
 
