@@ -27,7 +27,7 @@ P_EA1_SWITCH:
         beq t2, t4, P_EA1_WAIT
         li t4, OP_SETSPRITE
         beq t2, t4, P_EA1_SETSPRITE
-        li t4, OP_SETPALETA
+        li t4, OP_SETPAL
         beq t2, t4, P_EA1_SETPALETA
         li t4, OP_SETFRAME
         beq t2, t4, P_EA1_SETFRAME

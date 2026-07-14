@@ -19,7 +19,7 @@ struct_animacao_controller:
 # instruction set
         .eqv OP_WAIT            1       # OP_WAIT, N: espera N frames ateh executar a proxima instrucao (n: unsigned int)
         .eqv OP_SETSPRITE       2       # OP_SETSPRITE, label: muda o sprite de animacao
-        .eqv OP_SETPALETA       3       # OP_SETPALETA, label: muda a paleta de animacao
+        .eqv OP_SETPAL          3       # OP_SETPAL, label: muda a paleta de animacao
         .eqv OP_SETFRAME        4       # OP_SETFRAME, n: muda o frame de animacao
         .eqv OP_SETANIM         5       # OP_SETANIM, label: transiciona para outra animacao
         .eqv OP_JUMP            6       # OP_JUMP, n: adiciona n instrucoes ao PC da animacao (n: signed int)
