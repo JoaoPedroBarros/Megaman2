@@ -68,7 +68,7 @@ P_RG1_IMPRIMIR_ICONE_VASSOURA:
         or t0, t0, t1 
         bnez t0, P_RG1_RET               
 
-        la a0, sprite_bruxa
+        la a0, sprite_bruxa_vassoura
         addi a0, a0, 8
         li a1, 50
         li a2, 200

@@ -68,9 +68,12 @@
 
 .text
 main:
-
         # deixa a heap disponivel para uso
         jal PROC_INICIALIZAR_HEAP
+
+        jal PROC_MENU
+
+fase:
 
         # carrega o mapa
         la a0, final_tilemap_1
@@ -81,11 +84,17 @@ main:
         la t0, tileset
         sw t0, textura_mapa, t1
 
-        jal PROC_MENU
-        
-        # finaliza
-        li a7, 10
-        ecall
+        jal PROC_FASE
+
+        # retorna flag de retorno
+
+        li t0, FLAG_RETORNO_DERROTA
+        beq a0, t0, derrota
+        jal PROC_VITORIA
+
+        derrota:
+        jal PROC_GAME_OVER
+        j fase
 
 .include "administracao_de_memoria/free.s"
 .include "administracao_de_memoria/inicializar_heap.s"
@@ -110,8 +119,10 @@ main:
 .include "entidades/deletar_entidades_pendentes.s"
 .include "entidades/monster_controller.s"
 .include "entidades/recicla_entidade.s"
+.include "entidades/limpar_entidades.s"
 .include "fase_e_mapa/carregar_mapa.s"
 .include "fase_e_mapa/fase.s"
+.include "fase_e_mapa/agendar_retorno_fase.s"
 .include "entradas/processar_entradas.s"
 .include "camera/posicionar_camera.s"
 .include "aritmetica/max.s"
@@ -146,7 +157,9 @@ main:
 .include "null_proc.s"
 .include "SYSTEMv24.s"
 .include "sleep.s"
-.include "custscenes/inicio_jogo.s"
+.include "cutscenes/inicio_jogo.s"
+.include "cutscenes/game_over.s"
+.include "cutscenes/vitoria.s"
 .include "audio/tocar_audio.s"
 .include "audio/audios_manager.s"
 

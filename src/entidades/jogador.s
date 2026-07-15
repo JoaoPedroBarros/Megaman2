@@ -483,4 +483,21 @@ JOGADOR.TRANSICAO_BOSS:
 
     j JOGADOR.ANALISE_MAPA_RET # retorna
 
+JOGADOR.DESTRUTOR:
+    addi sp, sp, -4
+    sw ra, (sp)
 
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lb t0, JOGADOR.VIDA(t0)
+    bgtz t0, JOGADOR.DESTRUTOR._RET
+
+    # se a vida chegou a 0, definitivamente perdemos.
+
+    li a0, FLAG_RETORNO_DERROTA
+    li a1, 15
+    jal PROC_AGENDAR_RETORNO_FASE
+
+JOGADOR.DESTRUTOR._RET:
+    lw ra, (sp)
+    addi sp, sp, 4
+    ret

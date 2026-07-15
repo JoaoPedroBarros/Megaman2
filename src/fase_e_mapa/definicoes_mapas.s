@@ -28,3 +28,10 @@
         .byte   0x4  # 0010     - apenas de cima
         .byte   0x0  # 0000     - sem colisao
         .byte   0x0  # 0000     - sem colisao
+
+
+
+        flagretornofase: .byte 0      # quando essa flag != 0, devemos sair da fase.
+        # flags de retorno
+        .eqv FLAG_RETORNO_DERROTA 1
+        .eqv FLAG_RETORNO_VITORIA 2

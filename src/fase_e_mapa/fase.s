@@ -7,14 +7,16 @@
 
         dialogo2nome: .asciz "Vento"
         dialogo2teste: .asciz "Consectetur, adipliscing; elit...\n(whoooosh...)"
-
 .text
 
 PROC_FASE:
         addi sp, sp, -4
         sw ra, (sp)
-
+        
         sw zero, frame_counter, t0      # reseta o frame_counter
+        sb zero, flagretornofase, t0    # reseta a flag de retorno
+
+        jal PROC_LIMPAR_ENTIDADES       # comeca do absoluto 0
 
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
@@ -66,8 +68,11 @@ P_F1_LOOP:
 
         jal PROC_SLEEP
 
-        j P_F1_LOOP
+        # retorna apenas de a flag estiver ligada, e retorna a propria flag.
+        lb a0, flagretornofase
+        beqz a0, P_F1_LOOP
 
         lw ra, (sp)
         addi sp, sp, 4
         ret
+

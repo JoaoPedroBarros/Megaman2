@@ -4,7 +4,12 @@
 #
 # (sem argumentos, retornos)
 
-PROC_AUDIOS_MANAGER:        
+.eqv INSTRUMENTO_PADRAO 0 # vai ser diferente no FPGRARS mas, como so tem apenas um instrumento na placa...
+
+PROC_AUDIOS_MANAGER:  
+        addi sp, sp, -4
+        sw ra, (sp)
+
         li t0, 0
         li t1, canais_de_audio.QUANTIDADE
         la t2, canais_de_audio
@@ -32,7 +37,7 @@ P_AM1_TOCAR_NOTA:
 
         lb a0, struct_nota.PITCH(t4)
 	lhu a1, struct_nota.DURACAO(t4)
-	mv a2, zero                     # unico instrumento
+	li a2, INSTRUMENTO_PADRAO        # unico instrumento na placa
 
         lbu t6, struct_canal_de_audio.VOLUME(t2)
 	lbu a3, struct_nota.VOLUME(t4)
@@ -60,6 +65,7 @@ P_AM1_LOOPAR_TRACK:
         lhu t5, struct_nota.DURACAO(t4) # pega a duracao da nota ANTERIOR
         add t6, t6, t5
         sw t6, struct_canal_de_audio.TIMESTAMP(t2)      # salva o comeco da track como no futuro para melhorar as chances de um loop clean
+        j P_AM1_LOOP_CONT
 
 P_AM1_DESATIVAR_CANAL:
         sb zero, struct_canal_de_audio.ATIVO(t2)
@@ -71,4 +77,6 @@ P_AM1_LOOP_CONT:
         j P_AM1_LOOP
 
 P_AM1_RET:
+        lw ra, (sp)
+        addi sp, sp, 4
         ret
