@@ -25,5 +25,5 @@ PROC_AGENDAR_RETORNO_FASE:
 
 # arg: a0 - valor
 SUBPROC_FINALIZAR:
-        sw a0, flagretornofase, t0
+        sb a0, flagretornofase, t0
         ret
