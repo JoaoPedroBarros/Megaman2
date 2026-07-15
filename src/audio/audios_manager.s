@@ -4,7 +4,12 @@
 #
 # (sem argumentos, retornos)
 
-PROC_AUDIOS_MANAGER:        
+.eqv INSTRUMENTO_PADRAO 0 # vai ser diferente no FPGRARS mas, como so tem apenas um instrumento na placa...
+
+PROC_AUDIOS_MANAGER:  
+        addi sp, sp, -4
+        sw ra, (sp)
+
         li t0, 0
         li t1, canais_de_audio.QUANTIDADE
         la t2, canais_de_audio
@@ -32,7 +37,7 @@ P_AM1_TOCAR_NOTA:
 
         lb a0, struct_nota.PITCH(t4)
 	lhu a1, struct_nota.DURACAO(t4)
-	mv a2, zero                     # unico instrumento
+	li a2, INSTRUMENTO_PADRAO        # unico instrumento na placa
 
         lbu t6, struct_canal_de_audio.VOLUME(t2)
 	lbu a3, struct_nota.VOLUME(t4)
@@ -72,4 +77,6 @@ P_AM1_LOOP_CONT:
         j P_AM1_LOOP
 
 P_AM1_RET:
+        lw ra, (sp)
+        addi sp, sp, 4
         ret
