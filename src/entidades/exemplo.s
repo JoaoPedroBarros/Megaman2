@@ -220,3 +220,22 @@ EXEMPLO.COLISAO._VIVE:
 EXEMPLO.COLISAO._MORRE:
         mv a0, zero
         ret
+
+# proc que SEMPRE roda quando uma entidade vai ser deletada. ela deve liberar
+# recursos, como por exemplo memoria alocada pela propria entidade, decrementar
+# contadores estáticos, ou fazer outras atividades que sao essenciais para
+# seu correto descarte.
+#
+# argumento (obrigatoriamente): a0 - entidade sendo destruida
+EXEMPLO.DESTRUTOR:
+        addi sp, sp, -4
+        sw ra, (sp)
+
+        # exemplo: libera memoria alocada
+        lw t0, entidade.STRUCT_ESPECIFICA(a0)
+        lw t1, EXEMPLO.ATRIBUTO_1(t0)
+        jal PROC_FREE
+
+        lw ra, (sp)
+        addi sp, sp, 4
+

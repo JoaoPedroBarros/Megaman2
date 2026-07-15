@@ -25,7 +25,7 @@ FOGO.NOVO:
     sw a1, entidade.X_Q12(a0)
     sw a2, entidade.Y_Q12(a0)
 
-    definir_hitbox(a0, 4, 3, 24, 26) 
+    definir_hitbox(a0, 4, 0, 24, 32)
 
     li t0, 1
     sw t0, entidade.COLIDIVEL(a0)

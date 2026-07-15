@@ -18,9 +18,13 @@ PROC_REMOVER_ENTIDADE:
         add t0, t0, t1
         bgt a0, t0, P_RE1_RET      # retorna se &entidade > &array_entidades[n-1]
 
-        mv s0, a0               # guarda a entidade em um registrador seguro
+        mv s0, a0        # guarda em um lugar seguro
 
 P_RE1_FREE:
+        lw t0, array_entidades.PROC_DESTRUTOR(s0)
+        lw a0, array_entidades.STRUCT_BASICA(s0)
+        jalr ra, t0, 0  # chama o destrutor
+        
         lw a0, array_entidades.STRUCT_BASICA(s0)
         jal PROC_FREE           # libera o espaco de uma entidade
 

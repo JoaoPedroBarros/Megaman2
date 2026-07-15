@@ -36,7 +36,7 @@ SCHNOZ.NOVO:
     sw a1, entidade.X_Q12(a0) # armazena na struct generica
     sw a2, entidade.Y_Q12(a0)
 
-    definir_hitbox(a0, 8, 6, 17, 26)    # temporario! deve mudar de acordo com o novo sprite
+    definir_hitbox(a0, 5, 4, 22, 28)
 
     li t0, SCHNOZ.VELOCIDADE
     sw t0, entidade.VELOCIDADE_Y_Q12(a0)
@@ -85,7 +85,6 @@ SCHNOZ_SPAWNA_DIREITA:
     ret
 
 SCHNOZ.PROC:
-
 # aqui, aplicaremos os procedimentos de movimentacao, gravidade e colisao para o inimigo
     addi sp, sp, -8
     sw ra, 0(sp)
