@@ -1,5 +1,5 @@
 #################################################################
-# PROC_IMPRIMIR_SPRING				       	     	#
+# PROC_IMPRIMIR_STRING				       	     	#
 # Imprime uma string no FRAME BUFFER.				#
 # 							     	#
 # ARGUMENTOS:						     	#
