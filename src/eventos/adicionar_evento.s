@@ -23,9 +23,11 @@ PROC_ADICIONAR_EVENTO:
         srai t1, t1, 2          # pega o maximo de eventos possiveis (espaco_eventos/sizeof(Evento*))
         beq t1, t0, P_AE2_FALHA # retorna se o maximo de eventos ja foi atingido!
 
-        li t0, struct_evento.TAMANHO_STRUCT     # aloca um evento
+        li a0, struct_evento.TAMANHO_STRUCT     # aloca um evento
         jal PROC_MALLOC
         beqz a0, P_AE2_FALHA    # retorna nulo se o malloc falhar
+
+        
 
         # recupera os argumentos
         lw t0, 4(sp)
