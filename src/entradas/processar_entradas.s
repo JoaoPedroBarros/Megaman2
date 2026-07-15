@@ -14,8 +14,7 @@ PROC_PROCESSAR_ENTRADAS:
         lw 	t1, 4(t0)			# le o ascii da tecla pressionada
 
         sw t1, TECLA_PRESSIONADA, t0            # salva a tecla!
-
-        beqz a0, MENU_CONTROL
+        beqz a0, P_PE1_RET                      # retorna se !entidade
 
         li t0, 'W'
         beq t1, t0, P_PE1_W
@@ -268,19 +267,6 @@ P_PE1_ESC:
 P_PE1_SEM_TECLA:
         sw zero, TECLA_PRESSIONADA, t0
 
-MENU_CONTROL:
-
-        li t0, '1'
-        beq t1, t0, P_PE1_1
-
-        li t0, 27
-        beq t1, t0, P_PE1_ESC
-
-        j P_PE1_RET
-
-P_PE1_1:
-
-        jal PROC_FASE
         
 P_PE1_RET:
         lw ra, (sp)

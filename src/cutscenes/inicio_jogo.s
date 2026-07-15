@@ -47,6 +47,12 @@ P_MENU_LOOP:
         mv a0, zero
         jal PROC_PROCESSAR_ENTRADAS
 
+        lw t1, TECLA_PRESSIONADA
+        li t0, '1'
+        beq t1, t0, P_MENU_RET
+        li t0, 27
+        beq t1, t0, P_MENU_FIM
+
         jal PROC_AUDIOS_MANAGER
 
         jal PROC_DESENHAR
@@ -84,7 +90,14 @@ P_MENU_LOOP:
 
         j P_MENU_LOOP
 
+P_MENU_RET:
+
         lw ra, (sp)
         addi sp, sp, 4
         ret
+
+P_MENU_FIM:
+
+        li a7, 10
+        ecall
 
