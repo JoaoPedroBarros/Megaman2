@@ -6,9 +6,9 @@
 
 .data
 
-REINICIAR_STR: .asciz "1. Reiniciar"
+REINICIAR_STR: .asciz "1 - Reiniciar"
 
-SAIR_STR: .asciz "ESC. Sair"
+SAIR_STR: .asciz "ESC - Sair do Jogo"
 
 .text
 
@@ -41,14 +41,14 @@ P_GO1_LOOP:
         beq t0, t1, P_GO_FIM
 
         la a0, REINICIAR_STR
-        li a1, 103
-        li a2, 120
+        li a1, 108
+        li a2, 160
         li a3, 0xFF
         jal PROC_IMPRIMIR_STRING
 
         la a0, SAIR_STR
-        li a1, 103
-        li a2, 160
+        li a1, 92
+        li a2, 180
         li a3, 0xFF
         jal PROC_IMPRIMIR_STRING
 
