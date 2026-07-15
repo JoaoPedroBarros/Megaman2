@@ -40,7 +40,7 @@ BOSS.NOVO:
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
-    li t1, 100 # o chefe tera 1000 de vida
+    li t1, 1000 # o chefe tera 1000 de vida
     sw t1, BOSS.VIDA(t0)
     sw t1, BOSS.VIDA_MAXIMA(t0)
 
