@@ -45,16 +45,17 @@ struct_basica_entidade:
 #       - proc a ser chamada todo frame (logica de movimento, colisao, etc)
 #       - proc de desenho todo frame (impressao de textura, efeitos especiais da entidade, etc)
 
-.eqv ESPACO_ARRAY_ENTIDADES 4096
+.eqv ESPACO_ARRAY_ENTIDADES 3000
 array_entidades: .space ESPACO_ARRAY_ENTIDADES   
         tamanho_array_entidades: .word 0             # quantas entidades foram registradas ateh agora
-        .eqv array_entidades.BYTES_POR_ENTRADA 16       # 4 words por entrada
+        .eqv array_entidades.BYTES_POR_ENTRADA 20       # 5 words por entrada
                                                         # importante manter o numero de bytes como multiplo de 4.
 
         .eqv array_entidades.STRUCT_BASICA              0
         .eqv array_entidades.PROC_POR_FRAME             4
         .eqv array_entidades.PROC_DESENHAR              8
         .eqv array_entidades.PROC_COLISAO               12
+        .eqv array_entidades.PROC_DESTRUTOR             16
 
 # FLAGS PARA ENTIDADES
 

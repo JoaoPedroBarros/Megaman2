@@ -49,14 +49,19 @@ P_AE1_REGISTRAR:
         addi t5, t5, array_entidades.BYTES_POR_ENTRADA
         sw t5, (t4)
 
-        # salva a entidade
+        # salva a entidade e inicializa quase todos os seus atributos
         sw s3, array_entidades.STRUCT_BASICA(t3)
         sw s4, entidade.TIPO(s3)        # salva o tipo!
         sw zero, entidade.FLAGS(s3)     # zera as flags
-
-        # zera a velocidade
         sw zero, entidade.VELOCIDADE_X_Q12(s3)
         sw zero, entidade.VELOCIDADE_Y_Q12(s3)
+        sw zero, entidade.HITBOX_DESLOCAMENTO_X(s3)
+        sw zero, entidade.HITBOX_DESLOCAMENTO_Y(s3)
+        sw zero, entidade.HITBOX_LARGURA(s3)
+        sw zero, entidade.HITBOX_LARGURA(s3)
+        sw zero, entidade.COLIDIVEL(s3)
+        sw zero, entidade.HOSTIL(s3)
+        sw zero, entidade.NO_CHAO(s3)
 
         lw t5, lista_entidades.PROC_POR_FRAME(s0)
         sw t5, array_entidades.PROC_POR_FRAME(t3)
@@ -64,6 +69,8 @@ P_AE1_REGISTRAR:
         sw t5, array_entidades.PROC_DESENHAR(t3)
         lw t5, lista_entidades.PROC_COLISAO(s0)
         sw t5, array_entidades.PROC_COLISAO(t3)
+        lw t5, lista_entidades.PROC_DESTRUTOR(s0)
+        sw t5, array_entidades.PROC_DESTRUTOR(t3)
 
         # guarda a referencia para a struct especifica dela
         # vamos guarda-la imediatamente depois da struct basica, no espaco alocado!
