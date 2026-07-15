@@ -34,13 +34,13 @@ BOSS.NOVO:
     sw t0, entidade.COLIDIVEL(a0)
     sw t0, entidade.HOSTIL(a0)
 
-    definir_hitbox(a0, 5, 6, 22, 26)    # temporario! vai depender no sprite final
+    definir_hitbox(a0, 2, 14, 34, 36)    # temporario! vai depender no sprite final
 
     # nao havera tratamento de gravidade para o chefe, visto que ele voarah
 
     lw t0, entidade.STRUCT_ESPECIFICA(a0)
 
-    li t1, 1000 # o chefe tera 1000 de vida
+    li t1, 100 # o chefe tera 1000 de vida
     sw t1, BOSS.VIDA(t0)
     sw t1, BOSS.VIDA_MAXIMA(t0)
 
@@ -340,8 +340,11 @@ BOSS.COLISAO._PROJETIL_COMUM:
     bnez a0, BOSS.COLISAO._RET
 
     lw t1, BOSS.REFERENCIA_CLONE(t0)
-    lw t1, entidade.STRUCT_ESPECIFICA(t1)
-    sw zero, BOSS.VIDA(t1)
+
+    # mata o outro tbm
+    lw t2, entidade.FLAGS(t1)
+    ori t2, t2, FLAG_ENTIDADE_DELECAO_PENDENTE
+    sw t2, entidade.FLAGS(t1)
 
     j BOSS.COLISAO._RET
 
@@ -388,6 +391,25 @@ SEM_SEGUNDA_FASE:
     lw ra, 0(sp)
     lw s0, 4(sp)
     addi sp, sp, 8
+    ret
+
+BOSS.DESTRUTOR:
+    addi sp, sp, -4
+    sw ra, (sp)
+    
+    lw t0, entidade.STRUCT_ESPECIFICA(a0)
+    lb t1, BOSS.CLONE(t0)
+    bgtz t1, BOSS.DESTRUTOR._RET
+
+    # se o boss nao era clone, agenda a vitoria do jogador
+
+    li a0, FLAG_RETORNO_VITORIA
+    li a1, 15
+    jal PROC_AGENDAR_RETORNO_FASE
+
+BOSS.DESTRUTOR._RET:
+    lw ra, (sp)
+    addi sp, sp, 4
     ret
 
 
