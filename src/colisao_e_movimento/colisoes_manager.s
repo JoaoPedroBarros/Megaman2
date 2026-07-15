@@ -15,7 +15,7 @@ PROC_COLISOES_MANAGER:
         mv s0, zero                             # i = 0
         lw s1, tamanho_array_entidades          # i < bytes_utilizados
 P_CM2_LOOP:
-        bge s0, s1, P_EM1_RET                   # se !(i < qtd_entidades), break
+        bge s0, s1, P_CM2_RET                   # se !(i < qtd_entidades), break
 
         la s2, array_entidades
         add s3, s2, s0                         # pega &array_entidades[i]
@@ -94,4 +94,5 @@ P_CM2_RET:
         lw s4, 20(sp)
         lw s5, 24(sp)
         addi sp, sp, 28
+        
         ret
