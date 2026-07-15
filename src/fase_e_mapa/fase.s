@@ -70,7 +70,6 @@ P_F1_LOOP:
 
         # retorna apenas de a flag estiver ligada, e retorna a propria flag.
         lb a0, flagretornofase
-        safe_print_int_ln(a0)
         beqz a0, P_F1_LOOP
 
         lw ra, (sp)
