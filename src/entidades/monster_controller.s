@@ -43,7 +43,7 @@ PROC_MONSTER_CONTROLLER:
     bnez t2, SEM_SPAWN_MONSTRO
 
     csrr a0, cycle # esse primeiro serve para obter a posicao X do novo mosntro
-    li a1, 130 
+    li a1, 66 
     li a7, 42
     ecall
     
@@ -51,6 +51,7 @@ PROC_MONSTER_CONTROLLER:
     srai t2, t2, 12
     add a0, a0, t2
     mv t3, a0
+    addi t3, t3, 64
 
     lw t2, entidade.Y_Q12(t1)
     srai t2, t2, 12
