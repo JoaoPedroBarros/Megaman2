@@ -62,7 +62,7 @@ PROC_MONSTER_CONTROLLER:
     li a1, 2
     li a7, 42
 
-    jal Random2 
+    ecall
 
     beqz a0, SPAWN_SCHNOZ
 

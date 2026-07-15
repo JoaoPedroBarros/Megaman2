@@ -125,8 +125,11 @@ BOSS.DRAW:
 
 BOSS.MOVESET_MANAGER:
 
-    addi sp, sp, -4
+    addi sp, sp, -16
     sw ra, 0(sp)
+    sw s0, 4(sp)
+    sw s1, 8(sp)
+    sw s2, 12(sp)
 
     lw t1, entidade.STRUCT_ESPECIFICA(a0)
     lh t2, BOSS.TIMER_MOVIMENTACAO(t1)
@@ -316,7 +319,10 @@ VOLTA_MOVIMENTACAO_PADRAO:
 BOSS.FINALIZA_PADRAO:
 
     lw ra, 0(sp)
-    addi sp, sp, 4
+    lw s0, 4(sp)
+    lw s1, 8(sp)
+    lw s2, 12(sp)
+    addi sp, sp, 16
     ret
 
 BOSS.COLISAO:

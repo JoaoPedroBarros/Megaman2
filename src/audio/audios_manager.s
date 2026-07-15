@@ -61,6 +61,7 @@ P_AM1_LOOPAR_TRACK:
         add t6, t6, t5
         sw t6, struct_canal_de_audio.TIMESTAMP(t2)      # salva o comeco da track como no futuro para melhorar as chances de um loop clean
 
+        j P_AM1_LOOP_CONT
 P_AM1_DESATIVAR_CANAL:
         sb zero, struct_canal_de_audio.ATIVO(t2)
         j P_AM1_RET

@@ -3,7 +3,7 @@
 # acessada por malloc e free
 
 # MANTER VALORES BINARIOS ABAIXO COMO POTENCIAS DE 2 !!!!!
-.eqv HEAP_TAMANHO 32738                 # 32 KiB
+.eqv HEAP_TAMANHO 32768                # 24 KiB
 .eqv HEAP_REGISTRO_TAMANHO 2048         # 2 KiB
 
 .eqv REGISTRO_RAZAO 16                  # 1B de registro para cada 16B de heap
