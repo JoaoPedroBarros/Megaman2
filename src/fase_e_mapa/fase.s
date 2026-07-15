@@ -1,12 +1,6 @@
 # PROC_FASE: roda o jogo
 # (sem argumentos e retorno)
 
-.data 
-        dialogo1nome: .asciz "FLORA:\n"
-        dialogo1teste: .asciz "Lorem ipsum dolor sit amet."
-
-        dialogo2nome: .asciz "Vento"
-        dialogo2teste: .asciz "Consectetur, adipliscing; elit...\n(whoooosh...)"
 .text
 
 PROC_FASE:
@@ -17,6 +11,8 @@ PROC_FASE:
         sb zero, flagretornofase, t0    # reseta a flag de retorno
 
         jal PROC_LIMPAR_ENTIDADES       # comeca do absoluto 0
+        jal PROC_LIMPAR_EVENTOS
+        
 
         # exemplo de criaçao de jogador em uma posicao
         li a0, ENTIDADE_JOGADOR
@@ -38,6 +34,8 @@ PROC_FASE:
 
         # gameloop
 P_F1_LOOP:
+        lw t0, qtd_de_eventos
+
         # limpa a tela, preenchendo de preto
         li a0, 0x00
         lw a1, FRAME_ATUAL
