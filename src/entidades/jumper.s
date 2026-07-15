@@ -33,7 +33,7 @@ JUMPER.NOVO:
     sw a1, entidade.X_Q12(a0) # armazena os valores na struct basica
     sw a2, entidade.Y_Q12(a0)
 
-    definir_hitbox(a0, 8, 6, 17, 26)    # temporario! deve mudar de acordo com o novo sprite
+    definir_hitbox(a0, 0, 0, 32, 32)
 
     li t0, 1
     sw t0, entidade.COLIDIVEL(a0) # o inimigo serah colidivel
