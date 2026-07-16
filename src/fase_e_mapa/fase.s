@@ -43,11 +43,12 @@ P_F1_LOOP:
         li a7, 148
         ecall
 
+        jal PROC_MONSTER_CONTROLLER
+
         jal PROC_ENTIDADES_MANAGER              # administra entidades
         jal PROC_COLISOES_MANAGER               # lida com colisoes
         jal PROC_EVENTOS_MANAGER                # administra eventos
 
-        jal PROC_MONSTER_CONTROLLER
         jal PROC_DELETAR_ENTIDADES_PENDENTES 	# deleta entidades mortas
 
         jal PROC_IMPRIMIR_FASE                  # imprime a fase 
