@@ -76,8 +76,9 @@ PROC_IMPRIMIR_TEXTURA_INVERTIDA_CI4:
 
 			li a7, LARGURA_VGA
 
-                        add a0, a0, a4
-                        addi a0, a0, -1                 # comeca em e + largura - 1, comecando no final
+			srai t0, a4, 1
+                        add a0, a0, t0
+                        addi a0, a0, -1                 # comeca em e + largura/2 - 1, comecando no final
 			
                         bnez t2, P_IT5_LOOP_RAPIDO      # se a textura estah COMPLETAMENTE VISIVEL, vamos pro loop rapido
 			j P_IT5_LOOP			# senao, vai pro loop normal
@@ -94,7 +95,7 @@ P_IT5_PROXIMA_LINHA:
 			sub a1, a1, a4			# volta X
 				
 			# SE Y == Y_MAX: SAI DO LOOP
-			beq a2, t5, P_IT5_FIM
+			bgt a2, t5, P_IT5_FIM
 			
 P_IT5_LOOP:		lbu t0, (a0)			# coloca a informacao do pixel em I (I = informacao em P)
 P_IT5_NIBBLE_2:
@@ -150,10 +151,11 @@ P_IT5_PROXIMA_LINHA_RAPIDO:
 			addi a2, a2, 1 			# Y++
 			sub a1, a1, a4			# volta X
 
-                        add a0, a0, a4                  # avanca para a linha de baixo da textura (E += 2*largura)
+                        add a0, a0, a4                  # avanca para a linha de baixo da textura (E += largura)
 				
 			# SE Y == Y_MAX: SAI DO LOOP
 			beq a2, t5, P_IT5_FIM
+			
 			
 P_IT5_LOOP_RAPIDO:	lbu t0, (a0)			# coloca a informacao do pixel em I (I = informacao em P)
 P_IT5_NIBBLE2_R:	andi t1, t0, 0x0F
