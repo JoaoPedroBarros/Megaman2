@@ -37,6 +37,13 @@ MACRO_DATA_QUEBRA_DE_LINHA: .string "\n"
 	addi sp, sp, 8
 .end_macro
 
+.macro print_int(%int)
+	.text
+	li a7, 36
+	mv a0, %int
+	ecall
+.end_macro
+
 .macro safe_print_int(%int)
 	.text
 	addi sp, sp, -8
@@ -50,21 +57,30 @@ MACRO_DATA_QUEBRA_DE_LINHA: .string "\n"
 	addi sp, sp, 8
 .end_macro
 
+.macro print_int_ln(%int)
+	print_int(%int)
+	
+	quebra_de_linha
+.end_macro
+
 .macro safe_print_int_ln(%int)
 	.text
 	addi sp, sp, -8
 	sw a0, (sp)
 	sw a7, 4(sp)
 
-	mv a0, %int
-	li a7, 36
-	ecall
-
-	quebra_de_linha
+	print_int_ln(%int)
 
 	lw a0, (sp)
 	lw a7, 4(sp)
 	addi sp, sp, 8
+.end_macro
+
+.macro print(%string_address)
+	.text
+	li a7, 4
+	la a0, %string_address
+	ecall
 .end_macro
 
 .macro imprimir_retangulo(%cor, %X1, %Y1, %X2, %Y2)

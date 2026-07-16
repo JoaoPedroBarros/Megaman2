@@ -57,6 +57,9 @@ P_F1_LOOP:
 
         jal PROC_AUDIOS_MANAGER                 # toca audios
 
+        li a0, 41 # aprox. 24 fps
+        jal PROC_LIMITAR_MILISSEGUNDOS_POR_FRAME
+
         jal PROC_DESENHAR                       # muda o frame, mostrando tudo impresso ateh agora na tela
 
         la t0, frame_counter
@@ -64,7 +67,7 @@ P_F1_LOOP:
         addi t1, t1, 1
         sw t1, (t0)                             # adiciona um frame no contador
 
-        jal PROC_SLEEP
+        #jal PROC_DEBUG
 
         # retorna apenas de a flag estiver ligada, e retorna a propria flag.
         lb a0, flagretornofase

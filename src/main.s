@@ -162,5 +162,8 @@ fase:
 .include "cutscenes/vitoria.s"
 .include "audio/tocar_audio.s"
 .include "audio/audios_manager.s"
+.include "debug/debug.s"
+.include "debug/calcular_frequencia_cpu.s"
+.include "limitar_milissegundos_por_frame.s"
 
 
