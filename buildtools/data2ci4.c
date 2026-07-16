@@ -1,3 +1,7 @@
+// Fernando de Almeida - 2026/07/14
+// Ferramenta para compressão de sprites .data 8-bits em sprites 4-bits e paletas de cor, reduzindo o tamanho pela metade
+// Rotinas de impressão para sprites .ci4 (e paletas .pal) disponíveis no código fonte
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
