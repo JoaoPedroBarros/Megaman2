@@ -1,0 +1,9 @@
+
+# ignora executaveis
+**/*
+!**/*.*
+!**/
+**/*.exe
+
+# ignora .archive
+**/*.archive
