@@ -53,7 +53,7 @@
         void vetor_free_elementos(Vetor * v, void (*free_por_elemento)(void *)){
                 size_t lim = v->quantidade * v->tamanho_elemento;
                 for(int p = 0; p < lim; p+= v->tamanho_elemento){
-                        free_por_elemento((void*) (v->dados + p));
+                        free_por_elemento((void*) *(v->dados + p));
                 }
                 vetor_free(v);
         }
@@ -69,6 +69,48 @@
         void inline * vetor_dados(const Vetor * v){
                 return v->dados;
         }       
+
+
+        bool vetor_remove(Vetor * v, size_t i){
+                if (i >= v->quantidade) return false;
+
+                char *base = (char*)v->dados;
+                char *elemptr = base + i * v->tamanho_elemento;
+                memmove(elemptr, elemptr+v->tamanho_elemento, v->tamanho_elemento*(v->quantidade-i-1));
+                v->quantidade--;
+                return true;
+        };
+        bool vetor_remove_swap(Vetor * v, size_t i){
+                if (i >= v->quantidade) return false;
+                memcpy(
+                        (void*)((uint8_t*)v->dados + (i*v->tamanho_elemento)), 
+                        (void*)((uint8_t*)v->dados + ((v->quantidade-1)*v->tamanho_elemento)), 
+                        v->tamanho_elemento);
+                v->quantidade--;
+                return true;
+        };
+        bool vetor_remove_free_elem(Vetor * v, size_t i, void (*free_elem)(void*)){
+                if (i >= v->quantidade) return false;
+
+                uint8_t **base = (uint8_t**)v->dados;
+                void **elemptr = (void**)(base + i * v->tamanho_elemento);
+                free_elem(*elemptr);
+                memmove((void*)elemptr, (void*)elemptr+v->tamanho_elemento, v->tamanho_elemento*(v->quantidade-i-1));
+                v->quantidade--;
+                return true;
+        }
+        bool vetor_remove_swap_free_elem(Vetor * v, size_t i, void (*free_elem)(void*)){
+                if (i >= v->quantidade) return false;
+                void ** elemptr = ((uint8_t*)v->dados + (i*v->tamanho_elemento));
+                free_elem(*elemptr);
+                memcpy(
+                        (void*)elemptr,
+                        (void*)((uint8_t*)v->dados + ((v->quantidade-1)*v->tamanho_elemento)), 
+                        v->tamanho_elemento);
+                v->quantidade--;
+                return true;
+        }
+
 #pragma endregion
 
 #pragma region Parsing

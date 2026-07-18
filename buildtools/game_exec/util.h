@@ -19,6 +19,11 @@
         #define vetor_get_as(v, i, T) (*(T *)vetor_at((v), (i)))
         void inline * vetor_ultimo(const Vetor *);
 
+        bool vetor_remove(Vetor *, size_t i);
+        bool vetor_remove_swap(Vetor *, size_t i);
+        bool vetor_remove_free_elem(Vetor * v, size_t i, void (*free_elem)(void*));
+        bool vetor_remove_swap_free_elem(Vetor * v, size_t i, void (*free_elem)(void*));
+
         bool vetor_init(Vetor *, size_t capacidade_inicial, size_t tamanho_elemento);
         bool vetor_reservar(Vetor *, size_t nova_capacidade);
         void inline vetor_clear(Vetor *);
