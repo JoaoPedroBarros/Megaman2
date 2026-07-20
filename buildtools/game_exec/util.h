@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <zlib.h>
 
 #pragma region Vetores
         typedef struct Vetor {
@@ -17,7 +18,7 @@
         #define vetor_at_as(v, i, T) ((T)vetor_at((v), (i)))
         #define vector_get(v, i) (*vetor_at((v), (i)))
         #define vetor_get_as(v, i, T) (*(T *)vetor_at((v), (i)))
-        void inline * vetor_ultimo(const Vetor *);
+        void static inline * vetor_ultimo(const Vetor * v){return vetor_at(v, v->quantidade-1);}
 
         bool vetor_remove(Vetor *, size_t i);
         bool vetor_remove_swap(Vetor *, size_t i);
@@ -26,13 +27,14 @@
 
         bool vetor_init(Vetor *, size_t capacidade_inicial, size_t tamanho_elemento);
         bool vetor_reservar(Vetor *, size_t nova_capacidade);
-        void inline vetor_clear(Vetor *);
+        void static inline vetor_clear(Vetor * v){v->quantidade = 0;}
         void vetor_free(Vetor *);
         void vetor_free_elementos(Vetor *, void (*free_por_elemento)(void *));
-        bool inline vetor_vazio(const Vetor *);
-        size_t inline vetor_tamanho(const Vetor *);
-        size_t inline vetor_capacidade(const Vetor *);
-        void inline * vetor_dados(const Vetor *);
+        bool static inline vetor_vazio(const Vetor * v){return !v->quantidade;};
+        size_t static inline vetor_tamanho(const Vetor * v) {return v->quantidade;}
+        size_t static inline vetor_capacidade(const Vetor * v) {return v->capacidade;}
+        void static inline * vetor_dados(const Vetor * v){return v->dados;}     
+
 #pragma endregion
 
 #pragma region Dados
@@ -59,3 +61,18 @@
         bool parse_linha(const char * linha, Vetor * out); // retorna os argumentos de uma linha
 #pragma endregion
 
+#pragma region Arquivos
+        bool caminho_absoluto(const char *input, char *output, size_t output_size);
+        bool eh_caminho_absoluto(const char *);
+
+        // retorna se o primeiro caminho contem o segundo ou nao
+        bool caminho_contem(char * caminho_base, char * caminho_analizado);
+
+        bool obter_diretorio_de_arquivo(char * out, size_t out_tamanho, const char * path);
+        bool juntar_caminhos(char * out, size_t out_tamanho, const char * base, const char * relativo_ah_base);
+#pragma endregion
+
+#pragma region CRC
+        // retorna um numero de checksum unico para um dado array de bytes (e.g. int, struct, string, arquivo binario, etc...)
+        uLong crc_bytes(void *, size_t);
+#pragma endregion       
