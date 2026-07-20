@@ -70,6 +70,4 @@ bool coletar_arquivos(Vetor * out, const Manifesto * src);
 ComandoStatus incluir_caminho(Manifesto *, Vetor *, const char * caminho);
 bool adicionar_caminho_com_regras(Vetor * out, const char * caminho, const Manifesto * manifesto);
 
-bool criar_archive(const char * output, Vetor * arquivos);
-
 bool arquivar(const char * caminho_out, const HeaderProjeto, const HeaderArquivo[], const Dados dadoscomprimidos[]);
