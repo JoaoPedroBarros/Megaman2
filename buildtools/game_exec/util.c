@@ -173,7 +173,7 @@
                         else if (*atual == '\"' && aspas){
                                 aspas = false;
                         }
-                        else if (eh_espaco(*atual) || aspas) continue;
+                        else if (aspas || !eh_espaco(*atual)) continue;
 
                         if(!vetor_push(out, &(StringView){comeco_token, atual - comeco_token})) return false;
                         aspas = false;
@@ -227,26 +227,19 @@
                 return false;
         }
 
-        bool caminho_contem(char * caminho_base, char * caminho_analizado){
+        bool caminho_contem(const char * caminho_base, const char * caminho_analizado){
                 if (strcmp(caminho_base, caminho_analizado) == 0) return true;
 
-                char caminho_base_absoluto[MAX_PATH];
-                char caminho_analizado_absoluto[MAX_PATH];
-                if (
-                        !caminho_absoluto(caminho_base, caminho_base_absoluto, sizeof(caminho_base_absoluto)) ||
-                        !caminho_absoluto(caminho_analizado, caminho_analizado_absoluto, sizeof(caminho_analizado_absoluto))
-                ) return false;
+                // compara os caminhos 
+                size_t len = strlen(caminho_base);
 
-                // compara os caminhos absolutos
-                size_t len = strlen(caminho_base_absoluto);
-
-                if (len > strlen(caminho_analizado_absoluto))
+                if (len > strlen(caminho_analizado))
                         return false;
 
-                if (memcmp(caminho_base_absoluto, caminho_analizado_absoluto, len) != 0)
+                if (memcmp(caminho_base, caminho_analizado, len) != 0)
                         return false;
 
-                return caminho_analizado_absoluto[len] == '\0' || caminho_analizado_absoluto[len] == '/' || caminho_analizado_absoluto[len] == '\\';
+                return caminho_analizado[len] == '\0' || caminho_analizado[len] == '/' || caminho_analizado[len] == '\\';
         }
 
         bool obter_diretorio_de_arquivo(char * out, size_t out_tamanho, const char * path){

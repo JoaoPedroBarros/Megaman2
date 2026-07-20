@@ -66,7 +66,7 @@
         bool eh_caminho_absoluto(const char *);
 
         // retorna se o primeiro caminho contem o segundo ou nao
-        bool caminho_contem(char * caminho_base, char * caminho_analizado);
+        bool caminho_contem(const char * caminho_base, const char * caminho_analizado);
 
         bool obter_diretorio_de_arquivo(char * out, size_t out_tamanho, const char * path);
         bool juntar_caminhos(char * out, size_t out_tamanho, const char * base, const char * relativo_ah_base);
