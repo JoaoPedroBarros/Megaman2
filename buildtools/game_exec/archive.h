@@ -49,12 +49,8 @@ typedef enum ComandoStatus {
     COMANDO_SEM_ROOT
 } ComandoStatus;
 
-char __erro_ComandoStatus[8][36] = {
-    "comando correto", "comando malformado", "comando desconhecido", "caminho nao encontrado", "argumento de caminho longo demais", "erro de memoria", "comando duplicado", "root nao especificada"
-};
-
 ComandoStatus processar_comando(const Vetor * comando, Manifesto * manifesto);
-const char * strerr_comando(ComandoStatus numeroerro){return __erro_ComandoStatus[numeroerro];};
+const char * strerr_comando(ComandoStatus numeroerro);
 
 Dados ler_arquivo(const char *);
 Dados ler_arquivo_projeto(const char * diretorio_raiz, const char * caminho_relativo);
