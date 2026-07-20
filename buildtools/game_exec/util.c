@@ -9,6 +9,10 @@
 #include <ctype.h>
 #include <limits.h>
 #include <windows.h>
+#include <fcntl.h>          
+#include <sys/stat.h>
+#include <direct.h>
+#include <errno.h>
 
 #pragma region Vetores
         bool vetor_init(Vetor * v, size_t capacidade_inicial, size_t tamanho_elemento){
@@ -263,10 +267,36 @@
                 if (ultimochar == '\\' || ultimochar == '/') return snprintf(out, out_tamanho, "%s%s", base, relativo_ah_base) < out_tamanho;
                 return snprintf(out, out_tamanho, "%s/%s", base, relativo_ah_base) < out_tamanho;
         }
+
+        FILE * criar_arquivo(const char * path, const char * mode){
+                size_t sizeof_path = strlen(path);
+
+                char * p;
+                char buff[sizeof_path+1]; // os caminhos para os diretorios pai nunca vao ser maiores que o caminho do arquivo
+                strcpy(buff, path); // coloca o path no buffer
+                
+                // vai criando os diretorios conforme os encontramos
+                size_t len = strlen(path);
+                for(int i = 0; i < len; i++){
+                        if (path[i] == '/' || path[i] == '\\') {
+                                buff[i] = '\0';
+                                #ifdef WIN32
+                                        if(_mkdir(buff) < 0 && errno != EEXIST) return NULL;
+                                #else
+                                        // Modo Ler/escrever/executar pro owner, Ler/executar para grupo e outros (0755)
+                                        mode_t mode = S_IRWXU | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH;
+                                        if(mkdir(buff, mode) < 0 && errno != EEXIST) return NULL;
+                                #endif
+                                buff[i] = '/';
+                        }
+                }
+
+
+                return fopen(path, mode);
+        }
 #pragma endregion
 
 #pragma region CRC
-
         uLong crc_bytes(void * dados, size_t tamanho){
                 uLong crcInicial = crc32(0L, Z_NULL, 0);
                 return crc32(crcInicial, (Bytef *) dados, tamanho);

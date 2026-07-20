@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <zlib.h>
 
 #pragma region Vetores
@@ -70,9 +71,12 @@
 
         bool obter_diretorio_de_arquivo(char * out, size_t out_tamanho, const char * path);
         bool juntar_caminhos(char * out, size_t out_tamanho, const char * base, const char * relativo_ah_base);
+
+        FILE * criar_arquivo(const char * path, const char * mode);
 #pragma endregion
 
 #pragma region CRC
         // retorna um numero de checksum unico para um dado array de bytes (e.g. int, struct, string, arquivo binario, etc...)
         uLong crc_bytes(void *, size_t);
+        uLong static inline crc_dados(const Dados dados){return crc_bytes(dados.bytes, dados.tamanho);}
 #pragma endregion       
