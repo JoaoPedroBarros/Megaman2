@@ -6,53 +6,107 @@
 #include <string.h>
 #include <windows.h> 
 #include <stdbool.h>
+#include <ctype.h>
 #include "archive.h"
+#include "util.h"
 
 // ARCHIVE: Arquiva todos os arquivos em argv[1]/assets e argv[1]/src, junto com argv[1]/readme, em um unico arquivo de .archive
 int main(int argc, char ** argv){
 
         if (argc != 3) {
-                printf("Uso: %s diretorio_raiz_do_projeto nome_arquivo_output\n\n", argv[0]);
-                printf("Exemplo1: %s C:\\Projetos\\Projeto1 out.archive\n", argv[0]);
-                printf("Exemplo2: %s ..\\..\\ proj\n", argv[0]);
-                printf("Exemplo3: %s . out\n", argv[0]);
-                printf("Exemplo4: %s .\\jogo jogo.archive\n", argv[0]);
-
-                return 0;
+                printf("Uso: %s arquivo_manifest nome_arquivo_output\n\n", argv[0]);
+                printf("Exemplo: %s archive.manifest out.archive\n", argv[0]);
+                printf("Veja MANIFEST_FORMAT.md para informacoes sobre o formato do manifesto.\n");
+                return EXIT_SUCCESS;
         }
 
-        char * diretorio_raiz = argv[1];
-
+        // contadores de bytes
         uint64_t qtd_bytes_bruto = 0;
         uint64_t qtd_bytes_comprimido = 0;
 
-        VetorArquivos arquivos = get_arquivos_fonte(diretorio_raiz);
-        if (!arquivos.quantidade) return EXIT_FAILURE;
-        HeaderJogo header;
+        // Manifesto fornecido
+        char * manifesto_path = argv[1];
+        Manifesto * manifesto = carregar_manifesto(manifesto_path);
+        if (!manifesto) return EXIT_FAILURE;
+
+        // header do projeto
+        HeaderProjeto header;
         header.numero_magico = NUMERO_MAGICO;
         header.versao = VERSAO;
+        header.quantidade_arquivos = 0;
 
-        HeaderArquivo headers_de_arquivo[arquivos.quantidade];
+        printf("Coletando arquivos...\n");
 
-        Dados dadoscomprimidos[arquivos.quantidade];
+        // vetor com todos os arquivos fornecidos pelo manifesto!
+        Vetor arquivos;
+        if(!vetor_init(&arquivos, 8, sizeof(char*)) ||   // inicia o vetor de arquivos
+        !coletar_arquivos(&arquivos, manifesto)){        // coloca todos os arquivos que foram incluidos e nao foram excluidos!
+                liberar_vetor_de_strings(&arquivos);
+                liberar_vetor_de_strings(&manifesto->includes);
+                liberar_vetor_de_strings(&manifesto->excludes);
+                free(manifesto->root);
+                free(manifesto->path);
+                free(manifesto);
+                return EXIT_FAILURE;
+        }
+
+        size_t arquivos_quantidade = vetor_tamanho(&arquivos);
+        if (!arquivos_quantidade) {
+                arquivos_quantidade = 1; // necessario para a inicializacao dos Variable Length Arrays
+                printf("Nao encontrei nenhum arquivo que satisfaca as regras. Certifique-se que pelo menos um arquivo foi incluso e que exista pelo menos um arquivo que nao foi excluido pelo comando exclude.\n");
+        } else printf("%d arquivo(s) coletado(s).\n", arquivos_quantidade);
+
+        HeaderArquivo headers_de_arquivo[arquivos_quantidade];
+
+        Dados dadoscomprimidos[arquivos_quantidade];
         Dados raw_bytes;
 
-        for(size_t i = 0; i < arquivos.quantidade; i++){
-                raw_bytes = ler_arquivo_projeto(diretorio_raiz, arquivos.caminhos[i]);
-                if (!raw_bytes.bytes) goto error;
+        int valor_retorno = EXIT_FAILURE; // valor que vamos retornar no final da main. por padrao, houve falha. isso simplifica o trabalho de labels
+
+        if (vetor_vazio(&arquivos)) goto cleanup; // nenhum arquivo encontrado: houve um erro
+
+        
+        printf("Comprimindo...");
+
+        static size_t last_len_printf = 0; // ultima quantidade de caracteres impressos
+
+        for(size_t i = 0; i < arquivos_quantidade; i++){
+
+                const char * caminho = vetor_get_as(&arquivos, i, const char *); // caminho do arquivo i
+
+                // imprime sem passar de linha, limpando o espaco anteriormente ocupado
+                size_t len = printf("\r\033[KComprimindo arquivo %u de %u: %s",
+                        i + 1,
+                        arquivos_quantidade,
+                        caminho);
+                while ((size_t)len < last_len_printf) {
+                        putchar(' ');
+                        len++;
+                }
+                last_len_printf = len;
+                fflush(stdout);
+                 
+                // pega toda a informacao do arquivo
+                raw_bytes = ler_arquivo_projeto(manifesto->root, caminho);
+                if (!raw_bytes.bytes) goto cleanup;
                 qtd_bytes_bruto += raw_bytes.tamanho;
 
+                // comprime toda a informacao
                 dadoscomprimidos[i] = comprimir(raw_bytes);
                 if (!dadoscomprimidos[i].bytes) {
                         free(raw_bytes.bytes);
-                        goto error;
+                        goto cleanup;
                 } 
                 qtd_bytes_comprimido += dadoscomprimidos[i].tamanho;
 
-                strncpy(headers_de_arquivo[i].caminho, arquivos.caminhos[i], sizeof(headers_de_arquivo[i].caminho));
+                // cria o header de arquivo
+                strncpy(headers_de_arquivo[i].caminho, caminho, sizeof(headers_de_arquivo[i].caminho));
+                headers_de_arquivo[i].caminho[sizeof(headers_de_arquivo[i].caminho) - 1] = '\0'; // null-termination
                 headers_de_arquivo[i].tamanho_original = raw_bytes.tamanho;
                 headers_de_arquivo[i].tamanho_comprimido = dadoscomprimidos[i].tamanho;
                 headers_de_arquivo[i].checksum = crc_bytes(raw_bytes.bytes, raw_bytes.tamanho);
+
+                header.quantidade_arquivos++;
 
                 free(raw_bytes.bytes);
         }
@@ -61,132 +115,232 @@ int main(int argc, char ** argv){
         calcular_offsets(header, headers_de_arquivo);
 
         header.checksum = crc_bytes(headers_de_arquivo, arquivos.quantidade * sizeof(HeaderArquivo));
-        if (!arquivar(argv[2], header, headers_de_arquivo, dadoscomprimidos)) goto error;
+        if (!arquivar(argv[2], header, headers_de_arquivo, dadoscomprimidos)) goto cleanup;
 
-        printf("Pronto! Arquivei %d arquivo(s) em %s.\n", header.quantidade_arquivos, argv[2]);
-        printf("Tamanho bruto: %llu.\nTamanho comprimido: %llu.\nTaxa de compressao: %.2lf%%.",
+        int len = printf("\rPronto! Arquivei %d arquivo(s) em %s.", header.quantidade_arquivos, argv[2]);
+        while ((size_t)len < last_len_printf) {
+                putchar(' ');
+                len++;
+        } last_len_printf = len;
+
+        printf("\nTamanho bruto: %llu.\nTamanho comprimido: %llu.\nTaxa de compressao: %.2lf%%.",
                 qtd_bytes_bruto,
                 qtd_bytes_comprimido,
                 (1.0 - (double)qtd_bytes_comprimido/(double)qtd_bytes_bruto)*100
         );
 
-        for(size_t i = 0; i < header.quantidade_arquivos; i++) free(dadoscomprimidos[i].bytes);
-        liberar_vetor_arquivos(&arquivos);
+        valor_retorno = EXIT_SUCCESS;
 
-        return EXIT_SUCCESS;
-
-        error: 
+        cleanup: 
         for(size_t i = 0; i < header.quantidade_arquivos; i++) free(dadoscomprimidos[i].bytes);
-        liberar_vetor_arquivos(&arquivos);
-        exit(EXIT_FAILURE);
+        liberar_vetor_de_strings(&arquivos);
+        destruir_manifesto(manifesto);
+        return valor_retorno;
 }
 
-bool get_arquivos(VetorArquivos * dest, const char * diretorio_real, const char * diretorio_relativo){
-        WIN32_FIND_DATA fdFile;
-        HANDLE hFind = NULL;
+Manifesto * carregar_manifesto(const char * path){
+        FILE * fmanifesto = fopen(path, "r");
+        if (!fmanifesto) {
+                fprintf(stderr, "ERRO: Falha ao abrir o manifesto %s: %s\n", path, strerror(errno));
+                return NULL;
+        }
 
+        Manifesto * manifesto = calloc(1, sizeof(Manifesto));
+        if (!manifesto) goto erro_mem;
+        manifesto->path = strdup(path);
+        if (!manifesto->path) 
+                goto erro_mem;
+        
+
+        manifesto->root = NULL;
+        Vetor args = (Vetor){0, 0, 0, 0};
+
+        if (!vetor_init(&manifesto->includes, 8, sizeof(char*)) 
+         || !vetor_init(&manifesto->excludes, 8, sizeof(char*))) goto erro_mem;
+
+        if (!vetor_init(&args, 4, sizeof(StringView))) goto erro_mem;
+                
+        char buffer[2048];
+
+        size_t linha;
+        for(linha = 1;fgets(buffer, sizeof(buffer), fmanifesto);linha++){
+                vetor_clear(&args);
+                if (parse_linha(buffer, &args)){
+                        if (vetor_vazio(&args))continue;// faz nada se nao tiver comando na linha
+
+                        int status = processar_comando(&args, manifesto);
+                        if (status != COMANDO_OK){
+                                fprintf(stderr, "ERRO: Erro na linha %u: %s", linha, strerr_comando(status));
+                                destruir_manifesto( manifesto);
+                                vetor_free(&args);
+                                fclose(fmanifesto);
+                                return NULL;
+                        }
+                } 
+        }
+        fclose(fmanifesto);
+        vetor_free(&args);
+        return manifesto;
+
+        erro_mem:
+                fprintf(stderr, "ERRO: Falha ao alocar espaco para o manifesto.\n");
+                fclose(fmanifesto);
+                destruir_manifesto(manifesto);
+                return NULL;
+}
+
+void destruir_manifesto(Manifesto * manifesto){
+        liberar_vetor_de_strings(&manifesto->includes);
+        liberar_vetor_de_strings(&manifesto->excludes);
+        free(manifesto->root);
+        free(manifesto->path);
+        free(manifesto);
+}
+
+ComandoStatus processar_comando(const Vetor * linha, Manifesto * manifesto){
+        StringView comando = vetor_get_as(linha, 0, StringView);
+
+        if (string_view_equals_cstr_ignore_case(comando, "from")){
+                if (vetor_tamanho(linha) != 2) 
+                        return COMANDO_MALFORMADO;
+                
+                if (manifesto->root)  // duplicado!!!!!!!!!!!!!! Nao pode!!!!!
+                        return COMANDO_DUPLICADO;
+                
+                char * arg = criar_copia_stringview(vetor_get_as(linha, 1, StringView)); // root dado
+                if(!arg) return COMANDO_ERRO_DE_MEMORIA;
+
+                if (!eh_caminho_absoluto(arg)) {
+                        char buffer[TAMANHO_MAX_CAMINHO_ARQUIVO];
+
+                        obter_diretorio_de_arquivo(buffer, sizeof(buffer), manifesto->path);
+
+                        if(!juntar_caminhos(buffer, sizeof(buffer), buffer, arg)){ // transforma o caminho fornecido em um caminho relativo ao working directory em vez de relativo ao manifesto
+
+                                free(arg);
+                                return COMANDO_CAMINHO_LONGO_DEMAIS;    
+                        } 
+
+                        free(arg);
+                                    
+                        if(!caminho_absoluto(buffer, buffer, sizeof(buffer))){ // agora transforma em caminho absoluto
+                                return COMANDO_CAMINHO_LONGO_DEMAIS; // se o caminho absoluto exceder o maximo, retorna que eh longo demais...      
+                        }; 
+
+                        // coloca o novo caminho
+                        arg = strdup(buffer);
+                        if (!arg) return COMANDO_ERRO_DE_MEMORIA;
+                }
+
+                manifesto->root = arg;
+                return COMANDO_OK;
+        }
+        if (string_view_equals_cstr_ignore_case(comando, "include")){
+                if (!manifesto->root) return COMANDO_SEM_ROOT;
+                StringView * views = vetor_dados(linha);
+
+                char * arg;
+                for (int i = 1; i < linha->quantidade; i++){
+                        arg = criar_copia_stringview(views[i]);
+                        ComandoStatus status = incluir_caminho(manifesto, &manifesto->includes, arg);
+                        free(arg);
+                        if (status != COMANDO_OK) return status;
+                }
+                return COMANDO_OK;
+        }
+        if (string_view_equals_cstr_ignore_case(comando, "exclude")){
+                if (!manifesto->root) return COMANDO_SEM_ROOT;
+                StringView * views = vetor_dados(linha);
+
+                char * arg;
+                for (int i = 1; i < linha->quantidade; i++){
+                        arg = criar_copia_stringview(views[i]);
+                        ComandoStatus status = incluir_caminho(manifesto, &manifesto->excludes, arg);
+                        free(arg);
+                        if (status != COMANDO_OK) return status;
+                }
+                return COMANDO_OK;
+        }
+        return COMANDO_DESCONHECIDO;
+}
+
+ComandoStatus incluir_caminho(Manifesto * manifesto, Vetor * vetor, const char * caminho){
         char real[TAMANHO_MAX_CAMINHO_ARQUIVO];
-        char relativo[TAMANHO_MAX_CAMINHO_ARQUIVO];
-        snprintf(real, sizeof(real), "%s\\*.*", diretorio_real); // pega absolutamente tudo
-        strncpy(relativo, diretorio_real, sizeof(relativo));
+        if(!juntar_caminhos(real, sizeof(real), manifesto->root, caminho)) return COMANDO_CAMINHO_LONGO_DEMAIS;
 
-        if((hFind = FindFirstFile(real, &fdFile)) == INVALID_HANDLE_VALUE) return false;
+        // Agora eh descobrir se eh diretorio ou nao.
+        DWORD attrs = GetFileAttributesA(real);
+        if (attrs == INVALID_FILE_ATTRIBUTES) return COMANDO_CAMINHO_NAO_ENCONTRADO; // nao existe ou ocorreu um erro
 
-        // procura pelos proximos arquivos
-        do{
+        char * filestr = strdup(caminho);
+        if (!filestr) return COMANDO_ERRO_DE_MEMORIA;
+        if (vetor_push(vetor, &filestr)) return COMANDO_OK;
+        free(filestr);
+        return COMANDO_ERRO_DE_MEMORIA;
+}
 
-                if (strcmp(fdFile.cFileName, ".") == 0 ||
-                   strcmp(fdFile.cFileName, "..") == 0) continue; // pula "." e "..", que nao sao arquivos!
+bool coletar_arquivos(Vetor * out, const Manifesto * src){
+        char ** inclusos = vetor_dados(&src->includes);
+        size_t qtd_inclusos = vetor_tamanho(&src->includes);
 
-                // caminho do arquivo atual
-                snprintf(real, sizeof(real), "%s\\%s", diretorio_real, fdFile.cFileName);
-                snprintf(relativo, sizeof(relativo), "%s\\%s", diretorio_relativo, fdFile.cFileName);
-
-                // verifica se encontramos um diretorio ou arquivo
-                if(fdFile.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
-                {
-                        VetorArquivos subdiretorio = {0};
-                        if(get_arquivos(&subdiretorio, real, relativo))
-                                adicionar_arquivos(dest, subdiretorio); // recursivamente acrescenta tudo nos diretorios
-                        liberar_vetor_arquivos(&subdiretorio);
-                }
-                else{
-                        adicionar_arquivo(dest, relativo);
-                }
-        }while(FindNextFile(hFind, &fdFile));
-
-        FindClose(hFind);
+        for (int i = 0; i < qtd_inclusos; i++){
+                if(!adicionar_caminho_com_regras(out, inclusos[i], src)) return false;
+        }
         return true;
 }
 
-void liberar_vetor_arquivos(VetorArquivos * v){
+bool adicionar_caminho_com_regras(Vetor * out, const char * caminho, const Manifesto * manifesto){
+        char caminho_real[TAMANHO_MAX_CAMINHO_ARQUIVO];
+        if(!juntar_caminhos(caminho_real, sizeof(caminho_real), manifesto->root, caminho)) return false;
+        
+        DWORD attrs = GetFileAttributesA(caminho_real);
+        if (attrs == INVALID_FILE_ATTRIBUTES) return false; // ocorreu um erro
+
+        char ** exclusos = vetor_dados(&manifesto->excludes);
+        size_t qtd_exclusos = vetor_tamanho(&manifesto->excludes);
+
+        char caminho_excluso[TAMANHO_MAX_CAMINHO_ARQUIVO];
+        for (size_t i = 0; i < qtd_exclusos; i++){
+                if (caminho_contem(exclusos[i], caminho)) return true; // nao inclui, mas retorna sucesso 
+        }
+        
+        if (attrs & FILE_ATTRIBUTE_DIRECTORY) {
+                // agr vamos adicionar todos os arquivos dentro da funcao
+                WIN32_FIND_DATA fdFile;
+                HANDLE hFind = NULL;
+
+                char buff[TAMANHO_MAX_CAMINHO_ARQUIVO];
+                snprintf(buff, sizeof(buff), "%s/*.*", caminho_real); // padrao para procurar todos os arquivos
+
+                if((hFind = FindFirstFile(buff, &fdFile)) == INVALID_HANDLE_VALUE) return false;
+
+                // procura pelos proximos arquivos
+                do{
+                        if (strcmp(fdFile.cFileName, ".") == 0 ||
+                        strcmp(fdFile.cFileName, "..") == 0) continue; // pula "." e "..", que nao sao arquivos!
+
+                        snprintf(buff, sizeof(buff), "%s/%s", caminho, fdFile.cFileName); // pega o caminho (RELATIVO, NAO REAL)pro proximo arquivo. Lembre-se que todo arquivo sendo adicionado vai ser concatenado com manifesto->root depois. Sim, eh importante que isso continue: Quando o archive for extraido, nao queremos que ele seja extraido para C:/users/userpc/projetos/projeto1, mas para o diretorio alvo passado para o script de descompressao... E dahi, com os paths relativos, podemos extrair para o diretorio fornecido 
+                        if (!adicionar_caminho_com_regras(out, buff, manifesto)){
+                                FindClose(hFind);
+                                return false;
+                        }; // recursivamente adiciona os outros
+                }while(FindNextFile(hFind, &fdFile));
+                FindClose(hFind);
+                return true;
+        }
+        // senao, eh arquivo
+        char * caminho_dup = strdup(caminho);
+        if (!caminho_dup) return false; 
+        if(vetor_push(out, &caminho_dup)) return true;
+        free(caminho_dup);
+        return false;
+
+}
+
+void liberar_vetor_de_strings(Vetor * v){
         for (size_t i = 0; i < v->quantidade; i++)
-                free(v->caminhos[i]);
-        free(v->caminhos);
-        v->caminhos = NULL;
-        v->quantidade = 0;
-        v->capacidade = 0;
-}
-
-bool adicionar_arquivos(VetorArquivos * dest, const VetorArquivos src){
-        bool sucesso = true;
-        for (size_t i = 0; i < src.quantidade; i++)
-                sucesso &= adicionar_arquivo(dest, src.caminhos[i]);
-        return sucesso;
-}
-
-bool adicionar_arquivo(VetorArquivos * v, const char * src){
-        if (v->quantidade == v->capacidade){
-                size_t nova_capacidade =
-                v->capacidade == 0 ? 8 : v->capacidade * 2;
-
-                char ** novo = realloc(
-                        v->caminhos,
-                        nova_capacidade * sizeof(char *)
-                );
-                if (!novo) {
-                        fprintf(stderr, "ERRO: Falha ao aumentar capacidade de vetor de arquivos de %u para %u: Realocacao de memoria falhou.\n", v->capacidade, nova_capacidade);
-                        return false;
-                }
-                v->caminhos = novo;
-                v->capacidade = nova_capacidade;
-        }
-
-        // copia o caminho de src pro vetor
-        size_t tamanho_src = strlen(src);
-        char * copia = malloc(tamanho_src + 1);
-        if (!copia) {
-                fprintf(stderr, "ERRO: Falha ao alocar memoria ao copiar string de tamanho %u: %s.\n", tamanho_src, strerror(errno));
-                return false;
-        }
-        strcpy(copia, src);
-        v->caminhos[v->quantidade++] = copia;
-        return true;
-}
-
-VetorArquivos get_arquivos_fonte(const char * diretorio_raiz){
-        VetorArquivos arquivos_src = {0}, arquivos_assets = {0}, ret = {0};
-
-        char path[TAMANHO_MAX_CAMINHO_ARQUIVO];
-
-        snprintf(path, sizeof(path), "%s\\src", diretorio_raiz);
-        if (!get_arquivos(&arquivos_src, path, "src")) goto get_arquivos_fonte_falha;
-
-        snprintf(path, sizeof(path), "%s\\assets", diretorio_raiz);
-        if (!get_arquivos(&arquivos_assets, path, "assets")) goto get_arquivos_fonte_falha;
-
-        adicionar_arquivos(&ret, arquivos_src);
-        adicionar_arquivos(&ret, arquivos_assets);
-        liberar_vetor_arquivos(&arquivos_src);
-        liberar_vetor_arquivos(&arquivos_assets);
-
-        if (!adicionar_arquivo(&ret, "README.md")) goto get_arquivos_fonte_falha;
-
-        return ret;
-
-        get_arquivos_fonte_falha:
-                fprintf(stderr, "ERRO: Falha ao adicionar arquivo/diretorio %s.\n", path);
-                return (VetorArquivos){0,0,NULL};
+                free(vetor_get_as(v, i, char*));
+        vetor_free(v);
 }
 
 Dados ler_arquivo_projeto(const char * diretorio_raiz, const char * caminho_relativo){
@@ -254,10 +408,10 @@ Dados ler_arquivo(const char * caminho){
                 return retorno;
 }
 
-void calcular_offsets(const HeaderJogo headerjogo, HeaderArquivo * headerarquivo){
-        uint64_t offset_atual = sizeof(HeaderJogo) + (headerjogo.quantidade_arquivos * sizeof(HeaderArquivo));
+void calcular_offsets(const HeaderProjeto headerprojeto, HeaderArquivo * headerarquivo){
+        uint64_t offset_atual = sizeof(HeaderProjeto) + (headerprojeto.quantidade_arquivos * sizeof(HeaderArquivo));
 
-        for (size_t i = 0; i < headerjogo.quantidade_arquivos; i++){
+        for (size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
                 headerarquivo[i].offset = offset_atual;
                 offset_atual += headerarquivo[i].tamanho_comprimido;
         }
@@ -302,21 +456,16 @@ Dados comprimir(const Dados original){
         }
 }
 
-uLong crc_bytes(void * dados, size_t tamanho){
-        uLong crcInicial = crc32(0L, Z_NULL, 0);
-        return crc32(crcInicial, (Bytef *) dados, tamanho);
-}
-
-bool arquivar(const char * caminho_out, const HeaderJogo headerjogo, const HeaderArquivo headers_de_arquivo[], const Dados dadoscomprimidos[]){
+bool arquivar(const char * caminho_out, const HeaderProjeto headerprojeto, const HeaderArquivo headers_de_arquivo[], const Dados dadoscomprimidos[]){
         FILE * out = fopen(caminho_out, "wb");
         if (!out) {
                 fprintf(stderr, "ERRO: Falha ao criar arquivo .archive: %s\n", strerror(errno));
                 goto arquivar_falha;
         }
 
-        if (!fwrite(&headerjogo, sizeof(headerjogo), 1, out)) goto arquivar_erro;
-        if (!fwrite(headers_de_arquivo, sizeof(HeaderArquivo), headerjogo.quantidade_arquivos,  out)) goto arquivar_erro;
-        for(size_t i = 0; i < headerjogo.quantidade_arquivos; i++){
+        if (!fwrite(&headerprojeto, sizeof(headerprojeto), 1, out)) goto arquivar_erro;
+        if (!fwrite(headers_de_arquivo, sizeof(HeaderArquivo), headerprojeto.quantidade_arquivos,  out)) goto arquivar_erro;
+        for(size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
                 if (!fwrite(dadoscomprimidos[i].bytes, sizeof(uint8_t), dadoscomprimidos[i].tamanho, out)) goto arquivar_erro;
         }
 
