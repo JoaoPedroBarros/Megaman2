@@ -5,6 +5,26 @@
 #include "archive.h"
 #include "extract.h"
 
+ExtrairStatus extrair_projeto_de_arquivo(FILE * arquivo_fonte, const char * diretorio_alvo){
+
+        // extrai header de projeto
+        HeaderProjeto projeto;
+
+        ExtrairStatus status = extrair_header_projeto(&projeto, arquivo_fonte);
+        if (status != EXTRAIR_OK) return status;
+
+        // extrai headers de arquivo
+        HeaderArquivo * headers = malloc(projeto.quantidade_arquivos * sizeof(HeaderArquivo));
+        if (!headers) return EXTRAIR_ERRO_DE_MEMORIA;
+
+        status = extrair_headers(headers, &projeto, arquivo_fonte);
+
+        if (status == EXTRAIR_OK) status = extrair_arquivos(diretorio_alvo, &projeto, headers, arquivo_fonte);
+
+        free(headers);
+        return status;
+}
+
 ExtrairStatus extrair_projeto(const char * arquivo_a_extrair, const char * diretorio_alvo){
         FILE * archive = fopen(arquivo_a_extrair, "rb");
         if (!archive) return EXTRAIR_ARQUIVO_NAO_ENCONTRADO;
