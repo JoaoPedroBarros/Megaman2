@@ -5,6 +5,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <zlib.h>
+#include <basetyps.h>
 
 #pragma region Vetores
         typedef struct Vetor {
@@ -80,3 +81,7 @@
         uLong crc_bytes(void *, size_t);
         uLong static inline crc_dados(const Dados dados){return crc_bytes(dados.bytes, dados.tamanho);}
 #pragma endregion       
+
+#pragma region GUID
+        void guid_to_str(char * out, size_t out_tamanho, GUID guid);
+#pragma endregion
