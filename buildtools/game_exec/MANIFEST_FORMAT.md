@@ -6,8 +6,9 @@ Os comandos de um arquivo manifest são os seguintes:
 
 ### from (caminho)
 Define o diretório raiz do projeto relativo ao manifesto. Deve vir antes de qualquer include ou exclude.
-Exemplo: 
+Exemplos: 
 - `from ../../projeto/`
+- `from C:/users/med/documents/files_jogo`
 
 ### include (caminho)
 Inclui um ou mais arquivos ou diretórios no archive. Não inclui arquivos excluídos, independentemente da exclusão ser anterior ou posterior ao comando.
