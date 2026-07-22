@@ -109,5 +109,5 @@
 #pragma endregion       
 
 #pragma region GUID
-        void guid_to_str(char * out, size_t out_tamanho, GUID guid);
+        void guid_to_str(char * out, size_t out_tamanho, const GUID * guid);
 #pragma endregion

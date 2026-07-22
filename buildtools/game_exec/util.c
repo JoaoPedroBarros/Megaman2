@@ -390,18 +390,19 @@
 #pragma endregion
 
 #pragma region GUID
-void guid_to_str(char * out, size_t out_tamanho, GUID guid){
-        snprintf(out, sizeof(out_tamanho),
-                "%08lX-%04X-%04X-%04X-%012llX",
-                guid.Data1,
-                guid.Data2,
-                guid.Data3,
-                (guid.Data4[0] << 8) | guid.Data4[1],
-                ((unsigned long long)guid.Data4[2] << 40) |
-                ((unsigned long long)guid.Data4[3] << 32) |
-                ((unsigned long long)guid.Data4[4] << 24) |
-                ((unsigned long long)guid.Data4[5] << 16) |
-                ((unsigned long long)guid.Data4[6] << 8) |
-                guid.Data4[7]);
+void guid_to_str(char *out, size_t out_size, const GUID *guid)
+{
+    snprintf(out, out_size,
+             "%08lX-%04X-%04X-%04X-%012llX",
+             (unsigned long)guid->Data1,
+             (unsigned)guid->Data2,
+             (unsigned)guid->Data3,
+             ((unsigned)guid->Data4[0] << 8) | guid->Data4[1],
+             ((unsigned long long)guid->Data4[2] << 40) |
+             ((unsigned long long)guid->Data4[3] << 32) |
+             ((unsigned long long)guid->Data4[4] << 24) |
+             ((unsigned long long)guid->Data4[5] << 16) |
+             ((unsigned long long)guid->Data4[6] << 8)  |
+             (unsigned long long)guid->Data4[7]);
 }
 #pragma endregion

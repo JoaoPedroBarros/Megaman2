@@ -1,4 +1,4 @@
-// gcc -o run.exe run.c util.c extract.c -lz -lole32 -O3 (windows)
+// gcc -o run.exe run.c util.c extract.c -Wl,-Bstatic -lz -lole32 -Wl,-Bdynamic -O3
 
 #include "util.h"
 #include "run.h"
@@ -97,7 +97,7 @@ bool adquirir_diretorio_temporario(char * out, size_t out_tamanho){
                 CoCreateGuid(&guid);
 
                 char guidstr[64];
-                guid_to_str(guidstr, sizeof(guidstr), guid);
+                guid_to_str(guidstr, sizeof(guidstr), &guid);
 
                 if (snprintf(out, out_tamanho, "%s" TEMP_PREFIX "%s", temp, guidstr) >= out_tamanho) return false;
 
