@@ -1,5 +1,3 @@
-#define _FILE_OFFSET_BITS 64 // necessario para ftello
-
 #include "bundler.h"
 #include "archive.h"
 #include <stdio.h>
@@ -54,14 +52,7 @@ int main(int argc, char ** argv){
                 goto cleanup;
         }
 
-
-        #ifdef __MINGW32__
-                __int64 archive_pos = ftello64(output);
-        #elif defined(WIN32)
-                __int64 archive_pos = _ftelli64(output);
-        #else
-                off_t archive_pos = ftello(output);
-        #endif
+        int64_t archive_pos = tell64(output);
         
         if (archive_pos < 0){
                 fprintf(stderr, "ERRO: Falha ao obter offset do arquivo de archive: %s\n", strerror(errno));
