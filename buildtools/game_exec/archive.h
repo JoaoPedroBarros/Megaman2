@@ -8,7 +8,6 @@ Contem as funcoes usadas para gerar o arquivo .archive do jogo.
 
 #define NUMERO_MAGICO 0xF102A
 #define VERSAO 0x0200   // v0.2.0.0 - 2026.19.07
-#define TAMANHO_MAX_CAMINHO_ARQUIVO 2048
 
 #include <stdio.h>
 #include <stdint.h>
@@ -49,7 +48,13 @@ typedef enum ComandoStatus {
     COMANDO_SEM_ROOT
 } ComandoStatus;
 
-ComandoStatus processar_comando(const Vetor * comando, Manifesto * manifesto);
+typedef struct Archive {
+    FILE * stream;
+    uint64_t offset_base;
+    HeaderProjeto header;
+} Archive;
+
+ComandoStatus processar_comando(const Vetor * vetor, Manifesto * manifesto);
 const char * strerr_comando(ComandoStatus numeroerro);
 
 Dados ler_arquivo(const char *);
