@@ -7,7 +7,7 @@ Contem as funcoes usadas para gerar o arquivo .archive do jogo.
 #pragma once
 
 #define NUMERO_MAGICO 0xF102A
-#define VERSAO 0x0200   // v0.2.0.0 - 2026.19.07
+#define VERSAO 0x0300   // v0.3.0.0 - 2026.22.07
 
 #include <stdio.h>
 #include <stdint.h>
@@ -18,15 +18,17 @@ typedef struct HeaderProjeto {
     uint32_t numero_magico;  
     uint32_t versao;  
     uint32_t quantidade_arquivos;
-    uLong checksum;                           
+    uint32_t reserved;
+    uint64_t checksum;                           
 } HeaderProjeto;
 
 typedef struct HeaderArquivo {
-    char caminho[TAMANHO_MAX_CAMINHO_ARQUIVO]; // TODO - Refatorar isso aqui. eh bom tem um uint16_t tamanho_nome e um char nome[] no final. no arquivo a gente escreve o nome de acordo com o tamanho. ai n tem que gastar TAMANHO_MAX_CAMINHO_ARQUIVO bytes toda vez.
     uint64_t tamanho_original;
     uint64_t tamanho_comprimido;
     uint64_t offset;
-    uLong checksum;                       
+    uint64_t checksum;    
+    uint32_t caminho_tamanho;        
+    char * caminho;           
 } HeaderArquivo;
 
 typedef struct Manifesto {
@@ -72,3 +74,4 @@ ComandoStatus incluir_caminho(Manifesto *, Vetor *, const char * caminho);
 bool adicionar_caminho_com_regras(Vetor * out, const char * caminho, const Manifesto * manifesto);
 
 bool arquivar(const char * caminho_out, const HeaderProjeto, const HeaderArquivo[], const Dados dadoscomprimidos[]);
+uLong checksum_headers(const HeaderArquivo headers[], size_t quantidade_arquivos);

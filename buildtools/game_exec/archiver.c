@@ -4,8 +4,9 @@
 #include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-// ARCHIVE: Arquiva todos os arquivos em argv[1]/assets e argv[1]/src, junto com argv[1]/readme, em um unico arquivo de .archive
+// ARCHIVE: Arquiva todos os arquivos dados por um manifesto em um unico arquivo de .archive
 int main(int argc, char ** argv){
 
         if (argc != 3) {
@@ -61,7 +62,7 @@ int main(int argc, char ** argv){
         if (vetor_vazio(&arquivos)) goto cleanup; // nenhum arquivo encontrado: houve um erro
 
         
-        printf("Comprimindo...");
+        printf("Comprimindo...\n");
 
         static size_t last_len_printf = 0; // ultima quantidade de caracteres impressos
 
@@ -70,7 +71,7 @@ int main(int argc, char ** argv){
                 const char * caminho = vetor_get_as(&arquivos, i, const char *); // caminho do arquivo i
 
                 // imprime sem passar de linha, limpando o espaco anteriormente ocupado
-                size_t len = printf("\r\033[KComprimindo arquivo %u de %u: %s",
+                size_t len = printf("\rComprimindo arquivo %u de %u: %s",
                         i + 1,
                         arquivos_quantidade,
                         caminho);
@@ -95,8 +96,8 @@ int main(int argc, char ** argv){
                 qtd_bytes_comprimido += dadoscomprimidos[i].tamanho;
 
                 // cria o header de arquivo
-                strncpy(headers_de_arquivo[i].caminho, caminho, sizeof(headers_de_arquivo[i].caminho));
-                headers_de_arquivo[i].caminho[sizeof(headers_de_arquivo[i].caminho) - 1] = '\0'; // null-termination
+                headers_de_arquivo[i].caminho = strdup(caminho);
+                headers_de_arquivo[i].caminho_tamanho = strlen(caminho);
                 headers_de_arquivo[i].tamanho_original = raw_bytes.tamanho;
                 headers_de_arquivo[i].tamanho_comprimido = dadoscomprimidos[i].tamanho;
                 headers_de_arquivo[i].checksum = crc_bytes(raw_bytes.bytes, raw_bytes.tamanho);
@@ -109,7 +110,7 @@ int main(int argc, char ** argv){
         header.quantidade_arquivos = arquivos.quantidade;
         calcular_offsets(header, headers_de_arquivo);
 
-        header.checksum = crc_bytes(headers_de_arquivo, arquivos.quantidade * sizeof(HeaderArquivo));
+        header.checksum = checksum_headers(headers_de_arquivo, header.quantidade_arquivos);
         if (!arquivar(argv[2], header, headers_de_arquivo, dadoscomprimidos)) goto cleanup;
 
         int len = printf("\rPronto! Arquivei %d arquivo(s) em %s.", header.quantidade_arquivos, argv[2]);
@@ -127,7 +128,10 @@ int main(int argc, char ** argv){
         valor_retorno = EXIT_SUCCESS;
 
         cleanup: 
-        for(size_t i = 0; i < header.quantidade_arquivos; i++) free(dadoscomprimidos[i].bytes);
+        for(size_t i = 0; i < header.quantidade_arquivos; i++) {
+                free(dadoscomprimidos[i].bytes);
+                free(headers_de_arquivo[i].caminho);
+        }
         liberar_vetor_de_strings(&arquivos);
         destruir_manifesto(manifesto);
         return valor_retorno;
