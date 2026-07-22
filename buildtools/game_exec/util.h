@@ -1,5 +1,9 @@
 #pragma once
 
+#define _FILE_OFFSET_BITS 64 // necessario pro seek64
+
+#define TAMANHO_MAX_CAMINHO_ARQUIVO 2048
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -74,6 +78,28 @@
         bool juntar_caminhos(char * out, size_t out_tamanho, const char * base, const char * relativo_ah_base);
 
         FILE * criar_arquivo(const char * path, const char * mode);
+
+        bool remover_diretorio_recursivamente(const char * dir);
+
+        static inline int64_t seek64(FILE*stream, off_t offset, int whence){
+        #ifdef __MINGW32__
+                return fseeko64(stream, offset, whence);
+        #elif defined(WIN32)
+                return _fseeki64(stream, offset, whence);
+        #else
+                return fseeko(stream, offset, whence);
+        #endif
+        }
+
+        static inline int64_t tell64(FILE*stream){
+        #ifdef __MINGW32__
+                return ftello64(stream);
+        #elif defined(WIN32)
+                return _ftelli64(stream);
+        #else
+                return ftello64(stream);
+        #endif
+        };
 #pragma endregion
 
 #pragma region CRC

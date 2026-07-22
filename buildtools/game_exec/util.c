@@ -8,11 +8,16 @@
 #include <stdbool.h>
 #include <ctype.h>
 #include <limits.h>
-#include <windows.h>
 #include <fcntl.h>          
 #include <sys/stat.h>
 #include <direct.h>
 #include <errno.h>
+
+#ifdef WIN32
+        #include <windows.h>
+#else
+        #include <ftw.h>
+#endif
 
 #pragma region Vetores
         bool vetor_init(Vetor * v, size_t capacidade_inicial, size_t tamanho_elemento){
@@ -294,6 +299,87 @@
 
                 return fopen(path, mode);
         }
+
+        #ifndef WIN32
+                static int remover_callback(const char *fpath, const struct stat *sb,
+                int typeflag, struct FTW *ftwbuf) {
+                        switch (typeflag) {
+                        case FTW_F:
+                        case FTW_SL:
+                        case FTW_SLN:
+                                return unlink(fpath);
+                        case FTW_DP:
+                                return rmdir(fpath);
+                        default:
+                                return 0;
+                        }
+                }
+        #endif
+
+        bool remover_diretorio_recursivamente(const char * dir){
+        #ifdef WIN32
+
+                char padrao[TAMANHO_MAX_CAMINHO_ARQUIVO];
+                if (snprintf(padrao, sizeof(padrao), "%s\\*", dir) >= sizeof(padrao)) return false;
+
+                WIN32_FIND_DATAA find_data;
+                HANDLE h = FindFirstFileA(padrao, &find_data);
+
+                if (h == INVALID_HANDLE_VALUE){
+                        SetLastError(ERROR_BUFFER_OVERFLOW);
+                        return false;
+                }
+
+                do {
+                        const char *name = find_data.cFileName;
+
+                        if (strcmp(name, ".") == 0 || strcmp(name, "..") == 0)
+                        continue;
+
+                        char child[MAX_PATH];
+                        if (snprintf(child, sizeof(child), "%s\\%s", dir, name) >= sizeof(child)) {
+                        FindClose(h);
+                        SetLastError(ERROR_BUFFER_OVERFLOW);
+                        return false;
+                        }
+
+                        DWORD attr = find_data.dwFileAttributes;
+
+                        bool is_directory = (attr & FILE_ATTRIBUTE_DIRECTORY) != 0;
+                        bool is_reparse   = (attr & FILE_ATTRIBUTE_REPARSE_POINT) != 0;
+
+                        if (is_directory && !is_reparse) {
+                                if (!remover_diretorio_recursivamente(child)) {
+                                        FindClose(h);
+                                        return false;
+                                }
+                        } else {
+                                if (!DeleteFileA(child)) {
+                                        FindClose(h);
+                                        return false;
+                                }
+                        }
+
+                } while (FindNextFileA(h, &find_data));
+
+                DWORD err = GetLastError();
+
+                FindClose(h);
+
+                if (err != ERROR_NO_MORE_FILES) {
+                        SetLastError(err);
+                        return false;
+                }
+
+                return RemoveDirectoryA(dir);
+        #else
+                return nftw(dir, remover_callback, max_open_fds, FTW_DEPTH | FTW_PHYS) == 0;
+        #endif
+        }
+
+
+
+
 #pragma endregion
 
 #pragma region CRC
