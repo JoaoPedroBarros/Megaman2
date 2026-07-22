@@ -1,0 +1,21 @@
+# Manifesto do jogo flora
+# Aqui estao inclusos os arquivos source necessarios para o jogo
+
+from ../..
+
+# fonte
+include src
+include assets
+include README.md
+include license
+
+# arquivos que nao sao necessarios para o executavel que vamos gerar.
+# seria uma otima ideia incluir padroes como "exclude *.bmp" no manifesto,
+# mas isso fica para outro momento
+
+exclude assets/sprites/bmp
+exclude assets/sprites/png
+exclude assets/tilemaps/final_tilemap_1.bmp
+exclude assets/tilemaps/final_tilemap_1_colisao.bmp
+exclude assets/tilemaps/boss-fight-tilemap.bmp
+exclude assets/tracks/mid
