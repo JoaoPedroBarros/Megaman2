@@ -4,55 +4,58 @@
 #include <stdio.h>
 #include "archive.h"
 #include "extract.h"
+#include "util.h"
 
 ExtrairStatus extrair_projeto_de_arquivo(FILE * arquivo_fonte, const char * diretorio_alvo){
+        Archive archive;
+        archive.stream = arquivo_fonte;
 
-        // extrai header de projeto
-        HeaderProjeto projeto;
+        int64_t pos = tell64(arquivo_fonte);
+        if (pos == -1) return EXTRAIR_ERRO_DE_LEITURA;
 
-        ExtrairStatus status = extrair_header_projeto(&projeto, arquivo_fonte);
+        archive.offset_base = (uint64_t) pos;
+        
+        ExtrairStatus status = extrair_header_projeto(&archive.header, &archive);
         if (status != EXTRAIR_OK) return status;
 
         // extrai headers de arquivo
-        HeaderArquivo * headers = malloc(projeto.quantidade_arquivos * sizeof(HeaderArquivo));
+        HeaderArquivo * headers = malloc(archive.header.quantidade_arquivos * sizeof(HeaderArquivo));
         if (!headers) return EXTRAIR_ERRO_DE_MEMORIA;
 
-        status = extrair_headers(headers, &projeto, arquivo_fonte);
-
-        if (status == EXTRAIR_OK) status = extrair_arquivos(diretorio_alvo, &projeto, headers, arquivo_fonte);
+        status = extrair_headers(headers, &archive);
+        if (status == EXTRAIR_OK) status = extrair_arquivos(diretorio_alvo, headers, &archive);
 
         free(headers);
         return status;
 }
 
 ExtrairStatus extrair_projeto(const char * arquivo_a_extrair, const char * diretorio_alvo){
-        FILE * archive = fopen(arquivo_a_extrair, "rb");
-        if (!archive) return EXTRAIR_ARQUIVO_NAO_ENCONTRADO;
+        Archive archive;
 
-        // extrai header de projeto
-        HeaderProjeto projeto;
+        archive.stream = fopen(arquivo_a_extrair, "rb");
+        if (!archive.stream) return EXTRAIR_ARQUIVO_NAO_ENCONTRADO;
 
-        ExtrairStatus status = extrair_header_projeto(&projeto, archive);
+        ExtrairStatus status = extrair_header_projeto(&archive.header, &archive);
         if (status != EXTRAIR_OK) {
-                fclose(archive); return status;
+                fclose(archive.stream); return status;
         };
 
         // extrai headers de arquivo
-        HeaderArquivo * headers = malloc(projeto.quantidade_arquivos * sizeof(HeaderArquivo));
+        HeaderArquivo * headers = malloc(archive.header.quantidade_arquivos * sizeof(HeaderArquivo));
         if (!headers) {
-                fclose(archive); return EXTRAIR_ERRO_DE_MEMORIA;
+                fclose(archive.stream); return EXTRAIR_ERRO_DE_MEMORIA;
         }
-        status = extrair_headers(headers, &projeto, archive);
+        status = extrair_headers(headers, &archive);
 
-        if (status == EXTRAIR_OK) status = extrair_arquivos(diretorio_alvo, &projeto, headers, archive);
+        if (status == EXTRAIR_OK) status = extrair_arquivos(diretorio_alvo, headers, &archive);
 
         free(headers);
-        fclose(archive);
+        fclose(archive.stream);
         return status;
 }
 
-ExtrairStatus extrair_header_projeto(HeaderProjeto * out, FILE * archive){
-        if(!fread(out, sizeof(HeaderProjeto), 1, archive)) return EXTRAIR_ERRO_DE_LEITURA;
+ExtrairStatus extrair_header_projeto(HeaderProjeto * out, Archive * archive){
+        if(!fread(out, sizeof(HeaderProjeto), 1, archive->stream)) return EXTRAIR_ERRO_DE_LEITURA;
 
         if(out->numero_magico != NUMERO_MAGICO) return EXTRAIR_ARQUIVO_INVALIDO_OU_CORROMPIDO;
         if(out->versao < VERSAO)
@@ -60,34 +63,34 @@ ExtrairStatus extrair_header_projeto(HeaderProjeto * out, FILE * archive){
         return EXTRAIR_OK;
 }
 
-ExtrairStatus extrair_headers(HeaderArquivo headers[], const HeaderProjeto * headerProjeto, FILE * archive){
+ExtrairStatus extrair_headers(HeaderArquivo headers[], Archive * archive){
         // "mas nao seria melhor trocar por um so fread?"
         // no futuro proximo, o formato de header vai ter footprint de memoria variavel.
         // em vez de um buffer gigante para o nome do arquivo, vai ser guardado, junto com ele, 
         // a string de nome de arquivo, somente com o tamanho necessario. entao o loop ta em 
         // lugar jah pra facilitar o refactoring depois.
-        for (uint32_t i = 0; i < headerProjeto->quantidade_arquivos; i++){
-                if (!fread(&headers[i], sizeof(HeaderArquivo), 1, archive)) return EXTRAIR_ERRO_DE_LEITURA;
+        for (uint32_t i = 0; i < archive->header.quantidade_arquivos; i++){
+                if (!fread(&headers[i], sizeof(HeaderArquivo), 1, archive->stream)) return EXTRAIR_ERRO_DE_LEITURA;
 
                 if (headers[i].offset + headers[i].tamanho_comprimido < headers[i].tamanho_comprimido) return EXTRAIR_ARQUIVO_INVALIDO_OU_CORROMPIDO; // se offset + tamanho_comprimido dah overflow, considerando que sao uint64_t, o razoavel foi extrapolado. Algo foi corrompido ou o arquivo eh invalido.
         }
 
         // agora checar o CRC
-        if (headerProjeto->checksum != crc_bytes(headers, headerProjeto->quantidade_arquivos * sizeof(HeaderArquivo)))
+        if (archive->header.checksum != crc_bytes(headers, archive->header.quantidade_arquivos * sizeof(HeaderArquivo)))
                 return EXTRAIR_ARQUIVO_INVALIDO_OU_CORROMPIDO;
 
         return EXTRAIR_OK;
 }
 
-ExtrairStatus extrair_arquivos(const char * diretorio_alvo, const HeaderProjeto * headerProjeto, const HeaderArquivo * headers, FILE * archive){
-        for (uint32_t i = 0; i < headerProjeto->quantidade_arquivos; i++){
+ExtrairStatus extrair_arquivos(const char * diretorio_alvo, const HeaderArquivo * headers, Archive * archive){
+        for (uint32_t i = 0; i < archive->header.quantidade_arquivos; i++){
                 ExtrairStatus status = extrair_arquivo(diretorio_alvo, &headers[i], archive);
                 if (status != EXTRAIR_OK) return status;
         }
         return EXTRAIR_OK;
 }
 
-ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo * header, FILE * archive){
+ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo * header, Archive * archive){
 
         const char * caminho_relativo = header->caminho;
         if (eh_caminho_absoluto(caminho_relativo)) return EXTRAIR_CAMINHO_INVALIDO;
@@ -98,7 +101,7 @@ ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo *
         // pega o caminho onde devemos colocar o arquivo
         if (snprintf(buffer, sizeof(buffer), "%s/%s", diretorio_alvo, header->caminho) >= sizeof(buffer)) return EXTRAIR_DIRETORIO_ALVO_MUITO_LONGO;
 
-        if (fseek(archive, header->offset, SEEK_SET) < 0) return EXTRAIR_ERRO_DE_LEITURA; // offset onde devemos encontrar o arquivo
+        if (seek64(archive->stream, archive->offset_base + header->offset, SEEK_SET) < 0) return EXTRAIR_ERRO_DE_LEITURA; // offset onde devemos encontrar o arquivo
 
         FILE * arquivo = criar_arquivo(buffer, "wb"); // abre o arquivo para descompressao
         if (!arquivo) return EXTRAIR_ERRO_DE_ESCRITA;
@@ -112,7 +115,7 @@ ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo *
                 remove(buffer);
                 return EXTRAIR_ERRO_DE_MEMORIA;
         }
-        if (fread(dados_comprimidos.bytes, sizeof(uint8_t), dados_comprimidos.tamanho, archive) < header->tamanho_comprimido) {
+        if (fread(dados_comprimidos.bytes, sizeof(uint8_t), dados_comprimidos.tamanho, archive->stream) < header->tamanho_comprimido) {
                 free(dados_comprimidos.bytes);
                 fclose(arquivo);
                 remove(buffer);

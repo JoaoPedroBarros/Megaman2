@@ -21,10 +21,10 @@ typedef enum ExtrairStatus {
 ExtrairStatus extrair_projeto(const char * arquivo_a_extrair, const char * diretorio_alvo);
 ExtrairStatus extrair_projeto_de_arquivo(FILE * arquivo_fonte, const char * diretorio_alvo);
 
-ExtrairStatus extrair_header_projeto(HeaderProjeto * out, FILE * archive);
-ExtrairStatus extrair_headers(HeaderArquivo headers[], const HeaderProjeto * headerProjeto, FILE * archive);
-ExtrairStatus extrair_arquivos(const char * diretorio_alvo, const HeaderProjeto * headerProjeto, const HeaderArquivo * headers, FILE * archive);
-ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo * header, FILE * archive);
+ExtrairStatus extrair_header_projeto(HeaderProjeto * out, Archive * archive);
+ExtrairStatus extrair_headers(HeaderArquivo headers[], Archive * archive);
+ExtrairStatus extrair_arquivos(const char * diretorio_alvo, const HeaderArquivo * headers, Archive * archive);
+ExtrairStatus extrair_arquivo(const char * diretorio_alvo, const HeaderArquivo * header, Archive * archive);
 
 const char * strerr_extrair(ExtrairStatus numeroerro);
 
