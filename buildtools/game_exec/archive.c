@@ -43,7 +43,7 @@ Manifesto * carregar_manifesto(const char * path){
                         int status = processar_comando(&args, manifesto);
                         if (status != COMANDO_OK){
                                 fprintf(stderr, "ERRO: Erro na linha %u: %s", linha, strerr_comando(status));
-                                destruir_manifesto( manifesto);
+                                destruir_manifesto(manifesto);
                                 vetor_free(&args);
                                 fclose(fmanifesto);
                                 return NULL;
@@ -281,7 +281,12 @@ Dados ler_arquivo(const char * caminho){
 }
 
 void calcular_offsets(const HeaderProjeto headerprojeto, HeaderArquivo * headerarquivo){
-        uint64_t offset_atual = sizeof(HeaderProjeto) + (headerprojeto.quantidade_arquivos * sizeof(HeaderArquivo));
+        uint64_t offset_atual = sizeof(HeaderProjeto);
+
+        for (size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
+                offset_atual += sizeof(HeaderArquivo) - sizeof(headerarquivo->caminho);
+                offset_atual += (headerarquivo[i].caminho_tamanho * sizeof(char)); 
+        }
 
         for (size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
                 headerarquivo[i].offset = offset_atual;
@@ -336,7 +341,13 @@ bool arquivar(const char * caminho_out, const HeaderProjeto headerprojeto, const
         }
 
         if (!fwrite(&headerprojeto, sizeof(headerprojeto), 1, out)) goto arquivar_erro;
-        if (!fwrite(headers_de_arquivo, sizeof(HeaderArquivo), headerprojeto.quantidade_arquivos,  out)) goto arquivar_erro;
+        
+        // escreve cada header e a string correspondente
+        for(size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
+                if (!fwrite(&headers_de_arquivo[i], sizeof(HeaderArquivo)-sizeof(headers_de_arquivo[i].caminho), 1, out)) goto arquivar_erro;
+                if (fwrite(headers_de_arquivo[i].caminho, sizeof(char), headers_de_arquivo[i].caminho_tamanho, out) < headers_de_arquivo[i].caminho_tamanho) goto arquivar_erro;
+        }
+
         for(size_t i = 0; i < headerprojeto.quantidade_arquivos; i++){
                 if (!fwrite(dadoscomprimidos[i].bytes, sizeof(uint8_t), dadoscomprimidos[i].tamanho, out)) goto arquivar_erro;
         }
@@ -357,4 +368,21 @@ const char * strerr_comando(ComandoStatus numeroerro){
     };
 
     return erro[numeroerro];
+}
+
+uLong checksum_headers(const HeaderArquivo headers[], size_t quantidade_arquivos){
+        uLong checksum = crc32(0L, Z_NULL, 0);
+
+        for (size_t i = 0; i < quantidade_arquivos; i++){
+                const HeaderArquivo * h = &headers[i];
+
+                checksum = crc32(checksum, (Bytef*)&h->tamanho_original, sizeof(h->tamanho_original));
+                checksum = crc32(checksum, (Bytef*)&h->tamanho_comprimido, sizeof(h->tamanho_comprimido));
+                checksum = crc32(checksum, (Bytef*)&h->offset, sizeof(h->offset));
+                checksum = crc32(checksum, (Bytef*)&h->offset, sizeof(h->offset));
+                checksum = crc32(checksum, (Bytef*)&h->caminho_tamanho, sizeof(h->caminho_tamanho));
+                checksum = crc32(checksum, (Bytef*)h->caminho, h->caminho_tamanho*sizeof(char));
+        }
+        
+        return checksum;
 }

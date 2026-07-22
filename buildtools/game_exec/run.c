@@ -1,4 +1,4 @@
-// gcc -o run.exe run.c util.c extract.c -Wl,-Bstatic -lz -lole32 -Wl,-Bdynamic -O3
+// gcc -o run.exe run.c util.c extract.c archive.c -Wl,-Bstatic -lz -lole32 -Wl,-Bdynamic -O3
 
 #include "util.h"
 #include "run.h"
